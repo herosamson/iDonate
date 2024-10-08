@@ -1,7 +1,7 @@
 import { useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const UseInactivityTimeout = ({ timeout = 240000 }) => {
+const UseInactivityTimeout = ({ timeout = 1800000 }) => {
   const navigate = useNavigate();
   const timerId = useRef(null);
 

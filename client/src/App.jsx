@@ -105,7 +105,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <UseInactivityTimeout timeout={240000} />
+     <UseInactivityTimeout timeout={1800000} />
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/about" element={<About />} />
