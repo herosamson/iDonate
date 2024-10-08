@@ -150,8 +150,8 @@
 }
 
 .container {
-  width: calc(33.33% - 10px);
-  height: 220px;
+  width: 300px;
+  height: 250px;
   border: 1px solid #ccc;
   box-sizing: border-box;
   background-color: white;

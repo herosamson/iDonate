@@ -89,27 +89,27 @@ function Homepage() {
         </main>
         <main className="main2">
           <section className="additional-content2">
-            <div className="container">
-              <h3>BPI</h3>
+          <div className="container">
+              <h3><center>BPI</center></h3>
               <p>Account Name: RCAM-Minor Basilica of the Black Nazarene</p>
               <p>Peso Savings Account # 2273-0504-37</p>
               <p>Dollars Savings Account # 2274-0026-22</p>
               <p>Swift Code - BIC: B O P I P H M M</p>
             </div>
             <div className="container">
-            <h3>BDO</h3>
+            <h3><center>BDO</center></h3>
               <p>Account Name: RCAM-Minor Basilica of the Black Nazarene</p>
               <p>Peso Savings Account # 00454-0037-172</p>
               <p>Dollars Savings Account # 10454-0037-164</p>
               <p>Swift Code - BIC: B N O R P H M M</p>
             </div>
             <div className="container">
-              <h3>Paymaya</h3>
+              <h3><center>Paymaya</center></h3>
               <p>Mobile Number: 0961 747 7003</p>
               <p>Name: Rufino Sescon, Jr.</p>
             </div>
             <div className="container">
-              <h3>GCash</h3>
+              <h3><center>GCash</center></h3>
               <p>Mobile Number: 0966 863 9861</p>
               <p>Name: Rufino Sescon, Jr.</p>
             </div>
