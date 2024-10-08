@@ -173,7 +173,7 @@
   
   .container {
     width: calc(33.33% - 10px); /* Adjust width of each container */
-    height: 220px; /* Adjust height as needed */
+    height: 300px; /* Adjust height as needed */
     border: 1px solid #ccc; /* Add border for visualization */
     box-sizing: border-box; /* Include border in width calculation */
     background-color: white; /* White background */
