@@ -1,0 +1,116 @@
+.logoVerify {
+    width: 350px; /* Adjust width as needed */
+    height: auto; /* Maintain aspect ratio */
+    
+  }
+  body {
+    overflow: hidden;
+  }
+.logoVerify-container {
+    text-align: center; /* Center the logo horizontally */
+  }
+  
+.login-container {
+    position: relative; /* Set the container to relative positioning */
+    height: 100vh; /* Set container height to full viewport height */
+  }
+  
+.login-form {
+    position: absolute; /* Position the form absolutely */
+    top: 50%; /* Move the form to the middle vertically */
+    left: 50%; /* Move the form to the middle horizontally */
+    transform: translate(-50%, -50%); /* Center the form */
+    padding: 50px;
+    border: 1px solid #ccc;
+    border-radius: 70px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex; /* Use flex to align content vertically */
+    flex-direction: column; /* Align children vertically */
+    gap: 10px;
+    background-color: rgba(255, 255, 255, 0.9); /* Add a semi-transparent background */
+  }
+  
+.login-form form {
+    width: 100%; /* Set form width to 100% */
+  }
+  
+.login-form input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  
+.login-form button {
+    width: 80%; 
+    max-width: 200px; 
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .buttonVerify{
+    display: flex;
+    justify-content: center; 
+    margin-top: 20px; 
+    
+  }
+.login-form button:hover {
+    background-color: #0056b3;
+  }
+.picture-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Ensure the picture is behind the login form */
+  }
+  
+.picture {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+  }
+  
+.login-form h2 {
+    text-align: center;
+    margin-bottom: 15px; /* Reduce bottom margin for the title */
+    margin-top: 20px;
+  }
+  .sBtnV {
+    background-color: rgb(0, 102, 255) !important; 
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    justify-content: space-between;
+    margin-right: 20px;
+  }
+  .sBtnV:hover {
+    background-color: rgb(0, 58, 146)!important; 
+    color: white;
+  }
+
+  .sBtnVD {
+    background-color: red !important; 
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    justify-content: space-between;
+  }
+  .sBtnVD:hover {
+    background-color:darkred !important; 
+    color: white;
+  }
+  .resend-code {
+    color: blue;
+    cursor: pointer;
+    text-decoration: underline;
+    margin-right: 5px;
+  }
+  
