@@ -461,6 +461,10 @@ fetchTotalItemDonations();
             <h2><strong>Total Cash Donations</strong></h2>
             <p>&#8369;{totalApprovedDonations.toFixed(2)}</p>
           </div>
+          <div className="status-box"> 
+            <h2><strong>Total Item Donations:</strong></h2>
+            <p>{totalItemDonations}</p>
+          </div>
           <div className="status-box" onClick={openDonorsModal}>
             <h2><strong>Number of Donors</strong></h2>
             <p>{totalUniqueDonors}</p>
@@ -476,10 +480,7 @@ fetchTotalItemDonations();
               <p>Available Items: {availablePercentage.toFixed(2)}%</p>
             </div>
           </div>
-          <div className="status-box"> 
-            <h2><strong>Total Item Donations:</strong></h2>
-            <p>{totalItemDonations}</p>
-          </div>
+         
         </div>
         <h2>Total New Donors per Month</h2>
         <div className="charts">

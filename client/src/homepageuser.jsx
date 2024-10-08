@@ -131,7 +131,7 @@ function HomepageU({ firstname  }) {
             <div className="right-content">
               <h3>MINOR BASILICA OF THE BLACK NAZARENE</h3>
               <h4>SAINT JOHN THE BAPTIST PARISH | QUIAPO CHURCH</h4>
-              <h3>Vision</h3>
+              <h3>Mission/Vision</h3>
               <br />
               <p>“A people called by the Father in Jesus Christ to be a community of persons with</p>
               <p>Fullness of Life witnessing to the Kingdom of God by living the Paschal Mystery in</p>
@@ -146,27 +146,29 @@ function HomepageU({ firstname  }) {
         </main>
         <main className="main2">
           <section className="additional-content2">
-            <div className="container">
-              <h3>Right Content Title</h3>
-              <p>You can add more paragraphs or other content as needed.</p>
-              <p>You can add more paragraphs or other content as needed.</p>
+          <div className="container">
+              <h3>BPI</h3>
+              <p>Account Name: RCAM-Minor Basilica of the Black Nazarene</p>
+              <p>Peso Savings Account # 2273-0504-37</p>
+              <p>Dollars Savings Account # 2274-0026-22</p>
+              <p>Swift Code - BIC: B O P I P H M M</p>
             </div>
             <div className="container">
-              <PieChart
-                series={[
-                  {
-                    data,
-                    highlightScope: { faded: 'global', highlighted: 'item' },
-                    faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' },
-                  },
-                ]}
-                height={200}
-              />
+            <h3>BDO</h3>
+              <p>Account Name: RCAM-Minor Basilica of the Black Nazarene</p>
+              <p>Peso Savings Account # 00454-0037-172</p>
+              <p>Dollars Savings Account # 10454-0037-164</p>
+              <p>Swift Code - BIC: B N O R P H M M</p>
             </div>
             <div className="container">
-              <h3>Right Content Title</h3>
-              <p>You can add more paragraphs or other content as needed.</p>
-              <p>You can add more paragraphs or other content as needed.</p>
+              <h3>Paymaya</h3>
+              <p>Mobile Number: 0961 747 7003</p>
+              <p>Name: Rufino Sescon, Jr.</p>
+            </div>
+            <div className="container">
+              <h3>GCash</h3>
+              <p>Mobile Number: 0966 863 9861</p>
+              <p>Name: Rufino Sescon, Jr.</p>
             </div>
           </section>
         </main>
