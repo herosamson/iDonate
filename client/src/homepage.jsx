@@ -95,20 +95,7 @@ function Homepage() {
               <p>You can add more paragraphs or other content as needed.</p>
             </div>
             <div className="container">
-              <PieChart
-                series={[
-                  {
-                    data: [
-                      { id: 0, value: 10, label: 'series A' },
-                      { id: 1, value: 15, label: 'series B' },
-                      { id: 2, value: 20, label: 'series C' },
-                    ],
-                    highlightScope: { faded: 'global', highlighted: 'item' },
-                    faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' },
-                  },
-                ]}
-                height={200}
-              />
+             
             </div>
             <div className="container">
               <h3>Right Content Title</h3>
