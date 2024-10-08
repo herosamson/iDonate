@@ -4,6 +4,7 @@ import './receipt.css';
 import logo from './logo1.png';
 import { Link } from 'react-router-dom';
 import jsPDF from 'jspdf';
+import 'jspdf-autotable'; 
 
 const Receipt = () => {
   const [donorDetails, setDonorDetails] = useState({
@@ -16,7 +17,6 @@ const Receipt = () => {
   const [error, setError] = useState('');
   const username = localStorage.getItem('username'); // Get the username from local storage
 
-  // Helper function to get today's date in YYYY-MM-DD format
   const getTodayDate = () => {
     const today = new Date();
     const year = today.getFullYear();
@@ -72,7 +72,6 @@ const Receipt = () => {
   const handleChange = (e) => {
     const { name, value, files } = e.target;
 
-    // Validate input to exclude < and > symbols
     if (value && (value.includes('<') || value.includes('>'))) {
       return; // If contains < or >, do not update state
     }
@@ -115,30 +114,76 @@ const Receipt = () => {
     }));
   }, [username]);
 
-  const generatePDF = (proof) => {
-    const doc = new jsPDF();
-    doc.setFontSize(25);
-    doc.setFont('helvetica', 'bold');
-    doc.text('iDonate', 105, 40, { align: 'center' });
-    doc.setFontSize(12);
-    doc.text('- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ', 105, 50, { align: 'center' });
-    doc.setFontSize(13);
-    doc.setFont('helvetica', 'bold');
-    doc.text('MINOR BASILICA OF THE BLACK NAZARENE', 105, 60, { align: 'center' });
-    doc.text('SAINT JOHN THE BAPTIST | QUIAPO CHURCH', 105, 70, { align: 'center' });
-    doc.text('**************************************************************************************', 105, 80, { align: 'center' });
-    doc.setFontSize(12);
-    doc.setFont('helvetica', 'normal');
-    doc.text(`Name of Donor: ${proof.name}`, 105, 90, { align: 'center' });
-    doc.text(`Amount of Donation: ${parseFloat(proof.amount).toLocaleString()} Pesos`, 105, 100, { align: 'center' });
-    doc.text(`Date of Donation: ${new Date(proof.date).toLocaleDateString()}`, 105, 110, { align: 'center' });
-    doc.text('*******************************************************************', 105, 120, { align: 'center' });
-    doc.setFontSize(12);
-    doc.setFont('helvetica', 'italic');
-    doc.text('Thank you for your donation!', 105, 130, { align: 'center' });
-    doc.save('QuiapoChurch-Receipt.pdf');
+  const generatePDF = async (proof) => {
+    try {
+      const doc = new jsPDF({
+        orientation: 'landscape', // Change to landscape for 8.5 x 4.25
+        unit: 'in', // Change to inches
+        format: [8.5, 4.25], // Set the paper size to 8.5 x 4.25 inches
+      });
+  
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const pageHeight = doc.internal.pageSize.getHeight();
+      let currentY = 0.2; // Starting Y position with some margin
+  
+      const img = new Image();
+      img.src = logo;
+      img.crossOrigin = 'anonymous';
+      img.onload = () => {
+        const imgWidth = 2; // Set desired width in inches
+        const imgHeight = (img.naturalHeight / img.naturalWidth) * imgWidth; // Maintain aspect ratio
+        doc.addImage(img, 'PNG', (pageWidth - imgWidth) / 2, currentY, imgWidth, imgHeight);
+        currentY += imgHeight + 0.1; // Increase Y position after adding image
+        currentY += 0.3; // Space below the receipt title
+        doc.setFontSize(12);
+        doc.setFont('helvetica', 'bold');
+        doc.text('MINOR BASILICA OF THE BLACK NAZARENE', pageWidth / 2, currentY, { align: 'center' });
+        currentY += 0.2; // Space below the organization name
+        currentY += 0.1; // Additional space after line
+        doc.text('SAINT JOHN THE BAPTIST | QUIAPO CHURCH', pageWidth / 2, currentY, { align: 'center' });
+        currentY += 0.1; // Space below the second organization name
+        currentY += 0.1; // Space below the second organization name
+        doc.setLineWidth(0.02); // Set the line width to a thinner value
+        doc.line(1, currentY, pageWidth - 1, currentY); // Draw line after the receipt ID
+        currentY += 0.2; // Additional space after line
+        currentY += 0.1; // Space below the second organization name
+        doc.setFontSize(14);
+        doc.setFont('helvetica', 'bold');
+        doc.text('Donation Receipt', pageWidth / 2, currentY, { align: 'center' });
+        currentY += 0.4; // Space below the receipt title
+        doc.setFontSize(12);
+        doc.setFont('helvetica', 'normal');
+        const receiptData = [
+          { label: 'Name of Donor', value: proof.name || 'N/A' },
+          { label: 'Amount of Donation', value: `${parseFloat(proof.amount).toLocaleString()} pesos` },
+          { label: 'Date of Donation', value: new Date(proof.date).toLocaleDateString() },
+          { label: 'Receipt ID', value: proof._id || 'N/A' },
+        ];
+        receiptData.forEach(item => {
+          doc.setFont('helvetica', 'bold');
+          doc.text(`${item.label}:`, 1, currentY);
+          doc.setFont('helvetica', 'normal');
+          doc.text(`${item.value}`, 3, currentY); // Adjusted x position for the value
+          currentY += 0.3; // Space between items
+        });
+        doc.setLineWidth(0.02); // Set the line width to a thinner value
+        doc.line(1, currentY, pageWidth - 1, currentY); // Draw line after the receipt ID
+        currentY += 0.15; // Additional space after line
+        currentY += 0.2; // Space before the thank you note
+        doc.setFont('helvetica', 'italic');
+        doc.text('Thank you for your generous donation!', pageWidth / 2, currentY, { align: 'center' });
+        currentY += 0.2; // Space below the thank you note
+        doc.setFontSize(10);
+        doc.setFont('helvetica', 'normal');
+        doc.text(`Receipt generated on ${new Date().toLocaleDateString()}`, pageWidth / 2, currentY, { align: 'center' });
+        doc.save(`iDonate_Receipt.pdf`);
+      };
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+      alert('Failed to generate PDF. Please try again.');
+    }
   };
-
+  
   const handleLogout = async () => {
     const username = localStorage.getItem('username'); 
     const role = localStorage.getItem('userRole'); 
@@ -262,7 +307,7 @@ const Receipt = () => {
                     <td>
                       {proof.imagePath ? (
                         <a 
-                        href={`http://localhost:5001/${proof.imagePath}`}
+                          href={`http://localhost:5001/${proof.imagePath}`}
                           target="_blank" 
                           rel="noopener noreferrer" 
                           className="viewb"
