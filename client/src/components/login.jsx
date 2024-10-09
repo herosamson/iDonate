@@ -48,9 +48,6 @@ function Login({ onLogin }) {
     }
   };
 
-  const handleGoogleLoginSuccess = async (response) => {
-    
-  };
 
   if (isLoggedIn) {
     if (userRole === 'superadmin') {
@@ -65,7 +62,6 @@ function Login({ onLogin }) {
   }
 
   return (
-    <GoogleOAuthProvider clientId="YOUR_GOOGLE_CLIENT_ID">
       <div className="login-container">
         <div className="login-form">
           <div className="logoL-container">
@@ -81,12 +77,6 @@ function Login({ onLogin }) {
               <button type="submit">Login</button>
             </div>
           </form>
-          <div className="alternative-login">
-            <p>- - - - - - - - - - - - - - - - - - - - or - - - - - - - - - - - - - - - - - - - -</p>
-            <div className="oauth-buttons">
-              <GoogleLogin onSuccess={handleGoogleLoginSuccess} onError={() => console.log('Login Failed')} />
-            </div>
-          </div>
           <div className="bottom-text">
             <p>Don't have an account? <Link to="/components/register">Sign up</Link></p>
           </div>
@@ -95,7 +85,6 @@ function Login({ onLogin }) {
           <img className="picture" src={pic} alt="Registration" />
         </div>
       </div>
-    </GoogleOAuthProvider>
   );
 }
 
