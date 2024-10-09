@@ -46,7 +46,7 @@ const generateDonationId = () => {
   return crypto.randomBytes(4).toString('hex').slice(0, 7);
 };
 
-// Update user password
+// Update user password (for all roles)
 router.put('/user/change-password/:id', async (req, res) => {
   const { password } = req.body;
 
@@ -58,11 +58,13 @@ router.put('/user/change-password/:id', async (req, res) => {
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    const updatedUser = await Register.findByIdAndUpdate(
-      req.params.id,
-      { password: hashedPassword },
-      { new: true, fields: { password: 0 } }
-    );
+    // Find user across roles
+    const updatedUser = await Promise.any([
+      SuperAdmin.findByIdAndUpdate(req.params.id, { password: hashedPassword }, { new: true, fields: { password: 0 } }),
+      Admin.findByIdAndUpdate(req.params.id, { password: hashedPassword }, { new: true, fields: { password: 0 } }),
+      Staff.findByIdAndUpdate(req.params.id, { password: hashedPassword }, { new: true, fields: { password: 0 } }),
+      Register.findByIdAndUpdate(req.params.id, { password: hashedPassword }, { new: true, fields: { password: 0 } })
+    ]);
 
     if (!updatedUser) {
       return res.status(404).json({ message: 'User not found' });
@@ -74,12 +76,20 @@ router.put('/user/change-password/:id', async (req, res) => {
   }
 });
 
-// forgot password otp email
+
+// Forgot password OTP email (for all roles)
 router.post('/send-reset-otp', async (req, res) => {
   try {
     const { email } = req.body;
 
-    const user = await Register.findOne({ email });
+    // Find user across roles
+    const user = await Promise.any([
+      SuperAdmin.findOne({ email }),
+      Admin.findOne({ email }),
+      Register.findOne({ email }),
+      Staff.findOne({ email })
+    ]);
+
     if (!user) {
       return res.json({ error: "No account found with this email." });
     }
@@ -120,6 +130,7 @@ router.post('/send-reset-otp', async (req, res) => {
     res.status(500).json({ error: "Server error while sending OTP." });
   }
 });
+
 
 // register email verification
 router.post('/verify-otp', async (req, res) => {
@@ -1528,19 +1539,23 @@ router.get('/donations/located', async (req, res) => {
 router.post('/superadmin/add', async (req, res) => {
   const { firstname, lastname, contact, email, username, password } = req.body;
 
-  // Basic validation
   if (!firstname || !lastname || !contact || !email || !username || !password) {
     return res.status(400).json({ message: 'All fields are required.' });
   }
 
   try {
-    // Check for unique fields
-    const existingSuperAdmin = await SuperAdmin.findOne({ $or: [{ username }, { email }, { contact }] });
-    if (existingSuperAdmin) {
-      return res.status(400).json({ message: 'Username, email, or contact already exists.' });
+    // Check for unique fields across all roles (SuperAdmin, Admin, Staff)
+    const existingUser = await Promise.any([
+      SuperAdmin.findOne({ $or: [{ username }, { email }, { contact }] }),
+      Admin.findOne({ $or: [{ username }, { email }, { contact }] }),
+      Staff.findOne({ $or: [{ username }, { email }, { contact }] })
+    ]);
+
+    if (existingUser) {
+      return res.status(400).json({ message: 'Username, email, or contact already exists in the system.' });
     }
 
-    // Hash the password before saving (optional but recommended)
+    // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newSuperAdmin = new SuperAdmin({
@@ -1559,6 +1574,7 @@ router.post('/superadmin/add', async (req, res) => {
     res.status(500).json({ message: 'Server error.' });
   }
 });
+
 
 // Get all SuperAdmins
 router.get('/superadmin/all', async (req, res) => {
