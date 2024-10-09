@@ -177,7 +177,7 @@
     box-sizing: border-box; /* Include border in width calculation */
     background-color: white; /* White background */
     padding: 10px;
-    border: 3px solid #740000 ; /* Change border color to black */
+    border: 10px solid #740000 ; /* Change border color to black */
   }
 
   .right-content p {
