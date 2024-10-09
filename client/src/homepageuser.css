@@ -150,12 +150,12 @@
 }
 
 .container {
-  width: 300px;
-  height: 300px;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-  background-color: white;
+  width: calc(33.33% - 10px); /* Adjust width of each container */
+  height: 320px; /* Adjust height as needed */
+  box-sizing: border-box; /* Include border in width calculation */
+  background-color: white; /* White background */
   padding: 10px;
+  border: 3px solid black; /* Change border color to black */
 }
 
 .footer {

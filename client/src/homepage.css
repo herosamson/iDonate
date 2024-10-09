@@ -173,11 +173,11 @@
   
   .container {
     width: calc(33.33% - 10px); /* Adjust width of each container */
-    height: 300px; /* Adjust height as needed */
-    border: 1px solid #ccc; /* Add border for visualization */
+    height: 320px; /* Adjust height as needed */
     box-sizing: border-box; /* Include border in width calculation */
     background-color: white; /* White background */
     padding: 10px;
+    border: 3px solid black; /* Change border color to black */
   }
 
   .right-content p {
