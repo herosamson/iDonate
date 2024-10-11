@@ -3,11 +3,10 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const accountsRoutes = require('./routes/accounts');
-const path = require('path');
 const app = express();
 const uri = process.env.MONGODB_URI; //process.env.MONGODB_URI
 const port = process.env.PORT || 5001;
-
+const path = require('path');
 
 // CORS Configuration
 app.use(cors({
