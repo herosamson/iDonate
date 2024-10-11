@@ -43,16 +43,6 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   });
  
 
-app.use(express.static(path.join(dirname, "../Client/dist")));
-
-// Catch-all route to serve the React app (if no API route matches)
-app.get("*", (req, res) => {
-   res.sendFile(path.join(dirname, "../Client/dist/index.html"), (err) => {
-    if (err) {
-   res.status(500).send(err);
-  }
- });
-});
 
 
 
