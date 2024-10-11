@@ -7,7 +7,6 @@ const path = require('path');
 const app = express();
 const uri = process.env.MONGODB_URI; //process.env.MONGODB_URI
 const port = process.env.PORT || 5001;
-const path = require("path");
 
 
 // CORS Configuration
