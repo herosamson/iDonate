@@ -163,7 +163,7 @@ const Profile = ({ username }) => {
     setIsModalOpen(false);
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div class="loader loader_bubble"></div>;
   if (error) return <div>{error}</div>;
   if (!user) return <div>User not found</div>;
 
