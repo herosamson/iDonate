@@ -87,7 +87,7 @@ function Register({ onLogin }) {
     // If no errors, proceed with registration
     if (errors.length === 0) {
       try {
-        const response = await fetch('http://localhost:5001/routes/accounts/register', {
+        const response = await fetch('https://idonatebackend.onrender.com/routes/accounts/register', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

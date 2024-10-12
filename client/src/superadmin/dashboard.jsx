@@ -53,7 +53,7 @@ function Admin() {
 
   const fetchUsers = async () => {
     try {
-      const response = await fetch('http://localhost:5001/routes/accounts/users');
+      const response = await fetch('https://idonatebackend.onrender.com/routes/accounts/users');
       const data = await response.json();
       setUsers(data);
       setFilteredUsers(data); // Initialize filteredUsers with all users
@@ -64,7 +64,7 @@ function Admin() {
 
   const fetchStaff = async () => {
     try {
-      const response = await fetch('http://localhost:5001/routes/accounts/staff');
+      const response = await fetch('https://idonatebackend.onrender.com/routes/accounts/staff');
       const data = await response.json();
       setStaff(data);
     } catch (error) {
@@ -74,7 +74,7 @@ function Admin() {
 
   const fetchAdmins = async () => {
     try {
-      const response = await fetch('http://localhost:5001/routes/accounts/admin');
+      const response = await fetch('https://idonatebackend.onrender.com/routes/accounts/admin');
       const data = await response.json();
       setAdmins(data);
     } catch (error) {
@@ -87,7 +87,7 @@ function Admin() {
     const role = localStorage.getItem('userRole'); 
   
     try {
-      const response = await fetch('http://localhost:5001/routes/accounts/logout', {
+      const response = await fetch('https://idonatebackend.onrender.com/routes/accounts/logout', {
         method: 'POST', 
         headers: {
           'Content-Type': 'application/json',
@@ -114,7 +114,7 @@ function Admin() {
 
   const deleteUser = async (id) => {
     try {
-      await fetch(`http://localhost:5001/routes/accounts/user/${id}`, { method: 'DELETE' });
+      await fetch(`https://idonatebackend.onrender.com/routes/accounts/user/${id}`, { method: 'DELETE' });
       setUsers(users.filter((user) => user._id !== id));
       setFilteredUsers(filteredUsers.filter((user) => user._id !== id));
     } catch (error) {
@@ -275,7 +275,7 @@ const validateAdminInput = () => {
     }
   
     try {
-      const response = await fetch('http://localhost:5001/routes/accounts/register-verified', {
+      const response = await fetch('https://idonatebackend.onrender.com/routes/accounts/register-verified', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -319,7 +319,7 @@ const validateAdminInput = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:5001/routes/accounts/stafff', {
+      const response = await fetch('https://idonatebackend.onrender.com/routes/accounts/stafff', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -359,7 +359,7 @@ const validateAdminInput = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:5001/routes/accounts/admin', {
+      const response = await fetch('https://idonatebackend.onrender.com/routes/accounts/admin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

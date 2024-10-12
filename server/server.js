@@ -10,7 +10,7 @@ const path = require('path');
 
 // CORS Configuration
 app.use(cors({
-  origin: 'http://localhost:5173', // Specify the allowed origin
+  origin: 'https://idonate-3zc8.onrender.com', // Specify the allowed origin
   credentials: true,               // Allow credentials (cookies, authorization headers, etc.)
 }));
 

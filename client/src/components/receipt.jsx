@@ -189,7 +189,7 @@ const Receipt = () => {
     const role = localStorage.getItem('userRole'); 
 
     try {
-      const response = await fetch('http://localhost:5001/routes/accounts/logout', { // Ensure the URL is correct
+      const response = await fetch('https://idonatebackend.onrender.com/routes/accounts/logout', { // Ensure the URL is correct
         method: 'POST', 
         headers: {
           'Content-Type': 'application/json',
@@ -307,7 +307,7 @@ const Receipt = () => {
                     <td>
                       {proof.imagePath ? (
                         <a 
-                          href={`http://localhost:5001/${proof.imagePath}`}
+                          href={`https://idonatebackend.onrender.com/${proof.imagePath}`}
                           target="_blank" 
                           rel="noopener noreferrer" 
                           className="viewb"

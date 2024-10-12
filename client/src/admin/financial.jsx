@@ -21,7 +21,7 @@ function Financial() {
     const role = localStorage.getItem('userRole'); 
   
     try {
-      const response = await fetch('http://localhost:5001/routes/accounts/logout', {
+      const response = await fetch('https://idonatebackend.onrender.com/routes/accounts/logout', {
         method: 'POST', 
         headers: {
           'Content-Type': 'application/json',
