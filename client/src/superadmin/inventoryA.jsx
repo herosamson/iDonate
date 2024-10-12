@@ -315,7 +315,7 @@ function Inventory() {
 
   // Render Loading or Error States
   if (loading) {
-    return <div className="loading">Loading donations...</div>;
+    return <div class="loader loader_bubble" className="loading"></div>;
   }
 
   if (error) {

@@ -554,7 +554,7 @@ function Administrator() {
             )}
           </tbody>
         </table>
-        <button className="tn" onClick={() => setShowSuperAdminModal(true)}>Add Super Administrator</button> 
+        <button className="tnSA" onClick={() => setShowSuperAdminModal(true)}>Add Super Administrator</button> 
       </div>
     </div>
   );

@@ -119,4 +119,22 @@ body {
   .delete-button:hover {
     background-color: darkred;
   }
-  
+
+  .tnSA {
+    background-color: rgb(216, 170, 170);
+    color: rgb(0, 0, 0);
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    width: 170px;
+    margin-right: 15px;
+    padding: 10px;
+    border-radius: 15px;
+    
+  }
+  .tnSA:hover {
+    background-color:  rgb(172, 133, 133);
+    color: rgb(0, 0, 0);
+  }
