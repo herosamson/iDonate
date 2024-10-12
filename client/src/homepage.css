@@ -219,3 +219,74 @@
     font-size: 24px;
   }
   
+  .cardhome {
+    padding: 20px;
+    width: 330px;
+    min-height: 370px;
+    border-radius: 20px;
+    background: #e8e8e8;
+    box-shadow: 5px 5px 6px #dadada,
+                 -5px -5px 6px #f6f6f6;
+    transition: 0.4s;
+    margin-right: 40px;
+  }
+  
+  .cardcardhome:hover {
+    translate: 0 -10px;
+  }
+  
+  .card-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #2e54a7;
+    margin: 15px 0 0 10px;
+  }
+  
+  .card-imagebpi {
+    min-height: 150px;
+    background-color: #c9c9c9;
+    border-radius: 15px;
+    background-repeat: no-repeat; /* Ensures the image does not repeat */
+    background-image: url('./bpi.png');
+    width: 220px;
+    background-size: cover; /* Makes sure the entire image is visible */
+    background-position: center; /* Centers the image within the container */
+}
+
+.card-imagebdo {
+  min-height: 150px;
+  background-color: #c9c9c9;
+  border-radius: 15px;
+  background-repeat: no-repeat; /* Ensures the image does not repeat */
+  background-image: url('./bdo.jpg');
+  width: 220px;
+  background-size: cover; /* Makes sure the entire image is visible */
+  background-position: center; /* Centers the image within the container */
+}
+.card-imagegcash {
+  min-height: 150px;
+  background-color: #c9c9c9;
+  border-radius: 15px;
+  background-repeat: no-repeat; /* Ensures the image does not repeat */
+  background-image: url('./logoG.png');
+  width: 220px;
+  background-size: cover; /* Makes sure the entire image is visible */
+  background-position: center; /* Centers the image within the container */
+}
+.card-imagemaya {
+  min-height: 150px;
+  background-color: #c9c9c9;
+  border-radius: 15px;
+  background-repeat: no-repeat; /* Ensures the image does not repeat */
+  background-image: url('./picM.jpg');
+  width: 220px;
+  background-size: cover; /* Makes sure the entire image is visible */
+  background-position: center; /* Centers the image within the container */
+}
+
+  
+  .card-body {
+    margin: 13px 0 0 10px;
+    color: rgb(31, 31, 31);
+    font-size: 15px;
+  }

@@ -79,11 +79,6 @@ function HomepageU({ firstname  }) {
       <span>Welcome, {firstname}!</span>
     </div>
   );
-  const data = [
-    { id: 0, value: 10, label: 'series A' },
-    { id: 1, value: 15, label: 'series B' },
-    { id: 2, value: 20, label: 'series C' },
-  ];
 
   return (
     <div className="homepage">
@@ -146,29 +141,33 @@ function HomepageU({ firstname  }) {
         </main>
         <main className="main2">
           <section className="additional-content2">
-          <div className="container">
-              <h3><center>BPI</center></h3>
-              <center><p>Account Name: RCAM-Minor Basilica of the Black Nazarene</p>
-              <p>Peso Savings Account # 2273-0504-37</p>
-              <p>Dollars Savings Account # 2274-0026-22</p>
-              <p>Swift Code - BIC: B O P I P H M M</p></center>
+          <div className="cardhome">
+          <div class="card-imagebpi"></div>
+             <center> <p class="card-title">BPI</p></center>
+              <p class="card-body"><strong>Account Name: RCAM-Minor Basilica of the Black Nazarene</strong></p>
+              <p class="card-body">Peso Savings Account # 2273-0504-37</p>
+              <p class="card-body">Dollars Savings Account # 2274-0026-22</p>
+              <p class="card-body">Swift Code - BIC: B O P I P H M M</p>
             </div>
-            <div className="container">
-            <h3><center>BDO</center></h3>
-            <center><p>Account Name: RCAM-Minor Basilica of the Black Nazarene</p>
-              <p>Peso Savings Account # 00454-0037-172</p>
-              <p>Dollars Savings Account # 10454-0037-164</p>
-              <p>Swift Code - BIC: B N O R P H M M</p></center>
+            <div className="cardhome">
+            <div class="card-imagebdo"></div>
+            <center> <p class="card-title">BDO</p></center>
+            <p class="card-body"><strong>Account Name: RCAM-Minor Basilica of the Black Nazarene</strong></p>
+              <p class="card-body">Peso Savings Account # 00454-0037-172</p>
+              <p class="card-body">Dollars Savings Account # 10454-0037-164</p>
+              <p class="card-body">Swift Code - BIC: B N O R P H M M</p>
             </div>
-            <div className="container">
-              <h3><center>Paymaya</center></h3>
-              <center> <p>Mobile Number: 0961 747 7003</p>
-              <p>Name: Rufino Sescon, Jr.</p></center>
+            <div className="cardhome">
+            <div class="card-imagemaya"></div>
+            <center> <p class="card-title">Paymaya</p></center>
+            <p class="card-body">Mobile Number: 0961 747 7003</p>
+              <p class="card-body">Name: Rufino Sescon, Jr.</p>
             </div>
-            <div className="container">
-              <h3><center>GCash</center></h3>
-              <center> <p>Mobile Number: 0966 863 9861</p>
-              <p>Name: Rufino Sescon, Jr.</p></center>
+            <div className="cardhome">
+            <div class="card-imagegcash"></div>
+            <center><p class="card-title">GCash</p></center>
+             <p class="card-body">Mobile Number: 0966 863 9861</p>
+              <p class="card-body">Name: Rufino Sescon, Jr.</p>
             </div>
           </section>
         </main>
