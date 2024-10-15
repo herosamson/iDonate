@@ -187,7 +187,7 @@
   }
   
   .password-field input { 
-    width: calc(100% - 20px); /* Set input width */
+
   }
   
   .password-toggle-icon {
