@@ -248,7 +248,7 @@
     border-radius: 15px;
     background-repeat: no-repeat; /* Ensures the image does not repeat */
     background-image: url('./bpi.png');
-    width: 270px;
+    width: 80%;
     background-size: cover; /* Makes sure the entire image is visible */
     background-position: center; /* Centers the image within the container */
     align-items: center;
@@ -264,7 +264,7 @@
   border-radius: 15px;
   background-repeat: no-repeat; /* Ensures the image does not repeat */
   background-image: url('./bdo.jpg');
-  width: 270px;
+  width: 80%;
   background-size: cover; /* Makes sure the entire image is visible */
   background-position: center; /* Centers the image within the container */
   align-items: center;
@@ -279,7 +279,7 @@
   border-radius: 15px;
   background-repeat: no-repeat; /* Ensures the image does not repeat */
   background-image: url('./logoG.png');
-  width: 270px;
+  width: 80%;
   background-size: cover; /* Makes sure the entire image is visible */
   background-position: center; /* Centers the image within the container */
   align-items: center;
@@ -294,7 +294,7 @@
   border-radius: 15px;
   background-repeat: no-repeat; /* Ensures the image does not repeat */
   background-image: url('./picM.jpg');
-  width: 270px;
+  width: 80%;
   background-size: cover; /* Makes sure the entire image is visible */
   background-position: center; /* Centers the image within the container */
   align-items: center;
