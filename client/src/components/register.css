@@ -103,7 +103,7 @@
     width: calc(80% - 20px); /* Set button width */
     max-width: 200px; /* Set maximum width */
     padding: 10px; /* Add padding */
-    background-color: #007bff; /* Button color */
+    background-color: #4f0000;/* Button color */
     color: #fff; /* Button text color */
     border: none; /* Remove border */
     border-radius: 5px; /* Add border radius */
@@ -119,7 +119,7 @@
   
   /* Button Hover Effect */
   .registration-form button:hover {
-    background-color: #0056b3; /* Change background color on hover */
+      background-color: #380000; /* Change background color on hover */
   }
   
   /* Picture Container */

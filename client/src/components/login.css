@@ -48,7 +48,7 @@
     width: 80%; 
     max-width: 200px; 
     padding: 10px;
-    background-color: #007bff;
+    background-color: #4f0000;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -60,7 +60,7 @@
     margin-top: 20px; 
   }
 .login-form button:hover {
-    background-color: #0056b3;
+    background-color: #380000;
   }
 .picture-container {
     position: absolute;
