@@ -132,3 +132,22 @@
   height: 20px;
   margin-right: 5px;
 }
+
+.password-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-field input {
+  width: 100%;
+  padding-right: 40px; /* Space for the eye icon */
+}
+
+.password-toggle-icon {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  color: #555; /* Adjust color as needed */
+  font-size: 1.2em;
+}

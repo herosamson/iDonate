@@ -5,6 +5,7 @@ import yLogo from './yahoo.png';
 import pic from './pic2.jpg';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Importing eye icons
 
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 
@@ -16,6 +17,9 @@ function Login({ onLogin }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isIncorrectPassword, setIsIncorrectPassword] = useState(false);
   const [userRole, setUserRole] = useState(null);
+  
+  const [showPassword, setShowPassword] = useState(false); // State for password visibility
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -70,9 +74,39 @@ function Login({ onLogin }) {
             </a>
           </div>
           <form onSubmit={handleSubmit}>
-            <input type="text" name="username" value={loginData.username} onChange={handleChange} placeholder="Username" required />
-            <input type="password" name="password" value={loginData.password} onChange={handleChange} placeholder="Password" required />
-            <center>{isIncorrectPassword && <p className="incorrect-password-message">Incorrect username or password. <a href="/email">Forgot password?</a></p>}</center>
+            <input 
+              type="text" 
+              name="username" 
+              value={loginData.username} 
+              onChange={handleChange} 
+              placeholder="Username" 
+              required 
+            />
+            <div className="password-field">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                name="password"
+                value={loginData.password}
+                onChange={handleChange}
+                placeholder="Password"
+                required
+              />
+              <span
+                className="password-toggle-icon"
+                onClick={() => setShowPassword(!showPassword)}
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+                title={showPassword ? 'Hide password' : 'Show password'}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
+            <center>
+              {isIncorrectPassword && (
+                <p className="incorrect-password-message">
+                  Incorrect username or password. <Link to="/email">Forgot password?</Link>
+                </p>
+              )}
+            </center>
             <div className="button-container">
               <button type="submit">Login</button>
             </div>

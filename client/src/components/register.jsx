@@ -3,7 +3,7 @@ import './register.css';
 import logo from './logo1.png';
 import pic from './pic2.jpg';
 import { Link, useNavigate } from 'react-router-dom';
-
+import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Importing eye icons
 
 function Register({ onLogin }) {
   const [formData, setFormData] = useState({
@@ -16,6 +16,9 @@ function Register({ onLogin }) {
     password: '',
     confirmPassword: ''
   });
+
+  const [showPassword, setShowPassword] = useState(false); // State for password visibility
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State for confirm password visibility
 
   const navigate = useNavigate();
 
@@ -122,24 +125,98 @@ function Register({ onLogin }) {
       <div className="registration-container">
         <div className="registration-form">
           <div className="logoR-container">
-            <a href="/">
+            <Link to="/">
               <img className="logoR" src={logo} alt="Logo" />
-            </a>
+            </Link>
           </div>
           <form onSubmit={handleSubmit}>
-            <input type="text" name="firstname" value={formData.firstname} onChange={handleChange} placeholder="First Name: Juan" required />
-            <input type="text" name="lastname" value={formData.lastname} onChange={handleChange} placeholder="Last Name: Dela Cruz" required />
-            <input type="tel" name="contact" value={formData.contact} onChange={handleChange} placeholder="Contact Number: 09123456789" required />
-            <input type="text" name="address" value={formData.address} onChange={handleChange} placeholder="Address: 123 Tirso Cruz St. Quiapo, Manila" required />
-            <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email: juan@gmail.com" required />
-            <input type="text" name="username" value={formData.username} onChange={handleChange} placeholder="Username" required />
-            <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Password" required />
-            <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} placeholder="Confirm Password" required />
+            <input
+              type="text"
+              name="firstname"
+              value={formData.firstname}
+              onChange={handleChange}
+              placeholder="First Name: Juan"
+              required
+            />
+            <input
+              type="text"
+              name="lastname"
+              value={formData.lastname}
+              onChange={handleChange}
+              placeholder="Last Name: Dela Cruz"
+              required
+            />
+            <input
+              type="tel"
+              name="contact"
+              value={formData.contact}
+              onChange={handleChange}
+              placeholder="Contact Number: 09123456789"
+              required
+            />
+            <input
+              type="text"
+              name="address"
+              value={formData.address}
+              onChange={handleChange}
+              placeholder="Address: 123 Tirso Cruz St. Quiapo, Manila"
+              required
+            />
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Email: juan@gmail.com"
+              required
+            />
+            <input
+              type="text"
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+              placeholder="Username"
+              required
+            />
+            <div className="password-field">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="Password"
+                required
+              />
+              <span
+                className="password-toggle-icon"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
+            <div className="password-field">
+              <input
+                type={showConfirmPassword ? 'text' : 'password'}
+                name="confirmPassword"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                placeholder="Confirm Password"
+                required
+              />
+              <span
+                className="password-toggle-icon"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              >
+                {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
             <div className="button-container">
               <button type="submit">Register</button>
             </div>
             <div className="bottom-text">
-              <p>Already have an account? <Link to="/components/login">Login</Link></p>
+              <p>
+                Already have an account? <Link to="/components/login">Login</Link>
+              </p>
             </div>
           </form>
         </div>
