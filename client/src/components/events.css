@@ -31,13 +31,12 @@
     border-radius: 20px;
     padding: 20px;
     margin-top: 40px;
-    width: 100%;
+    width: 80%;
     margin-left: 230px;
     max-height: 500px;
     overflow-y: auto;
     overflow-x: hidden;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    display: flex;
   }
 
   .events-container h2 {
