@@ -139,7 +139,8 @@
 
 .password-toggle-icon1 {
   position: absolute;
-  right: 10px;
+  top:1px;
+  right: 8px;
   cursor: pointer;
   color: #555; /* Adjust color as needed */
   font-size: 1.2em;
