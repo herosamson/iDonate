@@ -291,7 +291,7 @@ margin-bottom: 5px;
 
 .print-report-button {
 
-  background-color: #4CAF50;
+  background-color: #4f0000;
   color: white;
   border: none;
   border-radius: 5px;
@@ -299,5 +299,5 @@ margin-bottom: 5px;
 }
 
 .print-report-button:hover {
-  background-color: #45a049;
+  background-color: #380000;
 }

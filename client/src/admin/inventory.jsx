@@ -435,17 +435,12 @@ function Inventory() {
       </div>
       <div id="contentDInventory">
         <h1>Inventory</h1>
-        <div className="filters">
-          <div className="filter-group">
             <label>Status:</label>
             <select value={filterStatus} onChange={handleFilterStatusChange}>
               <option value="All">All</option>
               <option value="Consumed">Consumed</option>
               <option value="Unconsumed">Unconsumed</option>
             </select>
-          </div>
-        </div>
-        <div className="filter-group">
             <label>Category:</label>
             <select value={filterCategory} onChange={handleFilterCategoryChange}>
               <option value="All">All</option>
@@ -454,15 +449,12 @@ function Inventory() {
               <option value="Clothes">Clothes</option>
               <option value="Others">Others</option>
             </select>
-          </div>
-        <div className="filter-group">
             <label>Expiration Date (Before):</label>
             <input
               type="date"
               value={filterExpiration}
               onChange={handleFilterExpirationChange}
             />
-          </div>
         <div className="filter-group">
             <button className="print-report-button" onClick={downloadReport}>Print Reports</button>
           </div>

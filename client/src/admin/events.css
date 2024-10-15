@@ -216,4 +216,17 @@ body {
   .eventsbutton {
     margin-right: 10px;
   }
+
+  .eventse {
+
+    background-color: #4f0000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .eventse:hover {
+    background-color: #380000;
+  }
   

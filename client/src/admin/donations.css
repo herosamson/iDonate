@@ -180,7 +180,7 @@ body {
   margin-top: 10px;
   margin-left: 5px;
   margin-right: 5px;
-  background-color: #4CAF50;
+  background-color: #4f0000;
   color: white;
   border: none;
   border-radius: 5px;
@@ -188,12 +188,12 @@ body {
 }
 
 .add-donation-button:hover {
-  background-color: #45a049;
+  background-color: #380000;
 }
 
 .add-cabinet-button {
 
-  background-color: #4CAF50;
+  background-color: #4f0000;
   color: white;
   border: none;
   border-radius: 5px;
@@ -201,7 +201,7 @@ body {
 }
 
 .add-cabinet-button:hover {
-  background-color: #45a049;
+  background-color: #380000;
 }
 
 /* Select Dropdown Styling */
