@@ -83,6 +83,7 @@
     justify-content: center;
     align-items: center;
     width: 605px;
+    object-fit: contain;
   }
   
   .image4{
@@ -93,5 +94,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    object-fit: contain;
   }
   

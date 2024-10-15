@@ -444,7 +444,8 @@ function Inventory() {
               <option value="Unconsumed">Unconsumed</option>
             </select>
           </div>
-          <div className="filter-group">
+        </div>
+        <div className="filter-group">
             <label>Category:</label>
             <select value={filterCategory} onChange={handleFilterCategoryChange}>
               <option value="All">All</option>
@@ -454,7 +455,7 @@ function Inventory() {
               <option value="Others">Others</option>
             </select>
           </div>
-          <div className="filter-group">
+        <div className="filter-group">
             <label>Expiration Date (Before):</label>
             <input
               type="date"
@@ -462,11 +463,9 @@ function Inventory() {
               onChange={handleFilterExpirationChange}
             />
           </div>
-          {/* Print Reports Button */}
-          <div className="filter-group">
+        <div className="filter-group">
             <button className="print-report-button" onClick={downloadReport}>Print Reports</button>
           </div>
-        </div>
         {filteredDonations.length === 0 ? (
           <p className="no-data">No located donations available.</p>
         ) : (

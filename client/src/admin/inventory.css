@@ -288,3 +288,16 @@ margin-bottom: 5px;
 .row p {
   margin: 2px 0;
 }
+
+.print-report-button {
+
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.print-report-button:hover {
+  background-color: #45a049;
+}
