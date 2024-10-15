@@ -186,8 +186,7 @@
     position: relative;
   }
   
-  .password-field input {
-    padding-right: 40px; /* Space for the eye icon */
+  .password-field input { 
     width: calc(100% - 20px); /* Set input width */
   }
   
