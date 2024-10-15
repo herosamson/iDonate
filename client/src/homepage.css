@@ -248,15 +248,14 @@
     border-radius: 15px;
     background-repeat: no-repeat; /* Ensures the image does not repeat */
     background-image: url('./bpi.png');
-    width: 80%;
+    width: 100%;
     background-size: cover; /* Makes sure the entire image is visible */
     background-position: center; /* Centers the image within the container */
     align-items: center;
     text-align: center;
     justify-content: center;
     justify-items: center;
-    object-fit: contain;
-    
+    display:flex;
 }
 
 .card-imagebdo {
@@ -265,14 +264,14 @@
   border-radius: 15px;
   background-repeat: no-repeat; /* Ensures the image does not repeat */
   background-image: url('./bdo.jpg');
-  width: 80%;
+  width: 100%;
   background-size: cover; /* Makes sure the entire image is visible */
   background-position: center; /* Centers the image within the container */
   align-items: center;
   text-align: center;
   justify-content: center;
   justify-items: center;
-  object-fit: contain;
+  display:flex;
 }
 .card-imagegcash {
   min-height: 150px;
@@ -280,14 +279,14 @@
   border-radius: 15px;
   background-repeat: no-repeat; /* Ensures the image does not repeat */
   background-image: url('./logoG.png');
-  width: 80%;
+  width: 100%;
   background-size: cover; /* Makes sure the entire image is visible */
   background-position: center; /* Centers the image within the container */
   align-items: center;
   text-align: center;
   justify-content: center;
   justify-items: center;
-  object-fit: contain;
+  display:flex;
 }
 .card-imagemaya {
   min-height: 150px;
@@ -295,14 +294,14 @@
   border-radius: 15px;
   background-repeat: no-repeat; /* Ensures the image does not repeat */
   background-image: url('./picM.jpg');
-  width: 80%;
+  width: 100%;
   background-size: cover; /* Makes sure the entire image is visible */
   background-position: center; /* Centers the image within the container */
   align-items: center;
   text-align: center;
   justify-content: center;
   justify-items: center;
-  object-fit: contain;
+  display:flex;
 }
 
   
