@@ -674,7 +674,7 @@ const Donations = () => {
                 {addCabinetError && <p className="error">{addCabinetError}</p>}
                 <button 
                   type="submit" 
-                  className="submit-buttonAddCabinet"
+                   className="submit-buttonAdd" 
                   disabled={getAvailableCabinetNumbers().length === 0}
                 >
                   Add Cabinet
@@ -748,7 +748,7 @@ const Donations = () => {
                     )}
                     
                     {locationError && <p className="error">{locationError}</p>}
-                    <button type="button" onClick={submitLocation} className="submit-buttonLoc">Submit</button>
+                    <button type="button" onClick={submitLocation} className="submit-buttonAdd" >Submit</button>
                   </form>
                 </div>
               ) : (

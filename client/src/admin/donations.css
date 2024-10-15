@@ -240,6 +240,16 @@ body {
 }
 .submit-buttonAdd {
   margin-left: 315px;
+  background-color: #4f0000;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+
+}
+
+.submit-buttonAdd:hover {
+  background-color: #380000;
 }
 .submit-buttonLoc {
   margin-left: 50px;
@@ -285,4 +295,13 @@ body {
   100% {
     transform: translate3d(0,0,0) rotate(360deg);
   }
+}
+
+.form-group select {
+  width: 100px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+  margin-bottom: 10px;
 }

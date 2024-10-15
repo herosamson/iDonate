@@ -429,15 +429,19 @@ const Others = () => {
               </>
             )}
 
-            {/* Expiration Date (Optional) */}
-            <label htmlFor="expirationDate">(If necessary) Expiration Date:</label>
-            <input
-              type="date"
-              value={expirationDate}
-              onChange={handleChange}
-              name="expirationDate"
-              min={today}
-            />
+            {/* Expiration Date (Optional) - Only for Food Category */}
+            {category === 'Food' && (
+              <>
+                <label htmlFor="expirationDate">(If necessary) Expiration Date:</label>
+                <input
+                  type="date"
+                  value={expirationDate}
+                  onChange={handleChange}
+                  name="expirationDate"
+                  min={today}
+                />
+              </>
+            )}
 
             <button className="dB" onClick={addItem}>Add Item</button>
           </div>
