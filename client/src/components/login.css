@@ -64,7 +64,7 @@
   
   /* Button Hover Effect */
   .login-form button:hover {
-      background-color: #380000; /* Change background color on hover */
+      background-color: #380000 !important; /* Change background color on hover */
   }
 .picture-container {
     position: absolute;
@@ -137,19 +137,9 @@
   margin-right: 5px;
 }
 
-.password-field {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.password-field input {
-  width: 100%;
-  padding-right: 40px; /* Space for the eye icon */
-}
-
-.password-toggle-icon {
+.password-toggle-icon1 {
   position: absolute;
+  top: 3px;
   right: 10px;
   cursor: pointer;
   color: #555; /* Adjust color as needed */

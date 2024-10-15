@@ -82,7 +82,6 @@ function Login({ onLogin }) {
               placeholder="Username" 
               required 
             />
-            <div className="password-field">
               <input
                 type={showPassword ? 'text' : 'password'}
                 name="password"
@@ -92,14 +91,14 @@ function Login({ onLogin }) {
                 required
               />
               <span
-                className="password-toggle-icon"
+                className="password-toggle-icon1"
                 onClick={() => setShowPassword(!showPassword)}
                 aria-label={showPassword ? 'Hide password' : 'Show password'}
                 title={showPassword ? 'Hide password' : 'Show password'}
               >
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </span>
-            </div>
+    
             <center>
               {isIncorrectPassword && (
                 <p className="incorrect-password-message">

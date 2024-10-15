@@ -179,21 +179,11 @@
   }
   
   
-  /* Existing styles... */
-
-.password-field {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.password-field input {
-  width: 100%;
-  padding-right: 40px; /* Space for the eye icon */
-}
+  
 
 .password-toggle-icon {
   position: absolute;
+  top: 1px;
   right: 10px;
   cursor: pointer;
   color: #555; /* Adjust color as needed */

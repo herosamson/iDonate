@@ -194,7 +194,6 @@ function Register({ onLogin }) {
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </span>
             </div>
-            <div className="password-field">
               <input
                 type={showConfirmPassword ? 'text' : 'password'}
                 name="confirmPassword"
@@ -209,7 +208,7 @@ function Register({ onLogin }) {
               >
                 {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
               </span>
-            </div>
+            
             <div className="button-container">
               <button type="submit">Register</button>
             </div>
