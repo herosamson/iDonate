@@ -247,8 +247,21 @@ body {
   cursor: pointer;
 
 }
+.submit-buttonAdd1 {
+  margin-left: 315px;
+  background-color: #4f0000;
+  color: white;
+  width: 150px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+
+}
 
 .submit-buttonAdd:hover {
+  background-color: #380000;
+}
+.submit-buttonAdd1:hover {
   background-color: #380000;
 }
 .submit-buttonLoc {
@@ -298,7 +311,7 @@ body {
 }
 
 .form-group select {
-  width: 100px;
+  width: 250px;
   padding: 5px;
   border: 1px solid #ccc;
   border-radius: 5px;

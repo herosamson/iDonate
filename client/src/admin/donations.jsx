@@ -629,7 +629,7 @@ const Donations = () => {
               <h2>Add Cabinet</h2>
               <form onSubmit={handleAddCabinetSubmit}>
                 <div className="form-group">
-                  <label>Cabinet Number:</label>
+                  <label><strong>Cabinet Number:</strong></label>
                   <select
                     value={newCabinet.cabinetNumber}
                     onChange={(e) => setNewCabinet({ ...newCabinet, cabinetNumber: e.target.value })}
@@ -646,7 +646,7 @@ const Donations = () => {
                   </select>
                 </div>
                 <div className="form-group">
-                  <label>Columns:</label>
+                  <label><strong>Columns:</strong></label>
                   <select
                     value={newCabinet.columns}
                     onChange={(e) => setNewCabinet({ ...newCabinet, columns: e.target.value })}
@@ -659,7 +659,7 @@ const Donations = () => {
                   </select>
                 </div>
                 <div className="form-group">
-                  <label>Rows:</label>
+                  <label><strong>Rows:</strong></label>
                   <select
                     value={newCabinet.rows}
                     onChange={(e) => setNewCabinet({ ...newCabinet, rows: e.target.value })}
@@ -674,7 +674,7 @@ const Donations = () => {
                 {addCabinetError && <p className="error">{addCabinetError}</p>}
                 <button 
                   type="submit" 
-                   className="submit-buttonAdd" 
+                   className="submit-buttonAdd1" 
                   disabled={getAvailableCabinetNumbers().length === 0}
                 >
                   Add Cabinet
@@ -695,7 +695,7 @@ const Donations = () => {
                   <h2>Assign Location</h2>
                   <form>
                     <div className="form-group">
-                      <label>Cabinet:</label>
+                      <label><strong>Cabinet:</strong></label>
                       <select
                         value={location.cabinet}
                         onChange={(e) => setLocation({ ...location, cabinet: e.target.value })}
@@ -712,7 +712,7 @@ const Donations = () => {
                     </div>
                     {availableColumns.length > 0 && (
                       <div className="form-group">
-                        <label>Column:</label>
+                        <label><strong>Column:</strong></label>
                         <select
                           value={location.column}
                           onChange={(e) => setLocation({ ...location, column: e.target.value })}
@@ -730,7 +730,7 @@ const Donations = () => {
                     )}
                     {availableRows.length > 0 && (
                       <div className="form-group">
-                        <label>Row:</label>
+                        <label><strong>Row:</strong></label>
                         <select
                           value={location.row}
                           onChange={(e) => setLocation({ ...location, row: e.target.value })}
