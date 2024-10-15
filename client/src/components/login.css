@@ -44,23 +44,27 @@
     margin-bottom: 20px;
   }
   
-.login-form button {
-    width: 80%; 
-    max-width: 200px; 
-    padding: 10px;
-    background-color: #4f0000;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+  .login-form button {
+    width: calc(80% - 20px); /* Set button width */
+    max-width: 200px; /* Set maximum width */
+    padding: 10px; /* Add padding */
+    background-color: #4f0000;/* Button color */
+    color: #fff; /* Button text color */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Add border radius */
+    cursor: pointer; /* Change cursor to pointer */
   }
+  
+  /* Button Container */
   .button-container {
-    display: flex;
-    justify-content: center; 
-    margin-top: 20px; 
+    display: flex; /* Use flex */
+    justify-content: center; /* Center align the content */
+    margin-top: 20px; /* Add top margin */
   }
-.login-form button:hover {
-    background-color: #380000;
+  
+  /* Button Hover Effect */
+  .login-form button:hover {
+      background-color: #380000; /* Change background color on hover */
   }
 .picture-container {
     position: absolute;

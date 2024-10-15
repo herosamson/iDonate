@@ -107,7 +107,7 @@ function Login({ onLogin }) {
                 </p>
               )}
             </center>
-            <div className="button-containerLogin">
+            <div className="button-container">
               <button type="submit">Login</button>
             </div>
           </form>
