@@ -85,7 +85,6 @@ button:hover {
   justify-content: center;
   align-items: center;
   width: 605px;
-  object-fit: contain;
 }
 
 .image1{
@@ -96,5 +95,4 @@ button:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  object-fit: contain;
 }
