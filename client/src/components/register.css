@@ -178,6 +178,20 @@
     cursor: default; /* Set cursor to default to reinforce non-clickable behavior */
   }
   
+  
+  
+
+
+  .password-field {
+    position: relative;
+    margin-bottom: 15px;
+  }
+  
+  .password-field input {
+    width: 80%;
+    padding-right: 40px; /* Space for the eye icon */
+  }
+  
   .password-toggle-icon {
     position: absolute;
     top: 50%;
