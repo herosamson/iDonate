@@ -184,12 +184,11 @@
 
   .password-field {
     position: relative;
-    margin-bottom: 15px;
   }
   
   .password-field input {
-    width: 80%;
     padding-right: 40px; /* Space for the eye icon */
+    width: calc(100% - 20px); /* Set input width */
   }
   
   .password-toggle-icon {
