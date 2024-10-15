@@ -178,6 +178,8 @@ function Register({ onLogin }) {
               placeholder="Username"
               required
             />
+            
+            {/* Password Field with Toggle Icon */}
             <div className="password-field">
               <input
                 type={showPassword ? 'text' : 'password'}
@@ -190,10 +192,15 @@ function Register({ onLogin }) {
               <span
                 className="password-toggle-icon"
                 onClick={() => setShowPassword(!showPassword)}
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+                title={showPassword ? 'Hide password' : 'Show password'}
               >
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </span>
             </div>
+
+            {/* Confirm Password Field with Toggle Icon */}
+            <div className="password-field">
               <input
                 type={showConfirmPassword ? 'text' : 'password'}
                 name="confirmPassword"
@@ -205,10 +212,13 @@ function Register({ onLogin }) {
               <span
                 className="password-toggle-icon"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                aria-label={showConfirmPassword ? 'Hide password' : 'Show password'}
+                title={showConfirmPassword ? 'Hide password' : 'Show password'}
               >
                 {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
               </span>
-            
+            </div>
+
             <div className="button-container">
               <button type="submit">Register</button>
             </div>

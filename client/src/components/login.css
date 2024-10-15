@@ -137,10 +137,21 @@
   margin-right: 5px;
 }
 
+.password-container {
+  position: relative;
+  width: 100%; /* Adjust this width to match your form */
+}
+
+.password-container input {
+  width: 100%; /* Ensure the input field takes the full width */
+  padding-right: 40px; /* Add padding to the right to make space for the icon */
+}
+
 .password-toggle-icon1 {
   position: absolute;
-  top:1px;
-  right: 8px;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
   cursor: pointer;
   color: #555; /* Adjust color as needed */
   font-size: 1.2em;

@@ -181,11 +181,23 @@
   
   
 
-.password-toggle-icon {
-  position: absolute;
-  top:1px;
-  right: 8px;
-  cursor: pointer;
-  color: #555; /* Adjust color as needed */
-  font-size: 1.2em;
-}
+
+  .password-field {
+    position: relative;
+    margin-bottom: 15px;
+  }
+  
+  .password-field input {
+    width: 100%;
+    padding-right: 40px; /* Space for the eye icon */
+  }
+  
+  .password-toggle-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #555; /* Adjust color as needed */
+    font-size: 1.2em;
+  }
