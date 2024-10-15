@@ -54,7 +54,9 @@
     border-radius: 5px;
     cursor: pointer;
   }
-  .button-container {
+  .button-containerLogin {
+    background-color: #4f0000;
+    color: #fff;
     display: flex;
     justify-content: center; 
     margin-top: 20px; 
@@ -62,6 +64,10 @@
 .login-form button:hover {
     background-color: #380000;
   }
+  .button-containerLogin:hover {
+    background-color: #380000;
+  }
+  
 .picture-container {
     position: absolute;
     top: 0;
@@ -146,6 +152,7 @@
 
 .password-toggle-icon {
   position: absolute;
+  top: 5px;
   right: 10px;
   cursor: pointer;
   color: #555; /* Adjust color as needed */

@@ -187,7 +187,7 @@ body {
 }
 
 .materials-list {
-    height: 100px; /* Fixed height */
+    height: 150px !important; /* Fixed height */
     overflow-y: auto;
     padding: 5px;
     border: 1px solid #ccc;
