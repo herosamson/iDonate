@@ -251,6 +251,10 @@
     width: 220px;
     background-size: cover; /* Makes sure the entire image is visible */
     background-position: center; /* Centers the image within the container */
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    justify-items: center;
 }
 
 .card-imagebdo {
@@ -262,6 +266,10 @@
   width: 220px;
   background-size: cover; /* Makes sure the entire image is visible */
   background-position: center; /* Centers the image within the container */
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  justify-items: center;
 }
 .card-imagegcash {
   min-height: 150px;
@@ -272,6 +280,10 @@
   width: 220px;
   background-size: cover; /* Makes sure the entire image is visible */
   background-position: center; /* Centers the image within the container */
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  justify-items: center;
 }
 .card-imagemaya {
   min-height: 150px;
@@ -282,6 +294,10 @@
   width: 220px;
   background-size: cover; /* Makes sure the entire image is visible */
   background-position: center; /* Centers the image within the container */
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  justify-items: center;
 }
 
   
