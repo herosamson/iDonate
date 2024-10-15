@@ -55,7 +55,6 @@
     cursor: pointer;
   }
   .button-container {
-    background-color: #4f0000;
     display: flex;
     justify-content: center; 
     margin-top: 20px; 
@@ -147,7 +146,6 @@
 
 .password-toggle-icon {
   position: absolute;
-  top: 4px;
   right: 10px;
   cursor: pointer;
   color: #555; /* Adjust color as needed */
