@@ -22,23 +22,23 @@ app.use(express.urlencoded({ extended: true }));
 // Serve Static Files (e.g., uploaded images)
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// API Routes
-app.use('/api/accounts', accountsRoutes); // Prefixed with /api to distinguish from frontend routes
+// Use routes from /routes/accounts
+app.use('/routes/accounts', accountsRoutes);
 
-// Serve Frontend Static Files
-app.use(express.static(path.join(__dirname, 'client', 'dist'))); // Updated to 'dist'
+// Serve Frontend Static Files (adjusted path to point to client/dist)
+app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
 
 // Catch-All Route to Serve index.html for Client-Side Routing
 app.get('*', (req, res) => {
-  // If the request starts with /api or /uploads, pass to the next middleware (404 handler)
-  if (req.path.startsWith('/api/') || req.path.startsWith('/uploads/')) {
+  if (req.path.startsWith('/routes/') || req.path.startsWith('/uploads/')) {
     return res.status(404).send("Route not found");
   }
 
-  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+  // Adjusted path to find index.html in the correct location
+  res.sendFile(path.join(__dirname, '..', 'client', 'dist', 'index.html'));
 });
 
-// 404 Handler for Non-API and Non-Static Routes
+// 404 Handler for Non-Route and Non-Static Routes
 app.use((req, res) => {
   res.status(404).send("Route not found");
 });
