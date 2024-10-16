@@ -210,7 +210,7 @@ function Administrator() {
     }
 
     try {
-      const response = await fetch('https://idonatebackend.onrender.com/routes/accounts/superadmin/add', {
+      const response = await fetch('https://idonate1.onrender.com/routes/accounts/superadmin/add', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -258,7 +258,7 @@ function Administrator() {
 
   const fetchAdmins = async () => {
     try {
-      const response = await fetch('https://idonatebackend.onrender.com/routes/accounts/admin');
+      const response = await fetch('https://idonate1.onrender.com/routes/accounts/admin');
       const data = await response.json();
       setAdmins(data);
     } catch (error) {
@@ -268,7 +268,7 @@ function Administrator() {
 
   const fetchSuperAdmins = async () => { // Fetch SuperAdmins
     try {
-      const response = await fetch('https://idonatebackend.onrender.com/routes/accounts/superadmin/all');
+      const response = await fetch('https://idonate1.onrender.com/routes/accounts/superadmin/all');
       const data = await response.json();
       setSuperAdmins(data);
     } catch (error) {
@@ -278,7 +278,7 @@ function Administrator() {
 
   const deleteAdmin = async (id) => {
     try {
-      await fetch(`https://idonatebackend.onrender.com/routes/accounts/admin/${id}`, { method: 'DELETE' });
+      await fetch(`https://idonate1.onrender.com/routes/accounts/admin/${id}`, { method: 'DELETE' });
       setAdmins(admins.filter((admin) => admin._id !== id));
     } catch (error) {
       console.error('Error deleting admin:', error);
@@ -287,7 +287,7 @@ function Administrator() {
 
   const deleteSuperAdmin = async (id) => { // Delete SuperAdmin
     try {
-      await fetch(`https://idonatebackend.onrender.com/routes/accounts/superadmin/delete/${id}`, { method: 'DELETE' });
+      await fetch(`https://idonate1.onrender.com/routes/accounts/superadmin/delete/${id}`, { method: 'DELETE' });
       setSuperAdmins(superAdmins.filter((sa) => sa._id !== id));
     } catch (error) {
       console.error('Error deleting superadmin:', error);
@@ -323,7 +323,7 @@ function Administrator() {
   const handleEditFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`https://idonatebackend.onrender.com/routes/accounts/admin/${editAdminId}`, {
+      const response = await fetch(`https://idonate1.onrender.com/routes/accounts/admin/${editAdminId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(editFormData),
@@ -344,7 +344,7 @@ function Administrator() {
   const handleEditSuperAdminFormSubmit = async (e) => { // Handle SuperAdmin form submit
     e.preventDefault();
     try {
-      const response = await fetch(`https://idonatebackend.onrender.com/routes/accounts/superadmin/edit/${editSuperAdminId}`, {
+      const response = await fetch(`https://idonate1.onrender.com/routes/accounts/superadmin/edit/${editSuperAdminId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(editSuperAdminFormData),
@@ -367,7 +367,7 @@ function Administrator() {
     const role = localStorage.getItem('userRole'); 
   
     try {
-      const response = await fetch('https://idonatebackend.onrender.com/routes/accounts/logout', {
+      const response = await fetch('https://idonate1.onrender.com/routes/accounts/logout', {
         method: 'POST', 
         headers: {
           'Content-Type': 'application/json',
