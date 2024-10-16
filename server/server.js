@@ -23,15 +23,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // API Routes
-app.use('/routes/accounts', accountsRoutes); // Prefixed with /api to distinguish from frontend routes
+app.use('/api/accounts', accountsRoutes); // Prefixed with /api to distinguish from frontend routes
 
 // Serve Frontend Static Files
-app.use(express.static(path.join(__dirname, 'client', 'build'))); // Updated to 'dist'
+app.use(express.static(path.join(__dirname, 'client', 'dist'))); // Updated to 'dist'
 
 // Catch-All Route to Serve index.html for Client-Side Routing
 app.get('*', (req, res) => {
   // If the request starts with /api or /uploads, pass to the next middleware (404 handler)
-  if (req.path.startsWith('/routes/') || req.path.startsWith('/uploads/')) {
+  if (req.path.startsWith('/api/') || req.path.startsWith('/uploads/')) {
     return res.status(404).send("Route not found");
   }
 

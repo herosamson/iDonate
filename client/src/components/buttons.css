@@ -24,7 +24,7 @@
     background-color: white; /* White background */
     padding: 30px;
     border: 1px solid #ccc;
-    border-radius: 50px;
+    border-radius: 10px;
     width: 390px; /* Adjust width as needed */
     height: 260px; /* Adjust height as needed */
     box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
