@@ -170,7 +170,7 @@ function Administrator() {
     }
 
     try {
-      const response = await fetch('https://idonatebackend.onrender.com/routes/accounts/admin', {
+      const response = await fetch('https://idonate1.onrender.com/routes/accounts/admin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

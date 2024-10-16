@@ -109,7 +109,7 @@ function Staff() {
     }
 
     try {
-      const response = await fetch('https://idonatebackend.onrender.com/routes/accounts/stafff', {
+      const response = await fetch('https://idonate1.onrender.com/routes/accounts/stafff', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -148,7 +148,7 @@ function Staff() {
 
   const fetchStaff = async () => {
     try {
-      const response = await fetch('https://idonatebackend.onrender.com/routes/accounts/staff');
+      const response = await fetch('https://idonate1.onrender.com/routes/accounts/staff');
       const data = await response.json();
       if (Array.isArray(data)) {
         setStaff(data);
@@ -186,7 +186,7 @@ function Staff() {
     const role = localStorage.getItem('userRole'); 
   
     try {
-      const response = await fetch('https://idonatebackend.onrender.com/routes/accounts/logout', {
+      const response = await fetch('https://idonate1.onrender.com/routes/accounts/logout', {
         method: 'POST', 
         headers: {
           'Content-Type': 'application/json',
@@ -240,7 +240,7 @@ function Staff() {
     e.preventDefault();
     try {
       // Update staff details
-      const response = await fetch(`https://idonatebackend.onrender.com/routes/accounts/staff/${editStaffId}`, {
+      const response = await fetch(`https://idonate1.onrender.com/routes/accounts/staff/${editStaffId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(editFormData)
@@ -253,7 +253,7 @@ function Staff() {
 
       // Update password if new password is provided
       if (newPassword) {
-        const passwordResponse = await fetch(`https://idonatebackend.onrender.com/routes/accounts/staff/${editStaffId}/password`, {
+        const passwordResponse = await fetch(`https://idonate1.onrender.com/routes/accounts/staff/${editStaffId}/password`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ newPassword })

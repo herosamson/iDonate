@@ -13,7 +13,7 @@ const Options = () => {
     const role = localStorage.getItem('userRole'); 
   
     try {
-      const response = await fetch('https://idonatebackend.onrender.com/routes/accounts/logout', {
+      const response = await fetch('https://idonate1.onrender.com/routes/accounts/logout', {
         method: 'POST', 
         headers: {
           'Content-Type': 'application/json',

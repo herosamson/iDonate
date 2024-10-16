@@ -10,7 +10,7 @@ function Activity() {
     setIsDropdownOpenA(!isDropdownOpenA);
   };
   useEffect(() => {
-    fetch('https://idonatebackend.onrender.com/routes/accounts/activity-logs')
+    fetch('https://idonate1.onrender.com/routes/accounts/activity-logs')
       .then(response => response.json())
       .then(data => setLogs(data))
       .catch(error => console.error('Error fetching activity logs:', error));
@@ -21,7 +21,7 @@ function Activity() {
     const role = localStorage.getItem('userRole'); 
   
     try {
-      const response = await fetch('https://idonatebackend.onrender.com/routes/accounts/logout', {
+      const response = await fetch('https://idonate1.onrender.com/routes/accounts/logout', {
         method: 'POST', 
         headers: {
           'Content-Type': 'application/json',

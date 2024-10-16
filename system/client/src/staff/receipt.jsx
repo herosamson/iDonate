@@ -10,7 +10,7 @@ function ReceiptS() {
   useEffect(() => {
     const fetchProofs = async () => {
       try {
-        const response = await axios.get(`https://idonatebackend.onrender.com/routes/accounts/proofs/all`);
+        const response = await axios.get(`https://idonate1.onrender.com/routes/accounts/proofs/all`);
         const sortedProofs = response.data.sort((a, b) => new Date(b.date) - new Date(a.date));
         setProofs(sortedProofs);
       } catch (error) {
@@ -27,7 +27,7 @@ function ReceiptS() {
     const role = localStorage.getItem('userRole'); 
   
     try {
-      const response = await fetch('https://idonatebackend.onrender.com/routes/accounts/logout', {
+      const response = await fetch('https://idonate1.onrender.com/routes/accounts/logout', {
         method: 'POST', 
         headers: {
           'Content-Type': 'application/json',
@@ -54,7 +54,7 @@ function ReceiptS() {
     }
 
     try {
-      const response = await axios.patch(`https://idonatebackend.onrender.com/routes/accounts/proofs/${id}/approve`);
+      const response = await axios.patch(`https://idonate1.onrender.com/routes/accounts/proofs/${id}/approve`);
       setProofs(proofs.map(proof => proof._id === id ? response.data : proof));
       alert('Payment approved successfully.');
     } catch (error) {
@@ -99,7 +99,7 @@ function ReceiptS() {
                 <td>
                   {proof.imagePath ? (
                     <a 
-                      href={`https://idonatebackend.onrender.com/${proof.imagePath}`} // Adjust the URL based on your backend
+                      href={`https://idonate1.onrender.com/${proof.imagePath}`} // Adjust the URL based on your backend
                       target="_blank" 
                       rel="noopener noreferrer" 
                       className="view-image-button"
