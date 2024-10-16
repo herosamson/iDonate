@@ -11,7 +11,7 @@ const port = process.env.PORT || 5001;
 
 // CORS Configuration
 app.use(cors({
-  origin: 'https://idonate-3zc8.onrender.com', // Specify the allowed origin
+  origin: 'https://idonate-3zc8.onrender.com', // Replace with your frontend's actual URL
   credentials: true,                          // Allow credentials (cookies, authorization headers, etc.)
 }));
 
@@ -23,18 +23,22 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // API Routes
-app.use('/routes/accounts', accountsRoutes); // It's recommended to prefix API routes with /api
+app.use('/routes/accounts', accountsRoutes); // Prefixed with /api to distinguish from frontend routes
 
 // Serve Frontend Static Files
-// Adjust the path below to point to your frontend's build directory
-app.use(express.static(path.join(__dirname, 'client', 'build')));
+app.use(express.static(path.join(__dirname, 'client', 'dist'))); // Updated to 'dist'
 
 // Catch-All Route to Serve index.html for Client-Side Routing
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+  // If the request starts with /api or /uploads, pass to the next middleware (404 handler)
+  if (req.path.startsWith('/routes/') || req.path.startsWith('/uploads/')) {
+    return res.status(404).send("Route not found");
+  }
+
+  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
 });
 
-// 404 Handler (Optional: Can be removed if the catch-all route handles frontend routes)
+// 404 Handler for Non-API and Non-Static Routes
 app.use((req, res) => {
   res.status(404).send("Route not found");
 });
