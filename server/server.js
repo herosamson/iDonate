@@ -26,7 +26,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/routes/accounts', accountsRoutes); // Prefixed with /api to distinguish from frontend routes
 
 // Serve Frontend Static Files
-app.use(express.static(path.join(__dirname, 'client', 'dist'))); // Updated to 'dist'
+app.use(express.static(path.join(__dirname, 'client', 'build'))); // Updated to 'dist'
 
 // Catch-All Route to Serve index.html for Client-Side Routing
 app.get('*', (req, res) => {
