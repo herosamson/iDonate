@@ -25,18 +25,17 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // Use routes from /routes/accounts
 app.use('/routes/accounts', accountsRoutes);
 
-// Serve Frontend Static Files (adjusted path to point to client/dist)
-app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
+app.use(express.static(path.join(__dirname, "../client/dist")));
 
-// Catch-All Route to Serve index.html for Client-Side Routing
-app.get('*', (req, res) => {
-  if (req.path.startsWith('/routes/') || req.path.startsWith('/uploads/')) {
-    return res.status(404).send("Route not found");
-  }
-
-  // Adjusted path to find index.html in the correct location
-  res.sendFile(path.join(__dirname, '..', 'client', 'dist', 'index.html'));
+// Catch-all route to serve the React app (if no API route matches)
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/dist/index.html"), (err) => {
+    if (err) {
+      res.status(500).send(err);
+    }
+  });
 });
+
 
 // 404 Handler for Non-Route and Non-Static Routes
 app.use((req, res) => {
