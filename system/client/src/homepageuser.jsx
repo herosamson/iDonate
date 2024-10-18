@@ -9,7 +9,7 @@ import pic from './pic14.jpg';
 import pic1 from './pic9.jpg';
 import pic2 from './pic15.jpg';
 import pic3 from './pic16.jpg';
-import logolatest from './logolatest.jpg';
+import logolatest from './imagenew.png';
 
 function HomepageU({ firstname  }) {
 
