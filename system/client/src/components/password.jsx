@@ -43,7 +43,7 @@ function ChangePassword() {
             <img className="logoVerify" src={logo} alt="Logo" />
           </a>
         </div>
-        <h3>You can now change your password.</h3>
+      <center> <h3>You can now change your password.</h3></center> 
         <form onSubmit={handlePasswordChange}>
           <input
             type="password"

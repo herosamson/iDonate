@@ -57,27 +57,22 @@ router.put('/user/change-password/:id', async (req, res) => {
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    // Find user across roles and update their password
-    const user = await Promise.any([
-      SuperAdmin.findByIdAndUpdate(req.params.id, { password: hashedPassword }, { new: true, fields: { password: 0 } }),
-      Admin.findByIdAndUpdate(req.params.id, { password: hashedPassword }, { new: true, fields: { password: 0 } }),
-      Staff.findByIdAndUpdate(req.params.id, { password: hashedPassword }, { new: true, fields: { password: 0 } }),
-      Register.findByIdAndUpdate(req.params.id, { password: hashedPassword }, { new: true, fields: { password: 0 } })
-    ]);
+    // Try updating for each role
+    const superAdmin = await SuperAdmin.findByIdAndUpdate(req.params.id, { password: hashedPassword }, { new: true, fields: { password: 0 } });
+    const admin = await Admin.findByIdAndUpdate(req.params.id, { password: hashedPassword }, { new: true, fields: { password: 0 } });
+    const staff = await Staff.findByIdAndUpdate(req.params.id, { password: hashedPassword }, { new: true, fields: { password: 0 } });
+    const register = await Register.findByIdAndUpdate(req.params.id, { password: hashedPassword }, { new: true, fields: { password: 0 } });
 
-    if (!user) {
-      return res.status(404).json({ message: 'User not found in any role' });
+    if (superAdmin || admin || staff || register) {
+      return res.status(200).json({ message: 'Password updated successfully' });
     }
 
-    res.status(200).json({ message: 'Password updated successfully' });
+    return res.status(404).json({ message: 'User not found in any role' });
   } catch (error) {
-    if (error instanceof AggregateError) {
-      // Handle the case where none of the roles were updated
-      return res.status(404).json({ message: 'User not found in any role' });
-    }
     res.status(500).json({ message: error.message });
   }
 });
+
 
 
 
