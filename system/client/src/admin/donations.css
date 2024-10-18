@@ -212,6 +212,8 @@ body {
   width: 200px;
   background-color: #fff;
   appearance: none;
+  align-items: center;
+  justify-content: center;
 }
 
 
