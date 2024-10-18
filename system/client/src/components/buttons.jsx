@@ -1,7 +1,7 @@
 import React from 'react';
 import './buttons.css';
 import { Link } from 'react-router-dom'; 
-import logo from './logo1.png';
+import logo from './imagenew.png';
 import foodImage from './pic13.jpg'; 
 import financialImage from './pic10.jpg';
 import medicalImage from './pic15.jpg';

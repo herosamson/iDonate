@@ -2,6 +2,7 @@ import React from 'react';
 import './aboutus.css';
 import logo from './logo1.png'; 
 import { Link } from 'react-router-dom';
+import logolatest from './imagenew.png';
 
 class About extends React.Component {
   render() {
@@ -9,7 +10,7 @@ class About extends React.Component {
       <div className="homepage">
       <header className="header">
         <div className="logo">
-          <img className="logo" src={logo} alt="Logo" />
+          <img className="logo" src={logolatest} alt="Logo" />
         </div>
         <nav className="navigation">
           <ul>

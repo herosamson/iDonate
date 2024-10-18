@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './cash.css';
-import logo from './logo1.png';
+import logo from './imagenew.png';
 import logoG from './logoG.png';
 import logoM from './picM.jpg';
 import logobpi from './bpi.png';

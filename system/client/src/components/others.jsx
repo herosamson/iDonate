@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './others.css'; // Ensure your CSS handles new elements appropriately
-import logo from './logo1.png';
+import logo from './imagenew.png';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Others = () => {

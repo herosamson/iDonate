@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './request.css';
-import logo from './logo1.png';
+import logo from './imagenew.png';
 import { Link } from 'react-router-dom';
 
 

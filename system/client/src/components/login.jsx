@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import './login.css';
 import logo from './logo1.png';
-import yLogo from './yahoo.png';
 import pic from './pic2.jpg';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Importing eye icons
-
-import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 
 function Login({ onLogin }) {
   const [loginData, setLoginData] = useState({

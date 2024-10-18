@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import './profile.css';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import logo from './logo1.png';
+import logo from './imagenew.png';
 
 const Profile = ({ username }) => {
   const [user, setUser] = useState(null);
