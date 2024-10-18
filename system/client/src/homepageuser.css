@@ -36,6 +36,7 @@
     display: flex;
     align-items: center;
     margin-right: 40px; /* Adjust margin as needed */
+    color: white;
 }
 
 .navigation ul {
@@ -43,6 +44,7 @@
     display: flex;
     margin-left: auto; /* Push navigation to the right */
     margin-bottom: 1%; /* Move down the logo */
+    color: white;
 }
 
 .navigation li {
@@ -52,7 +54,7 @@
 
 .navigation a {
     text-decoration: none;
-    color: #333;
+    color: white;
     font-weight: bold;
     font-size: 140%;
 }
@@ -122,7 +124,7 @@
   font-size: 1.5rem; /* Adjust font size */
   margin-bottom: 10px;
   text-align: center;
-  background-color: #740000;
+  color: #740000;
 }
 
 

@@ -433,16 +433,22 @@ const Donations = () => {
     return Array.from({ length: 10 }, (_, i) => i + 1).filter(number => !usedCabinetNumbers.includes(number));
   };
   const getAvailableColumns = (cabinetNumber) => {
-    const cabinet = cabinets.find(c => c.cabinetNumber === cabinetNumber);
-    const usedColumns = cabinet ? cabinet.locations.map(location => location.column) : [];
-    return Array.from({ length: 10 }, (_, i) => i + 1).filter(col => !usedColumns.includes(col));
+    const cabinet = cabinets.find(c => c.cabinetNumber === cabinetNumber); // Find the selected cabinet
+    const usedColumns = cabinet ? cabinet.locations.map(location => location.column) : []; // Get the used columns
+    return Array.from({ length: 10 }, (_, i) => i + 1).filter(col => !usedColumns.includes(col)); // Exclude used columns
   };
   
+  
   const getAvailableRows = (cabinetNumber, column) => {
-    const cabinet = cabinets.find(c => c.cabinetNumber === cabinetNumber);
-    const usedRows = cabinet ? cabinet.locations.filter(loc => loc.column === column).map(loc => loc.row) : [];
-    return Array.from({ length: 10 }, (_, i) => i + 1).filter(row => !usedRows.includes(row));
+    const cabinet = cabinets.find(c => c.cabinetNumber === cabinetNumber); // Find the selected cabinet
+    const usedRows = cabinet 
+      ? cabinet.locations
+          .filter(loc => loc.column === column) // Get only the locations for the selected column
+          .map(loc => loc.row) 
+      : [];
+    return Array.from({ length: 10 }, (_, i) => i + 1).filter(row => !usedRows.includes(row)); // Exclude used rows
   };
+  
   
 
   if (loading) return <div class="loader loader_bubble"></div>;
@@ -700,7 +706,7 @@ const Donations = () => {
       <span className="close-button" onClick={() => setModalOpen(false)}>&times;</span>
       {!selectedDonation?.location ? (
         <div className="modal-headerAccounts">
-          <h2>Assign Location</h2>
+         <h2>Assign Location</h2>
           <form>
             <div className="form-group">
               <label><strong>Cabinet:</strong></label>
@@ -740,6 +746,7 @@ const Donations = () => {
                     </option>
                   ))}
                 </select>
+                
               </div>
             )}
             {availableRows.length > 0 && (
@@ -758,11 +765,12 @@ const Donations = () => {
                     </option>
                   ))}
                 </select>
+                
               </div>
             )}
             
             {locationError && <p className="error">{locationError}</p>}
-            <button type="button" onClick={submitLocation} className="submit-buttonAdd">Submit</button>
+            <center> <button type="button" onClick={submitLocation} className="submit-buttonAdd">Submit</button></center> 
           </form>
         </div>
       ) : (

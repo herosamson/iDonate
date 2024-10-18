@@ -521,7 +521,7 @@ fetchTotalItemDonations();
         </div>
         <h2>Consumed and Unconsumed Items</h2>
         <div className="pie-chart-container">
-          <RePieChart width={600} height={400}>
+          <RePieChart width={700} height={400}>
             <Pie
               data={pieChartData}
               dataKey="value"
