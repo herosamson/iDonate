@@ -168,7 +168,9 @@ body {
     display: block;
     margin-bottom: 5px;
   }
-  
+  .consume-button {
+    background-color: #740000 !important;;
+  }
   .item-formi .form-groupi input {
     width: 100%;
     padding: 8px;

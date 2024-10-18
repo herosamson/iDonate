@@ -420,7 +420,7 @@ fetchTotalItemDonations();
   const pieColors = ['#2a9cd5', '#b513ec']; 
   const pieChartData = [
     { name: 'Consumed Items', value: consumedPercentage },
-    { name: 'Available Items', value: availablePercentage }
+    { name: 'Unconsumed Items', value: availablePercentage }
   ];
 
   const totalDonatedTo = Object.values(donatedToStats).reduce((sum, val) => sum + val, 0);

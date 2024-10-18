@@ -683,9 +683,9 @@ const Donations = () => {
           </select>
         </div>
         {addCabinetError && <p className="error">{addCabinetError}</p>}
-        <button type="submit" className="submit-buttonAdd1" disabled={getAvailableCabinetNumbers().length === 0}>
+        <center>  <button type="submit" className="submit-buttonAdd1" disabled={getAvailableCabinetNumbers().length === 0}>
           Add Cabinet
-        </button>
+        </button></center> 
         {getAvailableCabinetNumbers().length === 0 && (
           <p className="error">All cabinet numbers (1-10) are already in use.</p>
         )}
@@ -703,7 +703,7 @@ const Donations = () => {
          <h2>Assign Location</h2>
           <form>
             <div className="form-group">
-              <label><strong>Cabinet:</strong></label>
+          <center><label><strong>Cabinet:</strong></label>
               <select
                 value={location.cabinet}
                 onChange={(e) => {
@@ -719,12 +719,12 @@ const Donations = () => {
                     {cabinetNumber}
                   </option>
                 ))}
-              </select>
+              </select></center> 
             </div>
             {availableColumns.length > 0 && (
               <div className="form-group">
                 <label><strong>Column:</strong></label>
-                <select
+                <center> <select
                   value={location.column}
                   onChange={(e) => {
                     setLocation({ ...location, column: e.target.value });
@@ -739,13 +739,13 @@ const Donations = () => {
                       {col}
                     </option>
                   ))}
-                </select>
+                </select></center> 
                 
               </div>
             )}
             {availableRows.length > 0 && (
               <div className="form-group">
-                <label><strong>Row:</strong></label>
+               <center>  <label><strong>Row:</strong></label>
                 <select
                   value={location.row}
                   onChange={(e) => setLocation({ ...location, row: e.target.value })}
@@ -758,13 +758,13 @@ const Donations = () => {
                       {row}
                     </option>
                   ))}
-                </select>
+                </select></center> 
                 
               </div>
             )}
             
             {locationError && <p className="error">{locationError}</p>}
-            <center> <button type="button" onClick={submitLocation} className="submit-buttonAdd">Submit</button></center>
+            <button type="button" onClick={submitLocation} className="submit-buttonAdd">Submit</button>
           </form>
         </div>
       ) : (
