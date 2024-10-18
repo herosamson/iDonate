@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './email.css';
-import logo from './imagenew.png';
+import logo from './logo1.png';
 import pic from './pic2.jpg';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';

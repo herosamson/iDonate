@@ -284,7 +284,6 @@ const Others = () => {
         <div className="donation-container">
           {error && <p className="error-message">{error}</p>}
           <div className="input-container">
-            <h3>Donations:</h3>
             <label htmlFor="category">Category<span style={{color: 'red'}}> *</span>:</label>
             <select 
               id="category"

@@ -247,7 +247,7 @@ const Receipt = () => {
               />
             </div>
             <div className="form-group">
-              <label>Amount of Donation based on Proof of Cash Donation:</label>
+              <label>Amount of Donation based on Proof of Cash Donation<span style={{color: 'red'}}> *</span>:</label>
               <input
                 type="text"
                 name="amount"
@@ -258,7 +258,7 @@ const Receipt = () => {
               />
             </div>
             <div className="form-group">
-              <label>Upload Proof of Cash Donation:</label>
+              <label>Upload Proof of Cash Donation<span style={{color: 'red'}}> *</span>:</label>
               <input
                 type="file"
                 name="image"
@@ -268,7 +268,7 @@ const Receipt = () => {
               />
             </div>
             <div className="form-group">
-              <label>Date of Donation:</label>
+              <label>Date of Donation<span style={{color: 'red'}}> *</span>:</label>
               <input
                 type="date"
                 name="date"
