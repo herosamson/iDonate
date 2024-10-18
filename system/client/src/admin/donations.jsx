@@ -433,22 +433,16 @@ const Donations = () => {
     return Array.from({ length: 10 }, (_, i) => i + 1).filter(number => !usedCabinetNumbers.includes(number));
   };
   const getAvailableColumns = (cabinetNumber) => {
-    const cabinet = cabinets.find(c => c.cabinetNumber === cabinetNumber); // Find the selected cabinet
-    const usedColumns = cabinet ? cabinet.locations.map(location => location.column) : []; // Get the used columns
-    return Array.from({ length: 10 }, (_, i) => i + 1).filter(col => !usedColumns.includes(col)); // Exclude used columns
+    const cabinet = cabinets.find(c => c.cabinetNumber === cabinetNumber);
+    const usedColumns = cabinet ? cabinet.locations.map(location => location.column) : [];
+    return Array.from({ length: 10 }, (_, i) => i + 1).filter(col => !usedColumns.includes(col));
   };
-  
   
   const getAvailableRows = (cabinetNumber, column) => {
-    const cabinet = cabinets.find(c => c.cabinetNumber === cabinetNumber); // Find the selected cabinet
-    const usedRows = cabinet 
-      ? cabinet.locations
-          .filter(loc => loc.column === column) // Get only the locations for the selected column
-          .map(loc => loc.row) 
-      : [];
-    return Array.from({ length: 10 }, (_, i) => i + 1).filter(row => !usedRows.includes(row)); // Exclude used rows
+    const cabinet = cabinets.find(c => c.cabinetNumber === cabinetNumber);
+    const usedRows = cabinet ? cabinet.locations.filter(loc => loc.column === column).map(loc => loc.row) : [];
+    return Array.from({ length: 10 }, (_, i) => i + 1).filter(row => !usedRows.includes(row));
   };
-  
   
 
   if (loading) return <div class="loader loader_bubble"></div>;
@@ -770,7 +764,7 @@ const Donations = () => {
             )}
             
             {locationError && <p className="error">{locationError}</p>}
-            <center> <button type="button" onClick={submitLocation} className="submit-buttonAdd">Submit</button></center> 
+            <center> <button type="button" onClick={submitLocation} className="submit-buttonAdd">Submit</button></center>
           </form>
         </div>
       ) : (

@@ -46,7 +46,6 @@ const generateDonationId = () => {
   return crypto.randomBytes(4).toString('hex').slice(0, 7);
 };
 
-// Update user password (for all roles)
 router.put('/user/change-password/:id', async (req, res) => {
   const { password } = req.body;
 
@@ -58,23 +57,28 @@ router.put('/user/change-password/:id', async (req, res) => {
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    // Find user across roles
-    const updatedUser = await Promise.any([
+    // Find user across roles and update their password
+    const user = await Promise.any([
       SuperAdmin.findByIdAndUpdate(req.params.id, { password: hashedPassword }, { new: true, fields: { password: 0 } }),
       Admin.findByIdAndUpdate(req.params.id, { password: hashedPassword }, { new: true, fields: { password: 0 } }),
       Staff.findByIdAndUpdate(req.params.id, { password: hashedPassword }, { new: true, fields: { password: 0 } }),
       Register.findByIdAndUpdate(req.params.id, { password: hashedPassword }, { new: true, fields: { password: 0 } })
     ]);
 
-    if (!updatedUser) {
-      return res.status(404).json({ message: 'User not found' });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found in any role' });
     }
 
     res.status(200).json({ message: 'Password updated successfully' });
   } catch (error) {
+    if (error instanceof AggregateError) {
+      // Handle the case where none of the roles were updated
+      return res.status(404).json({ message: 'User not found in any role' });
+    }
     res.status(500).json({ message: error.message });
   }
 });
+
 
 
 // Forgot password OTP email (for all roles)
