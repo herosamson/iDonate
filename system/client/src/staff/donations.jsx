@@ -434,10 +434,7 @@ const Donations = () => {
     return allCabinetNumbers.filter(number => !usedCabinets.includes(number));
   };
 
-  if (loading) {
-    return <div class="loader loader_bubble" className="loading"></div>;
-    /* From Uiverse.io by mrhyddenn */ 
-  }
+  if (loading) return <div class="loader loader_bubble"></div>;
   if (error) return <div>{error}</div>;
 
   return (

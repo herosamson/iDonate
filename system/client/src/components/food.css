@@ -94,3 +94,6 @@
     display: flex;
     gap: 50px; /* Add some gap between the wishlist and table */
   }
+  .containerDo h3 {
+    margin-top: -10px;
+  }

@@ -314,9 +314,7 @@ function Inventory() {
   }, [donations]);
 
   // Render Loading or Error States
-  if (loading) {
-    return <div class="loader loader_bubble" className="loading"></div>;
-  }
+  if (loading) return <div class="loader loader_bubble"></div>;
 
   if (error) {
     return <div className="error-message">Error loading donations. Please try again later.</div>;

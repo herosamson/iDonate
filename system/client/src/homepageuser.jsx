@@ -5,30 +5,14 @@ import { FaYoutube, FaFacebookF, FaInstagram, FaTiktok, FaCheckCircle  } from 'r
 import Button from '@mui/material/Button';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import pic from './pic14.jpg';
-import pic1 from './pic9.jpg';
 import pic2 from './pic15.jpg';
-import pic3 from './pic16.jpg';
 import logolatest from './imagenew.png';
 
 function HomepageU({ firstname  }) {
 
   const images = [
-    pic,
-    pic3,
     pic2, 
-    pic1,
   ];
-
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 4000); // Change image every 2 seconds
-
-    return () => clearInterval(interval); // Clean up the interval on component unmount
-  }, [images.length]);
 
   useEffect(() => {
     if (firstname) {

@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import pic from './pic14.jpg';
-import pic1 from './pic9.jpg';
 import pic2 from './pic15.jpg';
-import pic3 from './pic16.jpg';
 import logolatest from './imagenew.png';
 import './homepage.css'; 
 import { FaYoutube, FaFacebookF, FaInstagram, FaTiktok } from 'react-icons/fa';
@@ -12,20 +9,7 @@ import Button from '@mui/material/Button';
 function Homepage() {
   const images = [
     pic2, 
-    pic1,
-    pic,
-    pic3,
   ];
-
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 4000); // Change image every 2 seconds
-
-    return () => clearInterval(interval); // Clean up the interval on component unmount
-  }, [images.length]);
 
   return (
     <div className="homepage">

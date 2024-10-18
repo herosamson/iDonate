@@ -84,10 +84,13 @@
     top: 130px;
   }
   .request-containermedical {
-    margin-top: -10px;
     position: absolute;
     top: 150px;
     left: 140px; /* Adjust the left position to align it to the left side */
     display: flex;
     gap: 50px; /* Add some gap between the wishlist and table */
+  }
+
+  .containerDo h3 {
+    margin-top: -10px;
   }
