@@ -123,8 +123,8 @@ function HomepageU({ firstname  }) {
           <section className="additional-content">
             <section className="left-content1"></section>
             <div className="right-content">
-              <h3>MINOR BASILICA OF THE BLACK NAZARENE</h3>
-              <h3>SAINT JOHN THE BAPTIST PARISH | QUIAPO CHURCH</h3>
+              <h2>MINOR BASILICA OF THE BLACK NAZARENE</h2>
+              <h2>SAINT JOHN THE BAPTIST PARISH | QUIAPO CHURCH</h2>
               <h3>Mission/Vision</h3>
               <br />
               <p>“A people called by the Father in Jesus Christ to be a community of persons with</p>

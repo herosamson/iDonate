@@ -102,6 +102,10 @@
   color:#000;
   justify-content: left;
 }
+.right-content h2{
+  text-align: center;
+  color: #740000;
+}
 
 .left-content1 {
   background-image: url('./pic10.jpg');
