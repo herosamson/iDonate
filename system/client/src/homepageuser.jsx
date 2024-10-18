@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import logo from './logo1.png';
 import './homepageuser.css';
 import { FaYoutube, FaFacebookF, FaInstagram, FaTiktok, FaCheckCircle  } from 'react-icons/fa';
 import Button from '@mui/material/Button';
-import { PieChart } from '@mui/x-charts/PieChart';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import pic from './pic14.jpg';
 import pic1 from './pic9.jpg';
 import pic2 from './pic15.jpg';
 import pic3 from './pic16.jpg';
+import logolatest from './logolatest.jpg';
 
 function HomepageU({ firstname  }) {
 
@@ -84,7 +83,7 @@ function HomepageU({ firstname  }) {
     <div className="homepage">
       <header className="header">
         <div className="logo">
-          <img className="logo" src={logo} alt="Logo" />
+          <img className="logo" src={logolatest} alt="Logo" />
         </div>
         <nav className="navigation">
           <ul>

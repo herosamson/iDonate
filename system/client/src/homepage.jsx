@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import logo from './logo1.png';
 import pic from './pic14.jpg';
 import pic1 from './pic9.jpg';
 import pic2 from './pic15.jpg';
 import pic3 from './pic16.jpg';
+import logolatest from './logolatest.jpg';
 import './homepage.css'; 
 import { FaYoutube, FaFacebookF, FaInstagram, FaTiktok } from 'react-icons/fa';
 import Button from '@mui/material/Button';
@@ -31,7 +31,7 @@ function Homepage() {
     <div className="homepage">
       <header className="header">
         <div className="logo">
-          <img className="logo" src={logo} alt="Logo" />
+          <img className="logo" src={logolatest} alt="Logo" />
         </div>
         <nav className="navigation">
           <ul>
