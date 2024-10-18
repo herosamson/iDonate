@@ -12,7 +12,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #ebebeb;
+    background-color: #740000;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     position: sticky;
     top: 0;
@@ -47,6 +47,7 @@
 
 .navigation li {
     margin-right: 2rem;
+    color: white;
 }
 
 .navigation a {
@@ -120,7 +121,10 @@
 .right-content h3 {
   font-size: 1.5rem; /* Adjust font size */
   margin-bottom: 10px;
+  text-align: center;
+  background-color: #740000;
 }
+
 
 .right-content p {
   font-size: 1rem; /* Adjust font size */

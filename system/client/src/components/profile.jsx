@@ -97,24 +97,8 @@ const Profile = ({ username }) => {
   };
 
   const handleSave = async () => {
-    const nameRegex = /^[A-Za-z]+$/;
-    const emailRegex = /^[A-Za-z0-9._%+-]+@(gmail\.com)$/;
     const contactRegex = /^09\d{9}$/;
-  
-    if (!nameRegex.test(editData.firstname)) {
-      alert('First name must contain only letters.');
-      return;
-    }
-  
-    if (!nameRegex.test(editData.lastname)) {
-      alert('Last name must contain only letters.');
-      return;
-    }
-  
-    if (!emailRegex.test(editData.email)) {
-      alert('Email must be a valid Gmail.');
-      return;
-    }
+
   
     if (!contactRegex.test(editData.contact)) {
       alert('Please enter a valid Contact Number.');
