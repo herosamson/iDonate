@@ -79,15 +79,27 @@ router.put('/user/change-password/:id', async (req, res) => {
 
 
 
-// Forgot password OTP email (for all roles)
 router.post('/send-reset-otp', async (req, res) => {
   try {
     const { email } = req.body;
     console.log(email);
-    // Find user across roles
-    const user = await SuperAdmin.findOne({ email: email });
+    
+    let user = await SuperAdmin.findOne({ email: email });
+    
+    if (!user) {
+      user = await Admin.findOne({ email: email });
+    }
+    
+    if (!user) {
+      user = await Staff.findOne({ email: email });
+    }
+    
+    if (!user) {
+      user = await Register.findOne({ email: email });
+    }
 
-console.log(user);
+    console.log(user);
+    
     if (!user) {
       return res.json({ error: "No account found with this email." });
     }
@@ -128,6 +140,7 @@ console.log(user);
     res.status(500).json({ error: "Server error while sending OTP." });
   }
 });
+
 
 
 // register email verification
