@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './homepageuser.css';
 import { FaYoutube, FaFacebookF, FaInstagram, FaTiktok, FaCheckCircle  } from 'react-icons/fa';
@@ -8,17 +8,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import pic2 from './pic15.jpg';
 import logolatest from './imagenew.png';
 
-function HomepageU({ firstname  }) {
+function HomepageU({ firstname }) {
 
-  const images = [
-    pic2, 
-  ];
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  useEffect(() => {
-
-    return () => clearInterval(interval); // Clean up the interval on component unmount
-  }, [images.length]);
   useEffect(() => {
     if (firstname) {
       toast(<CustomToastMessage firstname={firstname}/>, {
@@ -61,7 +52,7 @@ function HomepageU({ firstname  }) {
     }
   };
 
-  const CustomToastMessage = ({ firstname}) => (
+  const CustomToastMessage = ({ firstname }) => (
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <FaCheckCircle style={{ marginRight: '10px', color: 'green', fontSize: '20px' }} />
       <span>Welcome, {firstname}!</span>
@@ -84,7 +75,8 @@ function HomepageU({ firstname  }) {
         </nav>
       </header>
       <div className="homepagebody">
-        <section className="header-section1" style={{ backgroundImage: `url(${images[currentImageIndex]})` }}>
+        {/* Static Image Section */}
+        <section className="header-section1" style={{ backgroundImage: `url(${pic2})` }}>
           <div className="header-content">
             <h2>Donate</h2>
             <p>Help Affected Communities</p>
@@ -108,6 +100,7 @@ function HomepageU({ firstname  }) {
             </Link>
           </div>
         </section>
+
         <main className="main1">
           <section className="additional-content">
             <section className="left-content1"></section>
@@ -127,38 +120,44 @@ function HomepageU({ firstname  }) {
             </div>
           </section>
         </main>
+
+        {/* Donation Methods */}
         <main className="main2">
           <section className="additional-content2">
-          <div className="cardhome">
-          <div class="card-imagebpi"></div>
-             <center> <p class="card-title">BPI</p></center>
-              <p class="card-body"><strong>Account Name: RCAM-Minor Basilica of the Black Nazarene</strong></p>
-              <p class="card-body">Peso Savings Account # 2273-0504-37</p>
-              <p class="card-body">Dollars Savings Account # 2274-0026-22</p>
-              <p class="card-body">Swift Code - BIC: B O P I P H M M</p>
-            </div>
             <div className="cardhome">
-            <div class="card-imagebdo"></div>
-            <center> <p class="card-title">BDO</p></center>
-            <p class="card-body"><strong>Account Name: RCAM-Minor Basilica of the Black Nazarene</strong></p>
-              <p class="card-body">Peso Savings Account # 00454-0037-172</p>
-              <p class="card-body">Dollars Savings Account # 10454-0037-164</p>
-              <p class="card-body">Swift Code - BIC: B N O R P H M M</p>
+              <div className="card-imagebpi"></div>
+              <center> <p className="card-title">BPI</p></center>
+              <p className="card-body"><strong>Account Name: RCAM-Minor Basilica of the Black Nazarene</strong></p>
+              <p className="card-body">Peso Savings Account # 2273-0504-37</p>
+              <p className="card-body">Dollars Savings Account # 2274-0026-22</p>
+              <p className="card-body">Swift Code - BIC: B O P I P H M M</p>
             </div>
+
             <div className="cardhome">
-            <div class="card-imagemaya"></div>
-            <center> <p class="card-title">Paymaya</p></center>
-            <p class="card-body">Mobile Number: 0961 747 7003</p>
-              <p class="card-body">Name: Rufino Sescon, Jr.</p>
+              <div className="card-imagebdo"></div>
+              <center> <p className="card-title">BDO</p></center>
+              <p className="card-body"><strong>Account Name: RCAM-Minor Basilica of the Black Nazarene</strong></p>
+              <p className="card-body">Peso Savings Account # 00454-0037-172</p>
+              <p className="card-body">Dollars Savings Account # 10454-0037-164</p>
+              <p className="card-body">Swift Code - BIC: B N O R P H M M</p>
             </div>
+
             <div className="cardhome">
-            <div class="card-imagegcash"></div>
-            <center><p class="card-title">GCash</p></center>
-             <p class="card-body">Mobile Number: 0966 863 9861</p>
-              <p class="card-body">Name: Rufino Sescon, Jr.</p>
+              <div className="card-imagemaya"></div>
+              <center> <p className="card-title">Paymaya</p></center>
+              <p className="card-body">Mobile Number: 0961 747 7003</p>
+              <p className="card-body">Name: Rufino Sescon, Jr.</p>
+            </div>
+
+            <div className="cardhome">
+              <div className="card-imagegcash"></div>
+              <center><p className="card-title">GCash</p></center>
+              <p className="card-body">Mobile Number: 0966 863 9861</p>
+              <p className="card-body">Name: Rufino Sescon, Jr.</p>
             </div>
           </section>
         </main>
+
         <footer className="footer">
           <div className="social-icons">
             <a href="https://www.facebook.com/quiapochurch" target="_blank" rel="noopener noreferrer">
@@ -176,6 +175,7 @@ function HomepageU({ firstname  }) {
           </div>
           <p>&copy; 2024 iDonate. All rights reserved.</p>
         </footer>
+
         <ToastContainer />
       </div>
     </div>
