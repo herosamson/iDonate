@@ -14,7 +14,7 @@ function Email() {
     e.preventDefault();
 
     try {
-      const response = await axios.post(`/routes/accounts/send-reset-otp`, { email: email });
+      const response = await axios.post(`/routes/accounts/send-reset-otp`, { email });
       if (response.data.error) {
         alert(response.data.error);
       } else {
