@@ -85,10 +85,10 @@ router.post('/send-reset-otp', async (req, res) => {
     let user;
     try {
       user = await Promise.any([
-        SuperAdmin.findOne({ email }),
-        Admin.findOne({ email }),
-        Staff.findOne({ email }),
-        Register.findOne({ email })
+        SuperAdmin.findOne({ email: email }),
+        Admin.findOne({ email: email }),
+        Staff.findOne({ email: email }),
+        Register.findOne({ email: email })
       ]);
     } catch (error) {
       return res.json({ error: "No account found with this email." });

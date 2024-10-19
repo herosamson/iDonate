@@ -103,7 +103,7 @@ function Login({ onLogin }) {
   <center>
     {isIncorrectPassword && (
       <p className="incorrect-password-message">
-        Incorrect username or password. <Link to="/email">Forgot password?</Link>
+        Incorrect username or password.
       </p>
     )}
   </center>
