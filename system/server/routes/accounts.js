@@ -80,21 +80,26 @@ router.post('/send-reset-otp', async (req, res) => {
   try {
     const { email } = req.body;
     
+    let user; // Declare the user variable in the outer scope
+
     // Try to find the user across different roles
     try {
-      const user = await Promise.any([
+      user = await Promise.any([
         SuperAdmin.findOne({ email: email }),
         Admin.findOne({ email: email }),
         Staff.findOne({ email: email }),
         Register.findOne({ email: email })
       ]);
 
-      console.log(user)
+      console.log(user);
     } catch (error) {
       return res.json({ error: "No account found with this email." });
     }
 
-    console.log(user);
+    // Now `user` is accessible here
+    if (!user) {
+      return res.json({ error: "No account found with this email." });
+    }
 
     // Generate OTP
     const otp = `${Math.floor(100000 + Math.random() * 900000)}`;
@@ -135,6 +140,7 @@ router.post('/send-reset-otp', async (req, res) => {
     res.status(500).json({ error: "Server error while sending OTP." });
   }
 });
+
 
 
 
