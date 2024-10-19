@@ -11,4 +11,6 @@ const StaffSchema = new Schema({
   password: { type: String, required: true },
 }, { timestamps: true });
 
-module.exports = mongoose.model('Staff', StaffSchema);
+const Staff = mongoose.model('Staff', StaffSchema);
+
+module.exports = Staff;

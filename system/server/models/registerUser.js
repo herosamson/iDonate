@@ -11,4 +11,6 @@ const RegisterSchema = new mongoose.Schema({
   verified: { type: Boolean, default: false } 
 }, { timestamps: true });
 
-module.exports = mongoose.model('Register', RegisterSchema);
+const User = mongoose.model('Register', RegisterSchema);
+
+module.exports = User;
