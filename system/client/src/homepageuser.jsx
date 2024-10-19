@@ -13,7 +13,12 @@ function HomepageU({ firstname  }) {
   const images = [
     pic2, 
   ];
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+  useEffect(() => {
+
+    return () => clearInterval(interval); // Clean up the interval on component unmount
+  }, [images.length]);
   useEffect(() => {
     if (firstname) {
       toast(<CustomToastMessage firstname={firstname}/>, {
