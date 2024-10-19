@@ -107,6 +107,9 @@ function Login({ onLogin }) {
       </p>
     )}
   </center>
+  <div className="bo">
+  <Link to="/email">Forgot password?</Link>
+          </div>
   <div className="button-container">
     <button type="submit">Login</button>
   </div>

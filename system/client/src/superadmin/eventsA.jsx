@@ -444,10 +444,10 @@ function EventsA() {
             </tbody>
           </table>
           {selectedEvents.length > 0 && (
-            <button className="eventsbutton" onClick={downloadSelectedEvents}>Download Selected Events</button>
+            <button className="eventse" onClick={downloadSelectedEvents}>Download Selected Events</button>
             
           )}
-          <button onClick={showModalHistory}>View Events History</button>
+          <button className="eventse" onClick={showModalHistory}>View Events History</button>
         </div>
       </div>
 
