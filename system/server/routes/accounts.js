@@ -86,12 +86,12 @@ router.post('/send-reset-otp', async (req, res) => {
     console.log(email);
     // Find user across roles
     const user = await Promise.any([
-      SuperAdmin.findOne({ email }),
-      Admin.findOne({ email }),
-      Register.findOne({ email }),
-      Staff.findOne({ email })
+      SuperAdmin.findOne({ email: email }),
+      Admin.findOne({email: email }),
+      Register.findOne({email: email }),
+      Staff.findOne({ email: email })
     ]);
-
+console.log(user);
     if (!user) {
       return res.json({ error: "No account found with this email." });
     }
