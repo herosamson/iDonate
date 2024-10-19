@@ -83,7 +83,7 @@ router.put('/user/change-password/:id', async (req, res) => {
 router.post('/send-reset-otp', async (req, res) => {
   try {
     const { email } = req.body;
-
+    console.log(email);
     // Find user across roles
     const user = await Promise.any([
       SuperAdmin.findOne({ email }),

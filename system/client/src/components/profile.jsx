@@ -104,6 +104,11 @@ const Profile = ({ username }) => {
       alert('Please enter a valid Contact Number.');
       return;
     }
+
+  if (!editData.address || editData.address.trim() === "") {
+    alert('Address is required.');
+    return;
+  }
   
     try {
       const response = await axios.put(`/routes/accounts/user/${username}`, editData);
