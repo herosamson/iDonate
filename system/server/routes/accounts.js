@@ -76,38 +76,32 @@ router.put('/user/change-password/:id', async (req, res) => {
   }
 });
 
-
-
-
 router.post('/send-reset-otp', async (req, res) => {
   try {
     const { email } = req.body;
     console.log(email);
     
-    let user = await SuperAdmin.findOne({ email: email });
-    
-    if (!user) {
-      user = await Admin.findOne({ email: email });
-    }
-    
-    if (!user) {
-      user = await Staff.findOne({ email: email });
-    }
-    
-    if (!user) {
-      user = await Register.findOne({ email: email });
-    }
-
-    console.log(user);
-    
-    if (!user) {
+    // Try to find the user across different roles
+    let user;
+    try {
+      user = await Promise.any([
+        SuperAdmin.findOne({ email }),
+        Admin.findOne({ email }),
+        Staff.findOne({ email }),
+        Register.findOne({ email })
+      ]);
+    } catch (error) {
       return res.json({ error: "No account found with this email." });
     }
 
+    console.log(user);
+
+    // Generate OTP
     const otp = `${Math.floor(100000 + Math.random() * 900000)}`;
     const saltrounds = 10;
     const hashedOTP = await bcrypt.hash(otp, saltrounds);
 
+    // Save OTP verification data
     const newOTPVerification = new OTPVerification({
       userId: user._id,
       otp: hashedOTP,
@@ -117,6 +111,7 @@ router.post('/send-reset-otp', async (req, res) => {
 
     await newOTPVerification.save();
 
+    // Send OTP via email
     const mailOptions = {
       from: "idonate2024@gmail.com",
       to: email,
@@ -124,9 +119,9 @@ router.post('/send-reset-otp', async (req, res) => {
       html: `<p>Good Day!</p>
       <p>You have requested to reset your password. To proceed, 
       please use the following One-Time Password (OTP) for verification:</p>
-     <p>Your OTP is:</p><h3>${otp}</h3>
-     <p>This OTP is valid for 1 hour. For your security, please do not share this OTP with anyone,
-      and avoid entering it on any suspicious links or websites. </p>
+      <p>Your OTP is:</p><h3>${otp}</h3>
+      <p>This OTP is valid for 1 hour. For your security, please do not share this OTP with anyone,
+      and avoid entering it on any suspicious links or websites.</p>
       <p>If you did not request a password reset, please ignore this message, 
       and your account will remain secure.</p>
       <p>Thank you for using our services.</p>`,
@@ -140,6 +135,7 @@ router.post('/send-reset-otp', async (req, res) => {
     res.status(500).json({ error: "Server error while sending OTP." });
   }
 });
+
 
 
 
