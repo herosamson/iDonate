@@ -333,21 +333,25 @@ router.post('/login', loginLimiter, async (req, res) => {
   try {
     let user = null;
     let role = '';
+    
     const admin = await Admin.findOne({ username });
     if (admin && await bcrypt.compare(password, admin.password)) {
       user = admin;
       role = 'admin';
     }
+    
     const staff = await Staff.findOne({ username });
     if (staff && await bcrypt.compare(password, staff.password)) {
       user = staff;
       role = 'staff';
     }
+    
     const registeredUser = await Register.findOne({ username });
     if (registeredUser && await bcrypt.compare(password, registeredUser.password)) {
       user = registeredUser;
       role = 'user';
     }
+    
     const superadmin = await SuperAdmin.findOne({ username });
     if (superadmin && await bcrypt.compare(password, superadmin.password)) {
       user = superadmin;
@@ -364,10 +368,10 @@ router.post('/login', loginLimiter, async (req, res) => {
       return res.status(403).json({ message: 'Account not verified. Please verify your email before logging in.' });
     }
 
-    // Log the activity
-    await LogActivity('Logged in', user._id, role);  // Ensure LogActivity is async if it involves DB or IO operations.
+    // Log the login activity
+    LogActivity('Logged in', user.username, role);
 
-    // Successfully authenticated, prepare response
+    // Send the response after logging
     return res.status(200).json({
       message: `${role.charAt(0).toUpperCase() + role.slice(1)} login successful`,
       userId: user._id,
@@ -383,6 +387,7 @@ router.post('/login', loginLimiter, async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 });
+
 
 
 
@@ -1408,18 +1413,21 @@ router.get('/activity-logs', async (req, res) => {
 });
 
 // Logout route
-router.post('/logout', async (req, res, next) => {
-  const { username, role } = req.body; 
+router.post('/logout', async (req, res) => {
+  const { username, role } = req.body;
 
   try {
-    req.user = { username, role }; // Set req.user for logging
-    next();
-    
+    // Log the logout activity before responding
+    await LogActivity('Logged out', username, role);
+
+    // Send the response after logging
     res.json({ message: 'Successfully logged out' });
+
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-}, LogActivity('Logged out'));
+});
+
 
 // Assign location to a donation
 router.put('/donations/locate/:id', async (req, res) => {
