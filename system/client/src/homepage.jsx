@@ -25,7 +25,7 @@ function Homepage() {
 
     return () => clearInterval(interval);
   }, [images.length]);
-
+  
   return (
     <div className="homepage">
       <header className="header">
@@ -42,15 +42,12 @@ function Homepage() {
         </nav>
       </header>
       <div className="homepagebody">
-      <section className="header-sectionH">
-          <div className={`image-container ${sliding ? 'slide' : ''}`}>
-            <img src={images[currentImageIndex]} alt="slideshow" />
-          </div>
+        <section className="header-sectionH" style={{ backgroundImage: `url(${images[currentImageIndex]})` }}>
           <div className="header-content">
             <h2>Donate</h2>
-            <p>Help Affected Communities</p>
+            <p>Help Affected Communities </p>
             <p>Around Philippines.</p>
-            <br />
+            <br></br>
             <Link to="/components/login">
               <Button
                 className="donate-btn"
