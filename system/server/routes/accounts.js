@@ -364,6 +364,9 @@ router.post('/login', loginLimiter, async (req, res) => {
       return res.status(403).json({ message: 'Account not verified. Please verify your email before logging in.' });
     }
 
+    // Log the activity
+    await LogActivity('Logged in', user._id, role);  // Ensure LogActivity is async if it involves DB or IO operations.
+
     // Successfully authenticated, prepare response
     return res.status(200).json({
       message: `${role.charAt(0).toUpperCase() + role.slice(1)} login successful`,
@@ -375,13 +378,12 @@ router.post('/login', loginLimiter, async (req, res) => {
       contact: user.contact
     });
 
-    // Log the activity (this should come after the response is sent)
-    // Make sure to not call 'next()' here
   } catch (error) {
     // Server-side error handling
     return res.status(500).json({ message: error.message });
   }
-}, LogActivity('Logged in'));
+});
+
 
 
 // Get all users
