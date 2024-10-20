@@ -333,45 +333,49 @@ router.post('/login', loginLimiter, async (req, res) => {
   try {
     let user = null;
     let role = '';
-    
+
+    // Check if the user is an admin
     const admin = await Admin.findOne({ username });
     if (admin && await bcrypt.compare(password, admin.password)) {
       user = admin;
       role = 'admin';
     }
-    
+
+    // Check if the user is a staff
     const staff = await Staff.findOne({ username });
     if (staff && await bcrypt.compare(password, staff.password)) {
       user = staff;
       role = 'staff';
     }
-    
+
+    // Check if the user is a regular registered user
     const registeredUser = await Register.findOne({ username });
     if (registeredUser && await bcrypt.compare(password, registeredUser.password)) {
       user = registeredUser;
       role = 'user';
     }
-    
+
+    // Check if the user is a superadmin
     const superadmin = await SuperAdmin.findOne({ username });
     if (superadmin && await bcrypt.compare(password, superadmin.password)) {
       user = superadmin;
       role = 'superadmin';
     }
 
-    // No user found
+    // If no user is found, send a 401 response
     if (!user) {
       return res.status(401).json({ message: 'Invalid username or password' });
     }
 
-    // Check if 'user' is verified
+    // If the user is a regular registered user but not verified, send a 403 response
     if (role === 'user' && !user.verified) {
       return res.status(403).json({ message: 'Account not verified. Please verify your email before logging in.' });
     }
 
-    // Log the login activity
-    LogActivity('Logged in', user.username, role);
+    // Log the login activity before sending the response
+    await LogActivity('Logged in', user.username, role);
 
-    // Send the response after logging
+    // Successfully authenticated, send the response
     return res.status(200).json({
       message: `${role.charAt(0).toUpperCase() + role.slice(1)} login successful`,
       userId: user._id,
@@ -383,13 +387,10 @@ router.post('/login', loginLimiter, async (req, res) => {
     });
 
   } catch (error) {
-    // Server-side error handling
+    // Handle any server-side errors
     return res.status(500).json({ message: error.message });
   }
 });
-
-
-
 
 // Get all users
 router.get('/users', async (req, res) => {
@@ -1413,21 +1414,18 @@ router.get('/activity-logs', async (req, res) => {
 });
 
 // Logout route
-router.post('/logout', async (req, res) => {
-  const { username, role } = req.body;
+router.post('/logout', async (req, res, next) => {
+  const { username, role } = req.body; 
 
   try {
-    // Log the logout activity before responding
-    await LogActivity('Logged out', username, role);
-
-    // Send the response after logging
+    req.user = { username, role }; // Set req.user for logging
+    next();
+    
     res.json({ message: 'Successfully logged out' });
-
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-});
-
+}, LogActivity('Logged out'));
 
 // Assign location to a donation
 router.put('/donations/locate/:id', async (req, res) => {
