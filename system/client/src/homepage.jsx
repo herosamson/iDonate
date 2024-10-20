@@ -10,23 +10,22 @@ import { FaYoutube, FaFacebookF, FaInstagram, FaTiktok } from 'react-icons/fa';
 import Button from '@mui/material/Button';
 
 function Homepage() {
-  const images = [
-    pic2, 
-    pic1,
-    pic,
-    pic3,
-  ];
-
+  const images = [pic2, pic1, pic, pic3];
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [sliding, setSliding] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+      setSliding(true);
+      setTimeout(() => {
+        setSliding(false);
+        setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+      }, 700); // Adjust to match CSS transition duration
     }, 4000); // Change image every 4 seconds
 
-    return () => clearInterval(interval); // Clean up the interval on component unmount
+    return () => clearInterval(interval);
   }, [images.length]);
-  
+
   return (
     <div className="homepage">
       <header className="header">
@@ -43,12 +42,15 @@ function Homepage() {
         </nav>
       </header>
       <div className="homepagebody">
-        <section className="header-sectionH" style={{ backgroundImage: `url(${images[currentImageIndex]})` }}>
+      <section className="header-sectionH">
+          <div className={`image-container ${sliding ? 'slide' : ''}`}>
+            <img src={images[currentImageIndex]} alt="slideshow" />
+          </div>
           <div className="header-content">
             <h2>Donate</h2>
-            <p>Help Affected Communities </p>
+            <p>Help Affected Communities</p>
             <p>Around Philippines.</p>
-            <br></br>
+            <br />
             <Link to="/components/login">
               <Button
                 className="donate-btn"
