@@ -353,55 +353,52 @@ const Donations = () => {
 
   const computeAvailableColumns = (cabinetNumber) => {
     const cabinet = cabinets.find(cab => cab.cabinetNumber === Number(cabinetNumber));
-    if(!cabinet) {
+    if (!cabinet) {
       setAvailableColumns([]);
       return;
     }
-
-    let firstAvailableColumn = null;
-    for(let col = 1; col <= cabinet.columns; col++) {
+  
+    // Iterate through columns, check if any rows are available
+    const availableColumns = [];
+    for (let col = 1; col <= cabinet.columns; col++) {
       const occupiedRows = donations.filter(donation => 
         donation.location?.cabinet === cabinetNumber && 
         donation.location?.column === col
       ).length;
-      if(occupiedRows < cabinet.rows) {
-        firstAvailableColumn = col;
-        break;
+  
+      // Only add columns that have available rows
+      if (occupiedRows < cabinet.rows) {
+        availableColumns.push(col);
       }
     }
-
-    if(firstAvailableColumn) {
-      setAvailableColumns([firstAvailableColumn]);
-    } else {
-      setAvailableColumns([]);
-    }
+  
+    setAvailableColumns(availableColumns);
   };
+  
+  
   const computeAvailableRows = (cabinetNumber, columnNumber) => {
     const cabinet = cabinets.find(cab => cab.cabinetNumber === Number(cabinetNumber));
-    if(!cabinet) {
+    if (!cabinet) {
       setAvailableRows([]);
       return;
     }
-
-    let firstAvailableRow = null;
-    for(let row = 1; row <= cabinet.rows; row++) {
-      const isOccupied = donations.some(donation => 
+  
+    // Get all occupied rows in the selected column of the cabinet
+    const occupiedRows = donations
+      .filter(donation => 
         donation.location?.cabinet === cabinetNumber && 
-        donation.location?.column === columnNumber && 
-        donation.location?.row === row
-      );
-      if(!isOccupied) {
-        firstAvailableRow = row;
-        break;
-      }
-    }
-
-    if(firstAvailableRow) {
-      setAvailableRows([firstAvailableRow]);
-    } else {
-      setAvailableRows([]);
-    }
+        donation.location?.column === Number(columnNumber)
+      )
+      .map(donation => donation.location?.row);
+  
+    // Filter out occupied rows, ensuring to fill up rows first before moving to the next column
+    const availableRows = Array.from({ length: cabinet.rows }, (_, i) => i + 1)
+      .filter(row => !occupiedRows.includes(row));
+  
+    setAvailableRows(availableRows);
   };
+  
+  
 
   useEffect(() => {
     if (modalOpen) {
@@ -410,24 +407,39 @@ const Donations = () => {
   }, [modalOpen, donations, cabinets]);
 
   useEffect(() => {
-    if (location.cabinet) {
-      computeAvailableColumns(location.cabinet);
-      setLocation(prev => ({ ...prev, column: '', row: '' }));
-      setAvailableRows([]);
-    } else {
-      setAvailableColumns([]);
-      setAvailableRows([]);
-    }
-  }, [location.cabinet]);
-
-  useEffect(() => {
     if (location.cabinet && location.column) {
-      computeAvailableRows(location.cabinet, location.column);
-      setLocation(prev => ({ ...prev, row: '' }));
+      const remainingRows = availableRows.length;
+      if (remainingRows > 0) {
+        // Continue with the current column as there are still available rows
+        computeAvailableRows(location.cabinet, location.column);
+      } else {
+        // All rows are occupied, move to the next column
+        computeAvailableColumns(location.cabinet);
+        setLocation(prev => ({ ...prev, column: '', row: '' }));
+      }
     } else {
       setAvailableRows([]);
     }
   }, [location.cabinet, location.column]);
+  
+
+  useEffect(() => {
+    if (location.cabinet && location.column) {
+      const remainingRows = availableRows.length;
+      if (remainingRows === 0) {
+        // Automatically select the next available column
+        const nextAvailableColumn = availableColumns.find(col => col !== Number(location.column));
+        if (nextAvailableColumn) {
+          setLocation(prev => ({ ...prev, column: nextAvailableColumn, row: '' }));
+          computeAvailableRows(location.cabinet, nextAvailableColumn);
+        } else {
+          // No more available columns in this cabinet, consider switching cabinets
+          // You can prompt the user here or auto-switch to another cabinet if needed
+        }
+      }
+    }
+  }, [availableRows]);
+  
   const getAvailableCabinetNumbers = () => {
     const usedCabinetNumbers = cabinets.map(cabinet => cabinet.cabinetNumber);
     return Array.from({ length: 10 }, (_, i) => i + 1).filter(number => !usedCabinetNumbers.includes(number));
@@ -683,9 +695,9 @@ const Donations = () => {
           </select>
         </div>
         {addCabinetError && <p className="error">{addCabinetError}</p>}
-        <center>  <button type="submit" className="submit-buttonAdd1" disabled={getAvailableCabinetNumbers().length === 0}>
+        <button type="submit" className="submit-buttonAdd1" disabled={getAvailableCabinetNumbers().length === 0}>
           Add Cabinet
-        </button></center> 
+        </button>
         {getAvailableCabinetNumbers().length === 0 && (
           <p className="error">All cabinet numbers (1-10) are already in use.</p>
         )}
@@ -703,7 +715,7 @@ const Donations = () => {
          <h2>Assign Location</h2>
           <form>
             <div className="form-group">
-          <center><label><strong>Cabinet:</strong></label>
+              <label><strong>Cabinet:</strong></label>
               <select
                 value={location.cabinet}
                 onChange={(e) => {
@@ -719,52 +731,52 @@ const Donations = () => {
                     {cabinetNumber}
                   </option>
                 ))}
-              </select></center> 
+              </select>
             </div>
             {availableColumns.length > 0 && (
-              <div className="form-group">
-                <label><strong>Column:</strong></label>
-                <center> <select
-                  value={location.column}
-                  onChange={(e) => {
-                    setLocation({ ...location, column: e.target.value });
-                    setAvailableRows(getAvailableRows(location.cabinet, e.target.value));
-                  }}
-                  required
-                  className="location-select"
-                >
-                  <option value="">Select Column</option>
-                  {availableColumns.map(col => (
-                    <option key={col} value={col}>
-                      {col}
-                    </option>
-                  ))}
-                </select></center> 
-                
-              </div>
-            )}
-            {availableRows.length > 0 && (
-              <div className="form-group">
-               <center>  <label><strong>Row:</strong></label>
-                <select
-                  value={location.row}
-                  onChange={(e) => setLocation({ ...location, row: e.target.value })}
-                  required
-                  className="location-select"
-                >
-                  <option value="">Select Row</option>
-                  {availableRows.map(row => (
-                    <option key={row} value={row}>
-                      {row}
-                    </option>
-                  ))}
-                </select></center> 
-                
-              </div>
-            )}
+  <div className="form-group">
+    <label><strong>Column:</strong></label>
+    <select
+      value={location.column}
+      onChange={(e) => {
+        setLocation({ ...location, column: e.target.value });
+        computeAvailableRows(location.cabinet, e.target.value);
+      }}
+      required
+      className="location-select"
+    >
+      <option value="">Select Column</option>
+      {availableColumns.map(col => (
+        <option key={col} value={col}>
+          {col}
+        </option>
+      ))}
+    </select>
+  </div>
+)}
+
+{availableRows.length > 0 && (
+  <div className="form-group">
+    <label><strong>Row:</strong></label>
+    <select
+      value={location.row}
+      onChange={(e) => setLocation({ ...location, row: e.target.value })}
+      required
+      className="location-select"
+    >
+      <option value="">Select Row</option>
+      {availableRows.map(row => (
+        <option key={row} value={row}>
+          {row}
+        </option>
+      ))}
+    </select>
+  </div>
+)}
+
             
             {locationError && <p className="error">{locationError}</p>}
-            <button type="button" onClick={submitLocation} className="submit-buttonAdd">Submit</button>
+            <center> <button type="button" onClick={submitLocation} className="submit-buttonAdd">Submit</button></center>
           </form>
         </div>
       ) : (

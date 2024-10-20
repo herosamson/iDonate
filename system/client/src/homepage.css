@@ -318,3 +318,13 @@
     color: rgb(31, 31, 31);
     font-size: 15px;
   }
+
+  /* Define the sliding animation */
+@keyframes slideRight {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}

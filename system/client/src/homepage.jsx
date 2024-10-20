@@ -22,11 +22,11 @@ function Homepage() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 4000); // Change image every 2 seconds
+    }, 4000); // Change image every 4 seconds
 
     return () => clearInterval(interval); // Clean up the interval on component unmount
   }, [images.length]);
-
+  
   return (
     <div className="homepage">
       <header className="header">
