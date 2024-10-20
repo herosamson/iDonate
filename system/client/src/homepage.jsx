@@ -10,22 +10,23 @@ import { FaYoutube, FaFacebookF, FaInstagram, FaTiktok } from 'react-icons/fa';
 import Button from '@mui/material/Button';
 
 function Homepage() {
-  const images = [pic2, pic1, pic, pic3];
+  const images = [
+    pic2, 
+    pic1,
+    pic,
+    pic3,
+  ];
+
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [sliding, setSliding] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setSliding(true);
-      setTimeout(() => {
-        setSliding(false);
-        setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-      }, 700); // Adjust to match CSS transition duration
-    }, 4000); // Change image every 4 seconds
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 4000); // Change image every 2 seconds
 
-    return () => clearInterval(interval);
+    return () => clearInterval(interval); // Clean up the interval on component unmount
   }, [images.length]);
-  
+
   return (
     <div className="homepage">
       <header className="header">

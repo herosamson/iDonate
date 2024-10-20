@@ -70,12 +70,14 @@
 }
 
 .header-sectionH {
-  position: relative;
+  background-size: cover;
+  background-position: center;
   display: flex;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
+  padding: 70px; /* Add padding to center content */
   height: 610px;
-  overflow: hidden; /* Ensure that sliding images don't overflow the container */
+  transition: background-image 0.7s ease-in-out; /* Smooth transition */
 }
 
 .right-content h3{
@@ -316,33 +318,3 @@
     color: rgb(31, 31, 31);
     font-size: 15px;
   }
-
-  /* Define the sliding animation */
-@keyframes slideRight {
-  0% {
-    transform: translateX(100%);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
-
-.image-container {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.7s ease-in-out; /* Smooth transition for sliding effect */
-}
-
-.image-container img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.slide {
-  transform: translateX(100%); /* Slide to the right */
-}
