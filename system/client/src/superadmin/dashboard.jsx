@@ -466,7 +466,7 @@ const validateAdminInput = () => {
             ))}
           </tbody>
         </table>
-        <button className="tn" onClick={() => setShowUserModal(true)}>Add User</button>
+        <button className="tn" onClick={() => setShowUserModal(true)}>Add Donor</button>
       </div>
         {/* User Modal */}
         {showUserModal && (
@@ -474,7 +474,7 @@ const validateAdminInput = () => {
         <div className="modalAccounts">
         <span className="close-icon" onClick={() => setShowUserModal(false)}>&times;</span>
           <div className="modal-headerAccounts">
-            <h2>Add New User</h2>
+            <h2>Add New Donor</h2>
             <input type="text" name="firstname" placeholder="First Name" value={newUser.firstname} onChange={(e) => handleInputChange(e, 'user')} />
             <input type="text" name="lastname" placeholder="Last Name" value={newUser.lastname} onChange={(e) => handleInputChange(e, 'user')} />
             <input type="text" name="contact" placeholder="Contact Number" value={newUser.contact} onChange={(e) => handleInputChange(e, 'user')} />

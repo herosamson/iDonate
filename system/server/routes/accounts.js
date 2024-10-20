@@ -327,7 +327,7 @@ router.post('/register', async (req, res) => {
   }
 });
 
-router.post('/login', loginLimiter, async (req, res, next) => {
+router.post('/login', loginLimiter, async (req, res) => {
   const { username, password } = req.body;
 
   try {
@@ -348,25 +348,24 @@ router.post('/login', loginLimiter, async (req, res, next) => {
       user = registeredUser;
       role = 'user';
     }
-
     const superadmin = await SuperAdmin.findOne({ username });
     if (superadmin && await bcrypt.compare(password, superadmin.password)) {
       user = superadmin;
       role = 'superadmin';
     }
 
+    // No user found
     if (!user) {
-      return res.status(400).json({ message: 'Invalid username or password' });
+      return res.status(401).json({ message: 'Invalid username or password' });
     }
+
+    // Check if 'user' is verified
     if (role === 'user' && !user.verified) {
       return res.status(403).json({ message: 'Account not verified. Please verify your email before logging in.' });
     }
-    req.user = {
-      username: user.username,
-      role: role
-    };
-    next();
-    res.status(200).json({
+
+    // Successfully authenticated, prepare response
+    return res.status(200).json({
       message: `${role.charAt(0).toUpperCase() + role.slice(1)} login successful`,
       userId: user._id,
       username: user.username,
@@ -376,8 +375,11 @@ router.post('/login', loginLimiter, async (req, res, next) => {
       contact: user.contact
     });
 
+    // Log the activity (this should come after the response is sent)
+    // Make sure to not call 'next()' here
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    // Server-side error handling
+    return res.status(500).json({ message: error.message });
   }
 }, LogActivity('Logged in'));
 

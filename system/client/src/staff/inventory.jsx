@@ -487,7 +487,6 @@ function Inventory() {
               </tbody>
             </table>
             <div className="summary-section">
-              <h2>Inventory Summary</h2>
               {Object.keys(groupedDonations).length === 0 ? (
                 <p>No located donations to display.</p>
               ) : (

@@ -353,55 +353,52 @@ const Donations = () => {
 
   const computeAvailableColumns = (cabinetNumber) => {
     const cabinet = cabinets.find(cab => cab.cabinetNumber === Number(cabinetNumber));
-    if(!cabinet) {
+    if (!cabinet) {
       setAvailableColumns([]);
       return;
     }
-
-    let firstAvailableColumn = null;
-    for(let col = 1; col <= cabinet.columns; col++) {
+  
+    // Iterate through columns, check if any rows are available
+    const availableColumns = [];
+    for (let col = 1; col <= cabinet.columns; col++) {
       const occupiedRows = donations.filter(donation => 
         donation.location?.cabinet === cabinetNumber && 
         donation.location?.column === col
       ).length;
-      if(occupiedRows < cabinet.rows) {
-        firstAvailableColumn = col;
-        break;
+  
+      // Only add columns that have available rows
+      if (occupiedRows < cabinet.rows) {
+        availableColumns.push(col);
       }
     }
-
-    if(firstAvailableColumn) {
-      setAvailableColumns([firstAvailableColumn]);
-    } else {
-      setAvailableColumns([]);
-    }
+  
+    setAvailableColumns(availableColumns);
   };
+  
+  
   const computeAvailableRows = (cabinetNumber, columnNumber) => {
     const cabinet = cabinets.find(cab => cab.cabinetNumber === Number(cabinetNumber));
-    if(!cabinet) {
+    if (!cabinet) {
       setAvailableRows([]);
       return;
     }
-
-    let firstAvailableRow = null;
-    for(let row = 1; row <= cabinet.rows; row++) {
-      const isOccupied = donations.some(donation => 
+  
+    // Get all occupied rows in the selected column of the cabinet
+    const occupiedRows = donations
+      .filter(donation => 
         donation.location?.cabinet === cabinetNumber && 
-        donation.location?.column === columnNumber && 
-        donation.location?.row === row
-      );
-      if(!isOccupied) {
-        firstAvailableRow = row;
-        break;
-      }
-    }
-
-    if(firstAvailableRow) {
-      setAvailableRows([firstAvailableRow]);
-    } else {
-      setAvailableRows([]);
-    }
+        donation.location?.column === Number(columnNumber)
+      )
+      .map(donation => donation.location?.row);
+  
+    // Filter out occupied rows, ensuring to fill up rows first before moving to the next column
+    const availableRows = Array.from({ length: cabinet.rows }, (_, i) => i + 1)
+      .filter(row => !occupiedRows.includes(row));
+  
+    setAvailableRows(availableRows);
   };
+  
+  
 
   useEffect(() => {
     if (modalOpen) {
@@ -410,36 +407,62 @@ const Donations = () => {
   }, [modalOpen, donations, cabinets]);
 
   useEffect(() => {
-    if (location.cabinet) {
-      computeAvailableColumns(location.cabinet);
-      setLocation(prev => ({ ...prev, column: '', row: '' }));
-      setAvailableRows([]);
-    } else {
-      setAvailableColumns([]);
-      setAvailableRows([]);
-    }
-  }, [location.cabinet]);
-
-  useEffect(() => {
     if (location.cabinet && location.column) {
-      computeAvailableRows(location.cabinet, location.column);
-      setLocation(prev => ({ ...prev, row: '' }));
+      const remainingRows = availableRows.length;
+      if (remainingRows > 0) {
+        // Continue with the current column as there are still available rows
+        computeAvailableRows(location.cabinet, location.column);
+      } else {
+        // All rows are occupied, move to the next column
+        computeAvailableColumns(location.cabinet);
+        setLocation(prev => ({ ...prev, column: '', row: '' }));
+      }
     } else {
       setAvailableRows([]);
     }
   }, [location.cabinet, location.column]);
+  
+
+  useEffect(() => {
+    if (location.cabinet && location.column) {
+      const remainingRows = availableRows.length;
+      if (remainingRows === 0) {
+        // Automatically select the next available column
+        const nextAvailableColumn = availableColumns.find(col => col !== Number(location.column));
+        if (nextAvailableColumn) {
+          setLocation(prev => ({ ...prev, column: nextAvailableColumn, row: '' }));
+          computeAvailableRows(location.cabinet, nextAvailableColumn);
+        } else {
+          // No more available columns in this cabinet, consider switching cabinets
+          // You can prompt the user here or auto-switch to another cabinet if needed
+        }
+      }
+    }
+  }, [availableRows]);
+  
   const getAvailableCabinetNumbers = () => {
-    const allCabinetNumbers = Array.from({ length: 10 }, (_, i) => i + 1);
-    const usedCabinets = cabinets.map(cab => cab.cabinetNumber);
-    return allCabinetNumbers.filter(number => !usedCabinets.includes(number));
+    const usedCabinetNumbers = cabinets.map(cabinet => cabinet.cabinetNumber);
+    return Array.from({ length: 10 }, (_, i) => i + 1).filter(number => !usedCabinetNumbers.includes(number));
   };
+  const getAvailableColumns = (cabinetNumber) => {
+    const cabinet = cabinets.find(c => c.cabinetNumber === cabinetNumber);
+    const usedColumns = cabinet ? cabinet.locations.map(location => location.column) : [];
+    return Array.from({ length: 10 }, (_, i) => i + 1).filter(col => !usedColumns.includes(col));
+  };
+  
+  const getAvailableRows = (cabinetNumber, column) => {
+    const cabinet = cabinets.find(c => c.cabinetNumber === cabinetNumber);
+    const usedRows = cabinet ? cabinet.locations.filter(loc => loc.column === column).map(loc => loc.row) : [];
+    return Array.from({ length: 10 }, (_, i) => i + 1).filter(row => !usedRows.includes(row));
+  };
+  
 
   if (loading) return <div class="loader loader_bubble"></div>;
   if (error) return <div>{error}</div>;
 
   return (
     <div id="containerD">
-      <div id="sidebarD">
+      <div id="sidebar">
       <ul>
           <li><img className="logoD" src={logo2} alt="Logo" /></li>
           <br />
@@ -471,6 +494,9 @@ const Donations = () => {
           >
             Add Donation
           </button>
+          {getAvailableCabinetNumbers().length === 0 && (
+            <p className="info">All cabinet numbers (1-10) are in use. Cannot add more cabinets.</p>
+          )}
         <table>
           <thead>
             <tr>
@@ -602,88 +628,158 @@ const Donations = () => {
             </div>
           </div>
         )}
-        {modalOpen && (
-          <div className="modal-overlay">
-            <div className="modal">
-              <span className="close-button" onClick={() => setModalOpen(false)}>&times;</span>
-              {!selectedDonation?.location ? (
-                <div className="modal-headerAccounts">
-                  <h2>Assign Location</h2>
-                  <form>
-                    <div className="form-group">
-                      <label>Cabinet:</label>
-                      <select
-                        value={location.cabinet}
-                        onChange={(e) => setLocation({ ...location, cabinet: e.target.value })}
-                        required
-                        className="location-select"
-                      >
-                        <option value="">Select Cabinet</option>
-                        {availableCabinets.map(cabinetNumber => (
-                          <option key={cabinetNumber} value={cabinetNumber}>
-                            {cabinetNumber}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                    {availableColumns.length > 0 && (
-                      <div className="form-group">
-                        <label>Column:</label>
-                        <select
-                          value={location.column}
-                          onChange={(e) => setLocation({ ...location, column: e.target.value })}
-                          required
-                          className="location-select"
-                        >
-                          <option value="">Select Column</option>
-                          {availableColumns.map(col => (
-                            <option key={col} value={col}>
-                              {col}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                    )}
-                    {availableRows.length > 0 && (
-                      <div className="form-group">
-                        <label>Row:</label>
-                        <select
-                          value={location.row}
-                          onChange={(e) => setLocation({ ...location, row: e.target.value })}
-                          required
-                          className="location-select"
-                        >
-                          <option value="">Select Row</option>
-                          {availableRows.map(row => (
-                            <option key={row} value={row}>
-                              {row}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                    )}
-                    
-                    {locationError && <p className="error">{locationError}</p>}
-                    <button type="button" onClick={submitLocation} className="submit-buttonLoc">Submit</button>
-                  </form>
-                </div>
-              ) : (
-                <>
-                  <h2>Donor Details</h2>
-                  {selectedDonation && (
-                    <div>
-                      <p><strong>UserID:</strong> {selectedDonation.user?._id || 'N/A'}</p>
-                      <p><strong>First Name:</strong> {selectedDonation.user?.firstname || selectedDonation.firstname || 'N/A'}</p>
-                      <p><strong>Last Name:</strong> {selectedDonation.user?.lastname || selectedDonation.lastname || 'N/A'}</p>
-                      <p><strong>Contact:</strong> {selectedDonation.user?.contact || selectedDonation.contact || 'N/A'}</p>
-                      <p><strong>Location:</strong> Cabinet {selectedDonation.location.cabinet}: Column {selectedDonation.location.column}, Row {selectedDonation.location.row}</p>
-                    </div>
-                  )}
-                </>
-              )}
-            </div>
-          </div>
+       {addCabinetModalOpen && (
+  <div className="modal-overlay">
+    <div className="modal">
+      <span className="close-button" onClick={() => setAddCabinetModalOpen(false)}>&times;</span>
+    <center>  <h2>Add Cabinet</h2></center>
+      <form onSubmit={handleAddCabinetSubmit}>
+        <div className="form-group">
+        <center> <label><strong>Cabinet Number:</strong></label>
+          <select
+            value={newCabinet.cabinetNumber}
+            onChange={(e) => setNewCabinet({ ...newCabinet, cabinetNumber: e.target.value })}
+            required
+          >
+            <option value="">Select Cabinet Number</option>
+            {getAvailableCabinetNumbers().length > 0 ? (
+              getAvailableCabinetNumbers().map(number => (
+                <option key={number} value={number}>{number}</option>
+              ))
+            ) : (
+              <option value="" disabled>No Cabinets Available</option>
+            )}
+          </select></center>
+        </div>
+        <div className="form-group">
+        <center>  <label><strong>Columns:</strong></label>
+          <select
+            value={newCabinet.columns}
+            onChange={(e) => setNewCabinet({ ...newCabinet, columns: e.target.value })}
+            required
+          >
+            <option value="">Select Number of Columns</option>
+            {Array.from({ length: 10 }, (_, i) => i + 1).map(number => (
+              <option key={number} value={number}>{number}</option>
+            ))}
+          </select></center>
+        </div>
+        <div className="form-group">
+        <center> <label><strong>Rows:</strong></label>
+          <select
+            value={newCabinet.rows}
+            onChange={(e) => setNewCabinet({ ...newCabinet, rows: e.target.value })}
+            required
+          >
+            <option value="">Select Number of Rows</option>
+            {Array.from({ length: 10 }, (_, i) => i + 1).map(number => (
+              <option key={number} value={number}>{number}</option>
+            ))}
+          </select></center>
+        </div>
+        {addCabinetError && <p className="error">{addCabinetError}</p>}
+        <center> <button type="submit" className="submit-buttonAdd1" disabled={getAvailableCabinetNumbers().length === 0}>
+          Add Cabinet
+        </button></center>
+        {getAvailableCabinetNumbers().length === 0 && (
+          <p className="error">All cabinet numbers (1-10) are already in use.</p>
         )}
+      </form>
+    </div>
+  </div>
+)}
+
+{modalOpen && (
+  <div className="modal-overlay">
+    <div className="modal">
+      <span className="close-button" onClick={() => setModalOpen(false)}>&times;</span>
+      {!selectedDonation?.location ? (
+        <div className="modal-headerAccounts">
+         <h2>Assign Location</h2>
+          <form>
+            <div className="form-group">
+            <center> <label><strong>Cabinet:</strong></label>
+              <select
+                value={location.cabinet}
+                onChange={(e) => {
+                  setLocation({ ...location, cabinet: e.target.value });
+                  setAvailableColumns(getAvailableColumns(e.target.value));
+                }}
+                required
+                className="location-select"
+              >
+                <option value="">Select Cabinet</option>
+                {availableCabinets.map(cabinetNumber => (
+                  <option key={cabinetNumber} value={cabinetNumber}>
+                    {cabinetNumber}
+                  </option>
+                ))}
+              </select></center>
+            </div>
+            {availableColumns.length > 0 && (
+  <div className="form-group">
+   <center> <label><strong>Column:</strong></label>
+    <select
+      value={location.column}
+      onChange={(e) => {
+        setLocation({ ...location, column: e.target.value });
+        computeAvailableRows(location.cabinet, e.target.value);
+      }}
+      required
+      className="location-select"
+    >
+      <option value="">Select Column</option>
+      {availableColumns.map(col => (
+        <option key={col} value={col}>
+          {col}
+        </option>
+      ))}
+    </select></center>
+  </div>
+)}
+
+{availableRows.length > 0 && (
+  <div className="form-group">
+   <center> <label><strong>Row:</strong></label>
+    <select
+      value={location.row}
+      onChange={(e) => setLocation({ ...location, row: e.target.value })}
+      required
+      className="location-select"
+    >
+      <option value="">Select Row</option>
+      {availableRows.map(row => (
+        <option key={row} value={row}>
+          {row}
+        </option>
+      ))}
+    </select></center>
+  </div>
+)}
+
+            
+            {locationError && <p className="error">{locationError}</p>}
+            <center> <button type="button" onClick={submitLocation} className="submit-buttonAdd">Submit</button></center>
+          </form>
+        </div>
+      ) : (
+        <>
+          <h2>Donor Details</h2>
+          {selectedDonation && (
+            <div>
+              <p><strong>UserID:</strong> {selectedDonation.user?._id || 'N/A'}</p>
+              <p><strong>First Name:</strong> {selectedDonation.user?.firstname || selectedDonation.firstname || 'N/A'}</p>
+              <p><strong>Last Name:</strong> {selectedDonation.user?.lastname || selectedDonation.lastname || 'N/A'}</p>
+              <p><strong>Contact:</strong> {selectedDonation.user?.contact || selectedDonation.contact || 'N/A'}</p>
+              <p><strong>Location:</strong> Cabinet {selectedDonation.location.cabinet}: Column {selectedDonation.location.column}, Row {selectedDonation.location.row}</p>
+            </div>
+          )}
+        </>
+      )}
+    </div>
+  </div>
+)}
+
         {modalOpenV && (
           <div className="modal-overlay">
             <div className="modal">
