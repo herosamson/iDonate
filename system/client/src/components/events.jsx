@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './events.css';
-import logo from './imagenew.png'; 
-
+import logo from './logo1.png'; 
 
 const Events = () => {
   const [events, setEvents] = useState([]);
@@ -11,7 +10,11 @@ const Events = () => {
   useEffect(() => {
     axios.get(`/routes/accounts/events`)
       .then(response => {
-        setEvents(response.data);
+        const currentDate = new Date(); 
+        const upcomingEvents = response.data.filter(event => 
+          new Date(event.eventDate) >= currentDate 
+        );
+        setEvents(upcomingEvents);
       })
       .catch(error => {
         console.error('Error fetching events:', error);
@@ -38,7 +41,7 @@ const Events = () => {
           <div className="circle">&lt;</div>
         </Link>
       </div>
-        <div className="events-container"> 
+      <div className="events-container"> 
         <h2>Upcoming Events</h2>
         <table>
           <thead>
@@ -56,7 +59,7 @@ const Events = () => {
                 <td>{event.eventName}</td>
                 <td>{new Date(event.eventDate).toLocaleDateString()}</td>
                 <td>{event.volunteers}</td>
-                <td>{event.materialsNeeded.join(', ')}</td>
+                <td>{event.materialsNeeded}</td>
                 <td>{event.numberOfPax}</td>
               </tr>
             ))}
