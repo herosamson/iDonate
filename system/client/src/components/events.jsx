@@ -59,7 +59,7 @@ const Events = () => {
                 <td>{event.eventName}</td>
                 <td>{new Date(event.eventDate).toLocaleDateString()}</td>
                 <td>{event.volunteers}</td>
-                <td>{event.materialsNeeded}</td>
+                <td>{event.materialsNeeded.join(', ')}</td>
                 <td>{event.numberOfPax}</td>
               </tr>
             ))}
