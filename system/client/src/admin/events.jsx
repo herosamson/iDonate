@@ -408,10 +408,10 @@ function EventsA() {
           {editingEventId && <button className="deleteevents" type="button" onClick={handleCancelEdit}>Cancel</button>}
         </form>
         <div id="eventsList">
-          <table>
+        <table>
             <thead>
               <tr>
-              <th>
+                <th>
                   <select onChange={(e) => setFilter(e.target.value)} value={filter}>
                     <option value="">All Events</option>
                     <option value="thisWeek">This Week</option>
@@ -427,26 +427,33 @@ function EventsA() {
               </tr>
             </thead>
             <tbody>
-              {events.map(event => (
-                <tr key={event._id}>
-                  <td>
-                    <input
-                      type="checkbox"
-                      checked={selectedEvents.some(e => e._id === event._id)}
-                      onChange={e => handleCheckboxChange(event, e.target.checked)}
-                    />
-                  </td>
-                  <td>{event.eventName}</td>
-                  <td>{new Date(event.eventDate).toLocaleDateString()}</td>
-                  <td>{event.volunteers}</td>
-                  <td>{event.materialsNeeded.join(', ')}</td>
-                  <td>{event.numberOfPax}</td>
-                  <td>
-                    <button className="addToStaffBtn" onClick={() => handleEdit(event)}>Edit</button>
-                    <button className="deleteBtn" onClick={() => handleDelete(event._id)}>Delete</button>
-                  </td>
-                </tr>
-              ))}
+              {events.map(event => {
+                const eventDate = new Date(event.eventDate); // Convert event date to a Date object
+                const isPastEvent = eventDate < new Date(); // Check if the event date is in the past
+
+                return (
+                  <tr key={event._id}>
+                    <td>
+                      <input
+                        type="checkbox"
+                        checked={selectedEvents.some(e => e._id === event._id)}
+                        onChange={e => handleCheckboxChange(event, e.target.checked)}
+                      />
+                    </td>
+                    <td>{event.eventName}</td>
+                    <td>{eventDate.toLocaleDateString()}</td>
+                    <td>{event.volunteers}</td>
+                    <td>{event.materialsNeeded.join(', ')}</td>
+                    <td>{event.numberOfPax}</td>
+                    <td>
+                      {!isPastEvent && (
+                        <button className="addToStaffBtn" onClick={() => handleEdit(event)}>Edit</button>
+                      )}
+                      <button className="deleteBtn" onClick={() => handleDelete(event._id)}>Delete</button>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
           {selectedEvents.length > 0 && (
