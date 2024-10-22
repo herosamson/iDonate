@@ -370,16 +370,7 @@ const Others = () => {
                       <option value="Bottle(s)">Bottle(s)</option>
                       <option value="Can(s)">Can(s)</option>
                     </select>
-                    {unit === 'Other' && (
-                      <input
-                        type="text"
-                        value={customUnit}
-                        onChange={handleChange}
-                        name="customUnit"
-                        placeholder="Enter unit"
-                        required
-                      />
-                    )}
+                    
                   </>
                 ) : (
                   <select
