@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './events.css';
-import logo from './logo1.png'; 
+import logo from './imagenew.png'; 
 
 const Events = () => {
   const [events, setEvents] = useState([]);
