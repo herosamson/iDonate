@@ -182,3 +182,7 @@
   width: 100%;
   top: 780px; /* Adjust the top position to 0 to move it to the top */
 }
+
+.input-container1 h3 {
+  margin-bottom: 10px;
+}
