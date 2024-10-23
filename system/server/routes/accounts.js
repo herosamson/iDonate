@@ -281,7 +281,6 @@ router.post('/register-verified', async (req, res) => {
 });
 
 // User registration
-// Modify the registration route to save in UnverifiedUsers
 router.post('/register', async (req, res) => {
   const { firstname, lastname, contact, address, email, username, password } = req.body;
 

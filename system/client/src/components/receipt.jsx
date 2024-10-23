@@ -25,49 +25,51 @@ const Receipt = () => {
     return `${year}-${month}-${day}`;
   };
 
-  const addProofOfPayment = async () => {
-    if (!donorDetails.amount || !donorDetails.date || !donorDetails.image) {
-      alert('Amount, date, and image are required.');
-      return;
-    }
+ const addProofOfPayment = async () => {
+  if (!donorDetails.amount || !donorDetails.date || !donorDetails.image) {
+    alert('Amount, date, and image are required.');
+    return;
+  }
 
-    if (!/^\d+$/.test(donorDetails.amount)) {
-      alert('Please enter a valid Amount.');
-      return;
-    }
+  if (!/^\d+$/.test(donorDetails.amount)) {
+    alert('Please enter a valid Amount.');
+    return;
+  }
 
-    const donationDate = new Date(donorDetails.date);
-    const today = new Date();
-    today.setHours(0, 0, 0, 0); // Set to start of today
+  const formData = new FormData();
+  formData.append('username', username);  // Username from local storage
+  formData.append('amount', donorDetails.amount);
+  formData.append('date', donorDetails.date);
+  formData.append('image', donorDetails.image);  // Image is required
 
-    const formData = new FormData();
-    formData.append('username', username);
-    formData.append('amount', donorDetails.amount);
-    formData.append('date', donorDetails.date);
-    formData.append('image', donorDetails.image); // Ensure this is an actual file
+  // Append name only if it's provided (not empty)
+  if (donorDetails.name.trim() !== '') {
+    formData.append('name', donorDetails.name);  // Add the optional name here
+  }
 
-    try {
-      const response = await axios.post('/routes/accounts/addProof', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      console.log('Proof of payment added:', response.data);
-      setProofsOfPayment([...proofsOfPayment, response.data]); // Update state with new proof
-      setDonorDetails({
-        name: '',
-        amount: '',
-        date: getTodayDate(), // Reset to today's date
-        image: null,
-      });
-      setError('');
-      alert('Proof of payment added successfully.');
-    } catch (error) {
-      console.error('Failed to add proof of payment:', error.response ? error.response.data : error.message);
-      setError('Failed to add proof of payment. Please try again later.');
-      alert('Failed to add proof of payment. Please try again later.');
-    }
-  };
+  try {
+    const response = await axios.post('/routes/accounts/addProof', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    console.log('Proof of payment added:', response.data);
+    setProofsOfPayment([...proofsOfPayment, response.data]);
+    setDonorDetails({
+      name: '',
+      amount: '',
+      date: getTodayDate(),
+      image: null,
+    });
+    setError('');
+    alert('Proof of payment added successfully.');
+  } catch (error) {
+    console.error('Failed to add proof of payment:', error.response ? error.response.data : error.message);
+    setError('Failed to add proof of payment. Please try again later.');
+    alert('Failed to add proof of payment. Please try again later.');
+  }
+};
+
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
