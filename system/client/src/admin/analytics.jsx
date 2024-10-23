@@ -490,7 +490,6 @@ fetchTotalItemDonations();
               <CartesianGrid stroke="#ccc" />
               <XAxis dataKey="month" />
               <YAxis allowDecimals={false} />
-              <Tooltip formatter={(value) => `${value} Users`} />
             </LineChart>
           </div>
         </div>
@@ -568,7 +567,6 @@ fetchTotalItemDonations();
                     {topDonors.map((donor, index) => (
                       <tr key={index}>
                         <td>{donor.name}</td>
-                        <td>{donor.contact}</td>
                         <td>&#8369;{parseFloat(donor.amount).toFixed(2)}</td>
                       </tr>
                     ))}

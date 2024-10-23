@@ -805,7 +805,6 @@ const Donations = () => {
               {selectedDonation ? (
                 selectedDonation.user ? (
                   <div>
-                    <p><strong>UserID:</strong> {selectedDonation.user._id}</p>
                     <p><strong>Donor Name:</strong> {selectedDonation.user.firstname} {selectedDonation.user.lastname}</p>
                     <p><strong>Contact:</strong> {selectedDonation.user.contact}</p>
                   </div>
