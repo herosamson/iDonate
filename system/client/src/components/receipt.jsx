@@ -41,8 +41,9 @@ const Receipt = () => {
   formData.append('amount', donorDetails.amount);
   formData.append('date', donorDetails.date);
   formData.append('image', donorDetails.image);  // Image is required
+  formData.append('contact', contact);   // Include the contact from local storage
 
-  // Append name only if it's provided (not empty)
+  // Append name only if it's provided
   if (donorDetails.name.trim() !== '') {
     formData.append('name', donorDetails.name);  // Add the optional name here
   }
@@ -69,6 +70,7 @@ const Receipt = () => {
     alert('Failed to add proof of payment. Please try again later.');
   }
 };
+
 
 
   const handleChange = (e) => {
