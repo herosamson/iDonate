@@ -96,8 +96,9 @@ router.post('/send-reset-otp', async (req, res) => {
 
     // If no user was found after all queries
     if (!user) {
-      return res.json({ error: "No account found with this email." });
+      return res.status(401).json({ error: "No account found with this email." });
     }
+
 
     // Generate OTP
     const otp = `${Math.floor(100000 + Math.random() * 900000)}`;
