@@ -16,7 +16,7 @@ const Receipt = () => {
   const [proofsOfPayment, setProofsOfPayment] = useState([]);
   const [error, setError] = useState('');
   const username = localStorage.getItem('username'); // Get the username from local storage
-
+  const contact = localStorage.getItem('contact'); 
   const getTodayDate = () => {
     const today = new Date();
     const year = today.getFullYear();
