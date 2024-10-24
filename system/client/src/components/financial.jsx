@@ -57,7 +57,6 @@ const Financial = () => {
       const response = await axios.post(`/routes/accounts/financial-assistance/add`, newRequest, {
         headers: { username }
       });
-      console.log('Added financial request:', response.data);
       setFinancialAssistance([...financialAssistance, response.data]); // Update state with new request
       // Clear the form fields
       setName('');

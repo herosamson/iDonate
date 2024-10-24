@@ -49,7 +49,6 @@ function Medical() {
   const fetchMedicalAssistance = async () => {
     try {
       const response = await axios.get(`/routes/accounts/medical-assistance/all`);
-      console.log('Fetched medical requests:', response.data);
       setMedicalAssistance(response.data);
     } catch (error) {
       console.error('Failed to fetch medical requests:', error);

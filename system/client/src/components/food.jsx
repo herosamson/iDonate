@@ -53,7 +53,6 @@ const Food = () => {
       const response = await axios.post(`/routes/accounts/food-assistance/add`, newRequest, {
         headers: { username }
       });
-      console.log('Added food request:', response.data.request);
       setFoodAssistance([...foodAssistance, response.data.request]);
       setName('');
       setTypesOfFood('');

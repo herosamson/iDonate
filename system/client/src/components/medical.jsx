@@ -59,7 +59,6 @@ const Medical = () => {
       const response = await axios.post(`/routes/accounts/medical-assistance/add`, newRequest, {
         headers: { username }
       });
-      console.log('Added medical assistance:', response.data.request);
       setMedicalAssistance([...medicalAssistance, response.data.request]); // Update state with new request
       // Clear the form fields
       setName('');

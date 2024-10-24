@@ -61,22 +61,16 @@ function App() {
 
   useEffect(() => {
     const storedUserId = localStorage.getItem('userId');
-    console.log('userId:', storedUserId);
     
     const storedUsername = localStorage.getItem('username');
-    console.log('username:', storedUsername);
     
     const storedUserRole = localStorage.getItem('userRole');
-    console.log('userRole:', storedUserRole);
     
     const storedFirstName = localStorage.getItem('firstname');
-    console.log('firstname:', storedFirstName);
     
     const storedLastName = localStorage.getItem('lastname');
-    console.log('lastname:', storedLastName);
-    
+
     const storedContact = localStorage.getItem('contact');
-    console.log('contact:', storedContact);
   
     if (storedUserId) setUserId(storedUserId);
     if (storedUsername) setUsername(storedUsername);

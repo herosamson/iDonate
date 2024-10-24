@@ -212,7 +212,6 @@ const sendVerificationEmail = async ({ _id, email }) => {
     await newOTPVerification.save();
     await transporter.sendMail(mailOptions);
 
-    console.log("OTP verification email sent successfully");
   } catch (error) {
     throw new Error(`Failed to send verification email: ${error.message}`);
   }
@@ -711,12 +710,10 @@ router.get('/donations', async (req, res) => {
 // Delete a donation
 router.delete('/donations/delete/:id', async (req, res) => {
   const { id } = req.params;
-  console.log(`Attempting to delete donation with id: ${id}`); // Log the ID being deleted
 
   try {
     const deletedDonation = await Donation.findByIdAndDelete(id);
     if (!deletedDonation) {
-      console.log(`Donation with id ${id} not found`); // Log if donation is not found
       return res.status(404).json({ message: 'Donation not found' });
     }
     res.status(200).json({ message: 'Donation deleted successfully' });

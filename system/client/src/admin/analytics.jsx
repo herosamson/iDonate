@@ -559,7 +559,6 @@ fetchTotalItemDonations();
                   <thead>
                     <tr>
                       <th>Name</th>
-                      <th>Contact</th>
                       <th>Amount</th>
                     </tr>
                   </thead>

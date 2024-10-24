@@ -23,8 +23,6 @@ function ForgotPasswordOtp() {
     try {
       const response = await axios.post(`/routes/accounts/verify-otp`, { userId, otp });
 
-      console.log('Response:', response.data);  // Debugging log
-
       if (response.data.error) {
         setError(response.data.error);
       } else {

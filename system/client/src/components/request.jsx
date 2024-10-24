@@ -52,7 +52,6 @@ const Request = () => {
       const response = await axios.get('/routes/accounts/requests');
       const username = localStorage.getItem('username');
       const userRequests = response.data.filter(request => request.username === username);
-      console.log('Fetched user requests:', userRequests);
       setRequests(userRequests);
     } catch (err) {
       console.error('Error fetching requests:', err);
@@ -69,7 +68,6 @@ const Request = () => {
     try {
       const newRequest = { item, typeOfDisaster, location, date, username };
       const response = await axios.post('/routes/accounts/requests/add', newRequest);
-      console.log('Added request:', response.data.request);
       setRequests([...requests, response.data.request]);
       setItem('');
       setTypeOfDisaster('');

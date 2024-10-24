@@ -54,7 +54,6 @@ const Receipt = () => {
         'Content-Type': 'multipart/form-data',
       },
     });
-    console.log('Proof of payment added:', response.data);
     setProofsOfPayment([...proofsOfPayment, response.data]);
     setDonorDetails({
       name: '',

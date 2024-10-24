@@ -15,6 +15,48 @@ app.use(cors({
   credentials: true,                          // Allow credentials (cookies, authorization headers, etc.)
 }));
 
+app.use(helmet({
+  hsts: {
+      maxAge: 31536000, // 1 year in seconds
+      includeSubDomains: true, // Apply HSTS to subdomains
+      preload: true,
+  },
+  contentSecurityPolicy: {
+      directives: {
+          defaultSrc: ["'self'"], // Allow resources from the same origin
+          scriptSrc: ["'self'", "'sha256-JgpphxtupW+atTkR3NtSLqsE7EdOykRMk5Dv+tMhcpY='", "https://cdnjs.cloudflare.com"], // Allow scripts from the same origin and trusted CDN
+          styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"], // Allow styles from the same origin and inline styles
+          imgSrc: ["'self'", "blob:", "data:"], // Allow images from the same origin, data URIs, and a trusted source
+          connectSrc: ["'self'"], // Allow connections to your own server and a trusted API
+          scriptSrcAttr: ["'self'", "'unsafe-inline'"]
+      }
+  },
+  frameguard: {
+      action: 'Deny'
+  },
+}))
+
+app.use((req, res, next) => {
+  res.set('X-XSS-Protection', '1; mode=block');
+  next();
+});
+
+app.use((req, res, next) => {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  next();
+});
+
+app.use((req, res, next) => {
+  res.setHeader('Referrer-Policy', 'no-referrer'); // Change this based on your needs
+  next();
+});
+
+app.use((req, res, next) => {
+  res.setHeader('Permissions-Policy', 'geolocation=(self), camera=(), microphone=()'); // Adjust as needed
+  next();
+});
+
+
 // Body Parsing Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
