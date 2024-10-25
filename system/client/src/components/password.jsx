@@ -21,7 +21,7 @@ function ChangePassword() {
     }
 
     try {
-      const response = await axios.put(`/routes/accounts/user/change-password/${userId}`, { password });
+      const response = await axios.post(`/routes/accounts/user/change-password/${userId}`, { password });
 
       if (response.data.error) {
         setError(response.data.error);
