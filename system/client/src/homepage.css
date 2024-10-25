@@ -236,6 +236,7 @@
     box-shadow: 5px 5px 6px #dadada,
                  -5px -5px 6px #f6f6f6;
     transition: 0.4s;
+    margin-right: 40px;
   }
   
   .cardcardhome:hover {

@@ -47,7 +47,7 @@ const generateDonationId = () => {
 };
 
 // Update user password (for all roles)
-router.put('/user/change-password/:id', async (req, res) => {
+router.post('/user/change-password/:id', async (req, res) => {
   const { password } = req.body;
 
   try {
