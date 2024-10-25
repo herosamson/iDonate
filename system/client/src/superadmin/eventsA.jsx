@@ -97,7 +97,21 @@ function EventsA() {
   useEffect(() => {
     axios.get(`/routes/accounts/events`)
       .then(response => {
-        setEvents(response.data);
+        // Sorting events: Upcoming events at the top, past events at the bottom
+        const sortedEvents = response.data.sort((a, b) => {
+          const eventDateA = new Date(a.eventDate);
+          const eventDateB = new Date(b.eventDate);
+          const now = new Date();
+          if (eventDateA >= now && eventDateB < now) {
+            return -1; // Upcoming event first
+          }
+          if (eventDateA < now && eventDateB >= now) {
+            return 1; // Past event last
+          }
+          return eventDateA - eventDateB; // Sort by date for both past and upcoming events
+        });
+
+        setEvents(sortedEvents);
       })
       .catch(error => {
         console.error('Error fetching events:', error);
