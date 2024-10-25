@@ -59,7 +59,7 @@ router.post('/user/change-password/:id', async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     // Find user across roles
-    const updatedUser = await Promise.any([
+    const updatedUser = await Promise.allSettled([
       SuperAdmin.findByIdAndUpdate(req.params.id, { password: hashedPassword }, { new: true, fields: { password: 0 } }),
       Admin.findByIdAndUpdate(req.params.id, { password: hashedPassword }, { new: true, fields: { password: 0 } }),
       Staff.findByIdAndUpdate(req.params.id, { password: hashedPassword }, { new: true, fields: { password: 0 } }),
