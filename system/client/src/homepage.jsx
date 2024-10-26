@@ -45,9 +45,9 @@ function Homepage() {
       <div className="homepagebody">
         <section className="header-sectionH" style={{ backgroundImage: `url(${images[currentImageIndex]})` }}>
           <div className="header-content">
-            <h2>Donate</h2>
-            <p>Help Affected Communities </p>
-            <p>Around Philippines.</p>
+            <h2>Leave No One Behind!</h2>
+            <p>Help Affected Communities Around Philippines. </p>
+            <p></p>
             <br></br>
             <Link to="/components/login">
               <Button

@@ -78,9 +78,9 @@ function HomepageU({ firstname }) {
         {/* Static Image Section */}
         <section className="header-section1" style={{ backgroundImage: `url(${pic2})` }}>
           <div className="header-content">
-            <h2>Leave No One Behind</h2>
-            <p>Help Affected Communities</p>
-            <p>Around Philippines.</p>
+            <h2>Leave No One Behind!</h2>
+            <p>Help Affected Communities Around Philippines.</p>
+            <p></p>
             <br />
             <Link to="/options">
               <Button
