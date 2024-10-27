@@ -36,11 +36,7 @@ const Events = () => {
           </ul>
         </nav>
       </header>
-      <div className="back-button">
-        <Link to="/">
-          <div className="circle">&lt;</div>
-        </Link>
-      </div>
+
       <div className="events-container"> 
         <h2>Upcoming Events</h2>
         <table>

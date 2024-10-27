@@ -56,7 +56,7 @@ const CashOthers = () => {
       </header>
       <div class="back-button">
           <Link to="/options">
-          <div class="circle">&lt;</div>
+          <div class="circle">&#8592;</div>
           </Link>
         </div>
       <div className="container1-wrapper">

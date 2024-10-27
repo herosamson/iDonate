@@ -56,7 +56,7 @@ const Buttons = () => {
       </header>
       <div className="back-button">
         <Link to="/options">
-          <div className="circle">&lt;</div>
+          <div className="circle">&#8592;</div>
         </Link>
       </div>
       <div className="wrap"> 

@@ -47,6 +47,9 @@ function Analytics() {
   const [mostDonatedItem, setMostDonatedItem] = useState({ name: '', quantity: 0 });
   const [lineData, setLineData] = useState([]);
   const navigate = useNavigate();
+const [isItemsModalOpen, setIsItemsModalOpen] = useState(false);
+const [locatedItems, setLocatedItems] = useState([]); // Array for item donations
+
 
   const openDonorsModal = async () => {
     try {
@@ -306,37 +309,40 @@ function Analytics() {
       }
     };
 
-    const fetchMonthlyItemDonations = async () => { // New data fetching function
-      try {
-        const response = await axios.get('/routes/accounts/donations/located', { withCredentials: true });
-        const items = response.data; // Assuming each item has 'date' and 'quantity' fields
+  const fetchMonthlyItemDonations = async () => {
+  try {
+    const response = await axios.get('/routes/accounts/donations/located', { withCredentials: true });
+    const items = response.data;
 
-        const monthlyTotalsMap = new Map();
+    // Set the locatedItems for modal display
+    setLocatedItems(items);
 
-        items.forEach(item => {
-          const itemDate = new Date(item.date);
-          const month = itemDate.toLocaleString('default', { month: 'short', year: 'numeric' }); // e.g., "Jan 2024"
-          const quantity = parseInt(item.quantity, 10);
+    // Existing code for monthly totals...
+    const monthlyTotalsMap = new Map();
+    items.forEach(item => {
+      const itemDate = new Date(item.date);
+      const month = itemDate.toLocaleString('default', { month: 'short', year: 'numeric' });
+      const quantity = parseInt(item.quantity, 10);
 
-          if (monthlyTotalsMap.has(month)) {
-            monthlyTotalsMap.set(month, monthlyTotalsMap.get(month) + quantity);
-          } else {
-            monthlyTotalsMap.set(month, quantity);
-          }
-        });
-
-        const monthlyTotalsArray = Array.from(monthlyTotalsMap, ([month, total]) => ({
-          month,
-          total,
-        }));
-
-        monthlyTotalsArray.sort((a, b) => new Date(a.month) - new Date(b.month));
-
-        setMonthlyItemDonations(monthlyTotalsArray);
-      } catch (error) {
-        console.error('Error fetching monthly item donations:', error);
+      if (monthlyTotalsMap.has(month)) {
+        monthlyTotalsMap.set(month, monthlyTotalsMap.get(month) + quantity);
+      } else {
+        monthlyTotalsMap.set(month, quantity);
       }
-    };
+    });
+
+    const monthlyTotalsArray = Array.from(monthlyTotalsMap, ([month, total]) => ({
+      month,
+      total,
+    }));
+
+    monthlyTotalsArray.sort((a, b) => new Date(a.month) - new Date(b.month));
+    setMonthlyItemDonations(monthlyTotalsArray);
+  } catch (error) {
+    console.error('Error fetching monthly item donations:', error);
+  }
+};
+
     // Add this function to fetch total item donations
 const fetchTotalItemDonations = async () => {
   try {
@@ -461,10 +467,11 @@ fetchTotalItemDonations();
             <h2><strong>Total Cash Donations</strong></h2>
             <p>&#8369;{totalApprovedDonations.toFixed(2)}</p>
           </div>
-          <div className="status-box"> 
-            <h2><strong>Total Item Donations:</strong></h2>
-            <p>{totalItemDonations}</p>
-          </div>
+         <div className="status-box" onClick={() => setIsItemsModalOpen(true)}>
+  <h2><strong>Total Item Donations:</strong></h2>
+  <p>{totalItemDonations}</p>
+</div>
+
           <div className="status-box" onClick={openDonorsModal}>
             <h2><strong>Number of Donors</strong></h2>
             <p>{totalUniqueDonors}</p>
@@ -629,9 +636,49 @@ fetchTotalItemDonations();
             </div>
           </div>
         )}
+{isItemsModalOpen && (
+  <div className="modal-overlay">
+    <div className="modal">
+      <div className="modal-header">
+        <h2>Located Item Donations</h2>
+        <span className="close-icon" onClick={() => setIsItemsModalOpen(false)}>&times;</span>
+      </div>
+      <div className="item-donations-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Item Name</th>
+              <th>Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+            {locatedItems.length > 0 ? (
+              locatedItems.map((item, index) => (
+                <tr key={index}>
+                  <td>{item.name}</td>
+                  <td>{item.quantity}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="3">No located item donations available.</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+)}
+
       </div>
     </div>
   );
 }
 
 export default Analytics;
+
+
+
+
+

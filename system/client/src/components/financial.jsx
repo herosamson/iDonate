@@ -157,7 +157,7 @@ const Financial = () => {
       </header>
       <div className="back1-button">
         <Link to="/buttons">
-          <div className="circle1">&lt;</div>
+          <div className="circle1">&#8592;</div>
         </Link>
       </div>
       <div className="containerDo">

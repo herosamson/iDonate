@@ -171,7 +171,7 @@ text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 20px;
+  font-size: 30px;
   color: #000; /* Change less-than sign color to black */
   text-decoration: none; 
 }

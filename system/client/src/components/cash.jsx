@@ -61,7 +61,7 @@ const Cash = () => {
       </header>
       <div className="back-button">
         <Link to="/cashOthers">
-          <div className="circle">&lt;</div>
+          <div className="circle">&#8592;</div>
         </Link>
       </div>
       <div className="instructions"></div>

@@ -234,7 +234,7 @@ const Receipt = () => {
       </header>
       <div className="back-button">
         <Link to="/cash">
-          <div className="circle">&lt;</div>
+          <div className="circle">&#8592;</div>
         </Link>
       </div>
       <div className="container-wrapperReceipt">

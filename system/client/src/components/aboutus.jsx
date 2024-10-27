@@ -21,11 +21,6 @@ class About extends React.Component {
           </ul>
         </nav>
       </header>
-        <div class="back-button">
-          <Link to="/">
-          <div class="circle">&lt;</div>
-          </Link>
-        </div>
         <div className="timeline-container"> 
         <h2>Brief history of the Black Nazarene and Quiapo Church</h2>
         <h4>by: Myrna Cacho</h4>

@@ -53,11 +53,7 @@ const Options = () => {
           </ul>
         </nav>
       </header>
-      <div class="back-button">
-          <Link to="/homepageuser">
-          <div class="circle">&lt;</div>
-          </Link>
-        </div>
+
         <div className="container1-wrapper">
       <div className="containerOptions">
       <img src={pic1} alt="Donate" className="image1" />
