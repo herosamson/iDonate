@@ -341,18 +341,22 @@ const [locatedItems, setLocatedItems] = useState([]); // Array for item donation
 };
 
     // Add this function to fetch total item donations
-const fetchTotalItemDonations = async () => {
-  try {
-    const response = await axios.get('/routes/accounts/donations/located', { withCredentials: true });
-    const item = response.data;
-    // Set the locatedItems for modal display
-    setLocatedItems(item);
-    const totalAmount = response.data.reduce((sum, item) => sum + (parseInt(item.quantity, 10) || 0), 0);
-    setTotalItemDonations(totalAmount);
-  } catch (error) {
-    console.error('Error fetching total item donations:', error);
-  }
-};
+    const fetchTotalItemDonations = async () => {
+      try {
+        const response = await axios.get('/routes/accounts/donations/located', { withCredentials: true });
+        const items = response.data;
+    
+        // Set the locatedItems for modal display
+        setLocatedItems(items);  // Assuming 'items' contains the necessary fields
+    
+        // Calculate total item donations
+        const totalAmount = items.reduce((sum, item) => sum + (parseInt(item.quantity, 10) || 0), 0);
+        setTotalItemDonations(totalAmount);
+      } catch (error) {
+        console.error('Error fetching total item donations:', error);
+      }
+    };
+    
 
 fetchTotalItemDonations();
     fetchTotalUsers();
@@ -654,13 +658,13 @@ fetchTotalItemDonations();
             {locatedItems.length > 0 ? (
               locatedItems.map((item, index) => (
                 <tr key={index}>
-                  <td>{item.name}</td>
-                  <td>{item.quantity}</td>
+                  <td>{item.name}</td>  {/* Display the item name */}
+                  <td>{item.quantity}</td>  {/* Display the item quantity */}
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="3">No located item donations available.</td>
+                <td colSpan="2">No located item donations available.</td>
               </tr>
             )}
           </tbody>
@@ -669,6 +673,7 @@ fetchTotalItemDonations();
     </div>
   </div>
 )}
+
 
       </div>
     </div>
