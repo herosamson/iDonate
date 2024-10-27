@@ -314,9 +314,6 @@ const [locatedItems, setLocatedItems] = useState([]); // Array for item donation
     const response = await axios.get('/routes/accounts/donations/located', { withCredentials: true });
     const items = response.data;
 
-      // Log the items to check the structure
-      console.log(items);
-
 
     // Set the locatedItems for modal display
     setLocatedItems(items);
@@ -460,7 +457,6 @@ fetchTotalItemDonations();
             </ul>
           )}
           <li><Link to="/inventory">Inventory</Link></li>
-          <br />
           <li><Link to="/" onClick={handleLogout}>Logout</Link></li>
         </ul>
       </div>
@@ -657,10 +653,10 @@ fetchTotalItemDonations();
           </thead>
           <tbody>
             {locatedItems.length > 0 ? (
-              locatedItems.map((items, index) => (
+              locatedItems.map((item, index) => (
                 <tr key={index}>
-                  <td>{items.name}</td>
-                  <td>{items.quantity}</td>
+                  <td>{item.name}</td>
+                  <td>{item.quantity}</td>
                 </tr>
               ))
             ) : (

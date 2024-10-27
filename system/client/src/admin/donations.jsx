@@ -481,7 +481,6 @@ const Donations = () => {
             </ul>
           )}
           <li><Link to="/inventory">Inventory</Link></li>
-          <br />
           <li><Link to="/" onClick={handleLogout}>Logout</Link></li>
         </ul>
       </div>

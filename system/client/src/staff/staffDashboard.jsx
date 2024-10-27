@@ -455,7 +455,6 @@ fetchTotalItemDonations();
                   <thead>
                     <tr>
                       <th>Name</th>
-                      <th>Contact</th>
                       <th>Amount</th>
                     </tr>
                   </thead>
@@ -463,7 +462,6 @@ fetchTotalItemDonations();
                     {topDonors.map((donor, index) => (
                       <tr key={index}>
                         <td>{donor.name}</td>
-                        <td>{donor.contact}</td>
                         <td>&#8369;{parseFloat(donor.amount).toFixed(2)}</td>
                       </tr>
                     ))}

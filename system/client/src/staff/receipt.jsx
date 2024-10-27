@@ -120,7 +120,7 @@ function ReceiptS() {
       head: [['Name of Donor', 'Amount of Donation', 'Date of Donation', 'Status']],
       body: filteredProofs.map(proof => [
         proof.name || 'N/A',
-        `₱${parseFloat(proof.amount).toLocaleString()}`,
+        `${parseFloat(proof.amount).toLocaleString()} Pesos`,
         new Date(proof.date).toLocaleDateString(),
         proof.approved ? 'Verified' : 'Pending'
       ]),
@@ -184,7 +184,7 @@ function ReceiptS() {
                       href={`https://idonate1.onrender.com/${proof.imagePath}`} 
                       target="_blank" 
                       rel="noopener noreferrer" 
-                      className="print-report-button"
+                      className="view-image-button"
                     >
                       View Image
                     </a>

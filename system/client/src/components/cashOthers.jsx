@@ -3,7 +3,7 @@ import './cashOthers.css';
 import { Link, useNavigate } from 'react-router-dom'; 
 import logo from './imagenew.png';
 import pic3 from './pic11.jpg';
-import pic4 from './pic12.png';
+import pic4 from './cash.png';
 
 
 const CashOthers = () => {

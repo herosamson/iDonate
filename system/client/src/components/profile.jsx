@@ -172,86 +172,86 @@ const Profile = ({ username }) => {
         </nav>
       </header>
 
-      <div className="containerProfile">
-      {isEditing ? (
+      <div className="edit-button-container">
+  <button className="edit-buttonpro" onClick={() => setIsEditing(true)}>Edit</button>
   <div className="profile-container">
-    <div className="edit-container">
-      <div className="profile-pic">
-        <img src="https://via.placeholder.com/100" alt="Profile" />
+    {isEditing ? (
+      <div className="edit-container">
+        <div className="profile-pic">
+          <img src="https://via.placeholder.com/100" alt="Profile" />
+        </div>
+        <div className="edit-field">
+          <label>First Name:</label>
+          <input
+            type="text"
+            name="firstname"
+            value={editData.firstname}
+            onChange={handleChange}
+            className="read-only"
+            readOnly
+          />
+        </div>
+        <div className="edit-field">
+          <label>Last Name:</label>
+          <input
+            type="text"
+            name="lastname"
+            value={editData.lastname}
+            onChange={handleChange}
+            className="read-only"
+            readOnly
+          />
+        </div>
+        <div className="edit-field">
+          <label>Email:</label>
+          <input
+            type="email"
+            name="email"
+            value={editData.email}
+            onChange={handleChange}
+            className="read-only"
+            readOnly
+          />
+        </div>
+        <div className="edit-field">
+          <label>Contact:</label>
+          <input
+            type="text"
+            name="contact"
+            value={editData.contact}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="edit-field">
+          <label>Address:</label>
+          <input
+            type="text"
+            name="address"
+            value={editData.address}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="button-group">
+          <button className="save-buttonP" onClick={handleSave}>Save</button>
+          <button className="cancel-buttonP" onClick={handleCancel}>Cancel</button>
+        </div>
       </div>
-      <div className="edit-field">
-        <label>First Name:</label>
-        <input
-          type="text"
-          name="firstname"
-          value={editData.firstname}
-          onChange={handleChange}
-          className="read-only"
-          readOnly
-        />
+    ) : (
+      <div className="profile-info">
+        <div className="profile-pic">
+          <img src="https://via.placeholder.com/100" alt="Profile" />
+        </div>
+        <h2>My Information</h2>
+        <p><strong>Name:</strong> {user.firstname} {user.lastname}</p>
+        <p><strong>Email:</strong> {user.email}</p>
+        <p><strong>Contact:</strong> {user.contact}</p>
+        <p><strong>Address:</strong> {user.address}</p>
+        <p><strong>Username:</strong> {user.username}</p>
       </div>
-      <div className="edit-field">
-        <label>Last Name:</label>
-        <input
-          type="text"
-          name="lastname"
-          value={editData.lastname}
-          onChange={handleChange}
-          className="read-only"
-          readOnly
-        />
-      </div>
-      <div className="edit-field">
-        <label>Email:</label>
-        <input
-          type="email"
-          name="email"
-          value={editData.email}
-          onChange={handleChange}
-          className="read-only"
-          readOnly
-        />
-      </div>
-      <div className="edit-field">
-        <label>Contact:</label>
-        <input
-          type="text"
-          name="contact"
-          value={editData.contact}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="edit-field">
-        <label>Address:</label>
-        <input
-          type="text"
-          name="address"
-          value={editData.address}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="button-group">
-        <button className="save-buttonP" onClick={handleSave}>Save</button>
-        <button className="cancel-buttonP" onClick={handleCancel}>Cancel</button>
-      </div>
-    </div>
+    )}
   </div>
-) : (
-  <div className="profile-container">
-    <div className="profile-info">
-      <div className="profile-pic">
-        <img src="https://via.placeholder.com/100" alt="Profile" />
-      </div>
-      <h2>My Information</h2>
-      <p><strong>Name:</strong> {user.firstname} {user.lastname}</p>
-      <p><strong>Email:</strong> {user.email}</p>
-      <p><strong>Contact:</strong> {user.contact}</p>
-      <p><strong>Address:</strong> {user.address}</p>
-      <p><strong>Username:</strong> {user.username}</p>
-      <button className="edit-buttonpro" onClick={() => setIsEditing(true)}>Edit</button>
-    </div>
-  </div>
-)}
+
+
 
 
         <div className='Rcontainer'>

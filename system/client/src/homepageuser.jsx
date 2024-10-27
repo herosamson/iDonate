@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './homepageuser.css';
 import { FaYoutube, FaFacebookF, FaInstagram, FaTiktok, FaCheckCircle  } from 'react-icons/fa';
 import Button from '@mui/material/Button';
@@ -9,7 +9,7 @@ import pic2 from './pic15.jpg';
 import logolatest from './imagenew.png';
 
 function HomepageU({ firstname }) {
-
+  const navigate = useNavigate();
   useEffect(() => {
     if (firstname) {
       toast(<CustomToastMessage firstname={firstname}/>, {
