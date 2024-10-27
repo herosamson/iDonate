@@ -21,39 +21,42 @@ class About extends React.Component {
           </ul>
         </nav>
       </header>
-      <section className="additional-content2">
-            <div onClick={handleContainerClick}  className="cardhome">
+         {/* Donation Methods */}
+         <main className="main2">
+          <section className="additional-content2">
+            <div className="cardhome">
               <div  className="card-imagebpi"></div>
-              <center> <p className="card-title">BPI</p></center>
+              <center> <p className="card-title">Jacob</p></center>
               <p className="card-body"><strong>Account Name: RCAM-Minor Basilica of the Black Nazarene</strong></p>
               <p className="card-body">Peso Savings Account # 2273-0504-37</p>
               <p className="card-body">Dollars Savings Account # 2274-0026-22</p>
               <p className="card-body">Swift Code - BIC: B O P I P H M M</p>
             </div>
 
-            <div onClick={handleContainerClick} className="cardhome">
+            <div className="cardhome">
               <div  className="card-imagebdo"></div>
-              <center> <p className="card-title">BDO</p></center>
+              <center> <p className="card-title">Hendric</p></center>
               <p className="card-body"><strong>Account Name: RCAM-Minor Basilica of the Black Nazarene</strong></p>
               <p className="card-body">Peso Savings Account # 00454-0037-172</p>
               <p className="card-body">Dollars Savings Account # 10454-0037-164</p>
               <p className="card-body">Swift Code - BIC: B N O R P H M M</p>
             </div>
 
-            <div onClick={handleContainerClick}  className="cardhome">
+            <div className="cardhome">
               <div  className="card-imagemaya"></div>
-              <center> <p className="card-title">Paymaya</p></center>
+              <center> <p className="card-title">Wendell</p></center>
               <p className="card-body">Mobile Number: 0961 747 7003</p>
               <p className="card-body">Name: Rufino Sescon, Jr.</p>
             </div>
 
-            <div onClick={handleContainerClick} className="cardhome">
+            <div className="cardhome">
               <div className="card-imagegcash"></div>
-              <center><p className="card-title">GCash</p></center>
+              <center><p className="card-title">Jolee</p></center>
               <p className="card-body">Mobile Number: 0966 863 9861</p>
               <p className="card-body">Name: Rufino Sescon, Jr.</p>
             </div>
           </section>
+        </main>
           
         </div>
     );
