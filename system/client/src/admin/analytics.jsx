@@ -314,6 +314,10 @@ const [locatedItems, setLocatedItems] = useState([]); // Array for item donation
     const response = await axios.get('/routes/accounts/donations/located', { withCredentials: true });
     const items = response.data;
 
+      // Log the items to check the structure
+      console.log(items);
+
+
     // Set the locatedItems for modal display
     setLocatedItems(items);
 
@@ -653,10 +657,10 @@ fetchTotalItemDonations();
           </thead>
           <tbody>
             {locatedItems.length > 0 ? (
-              locatedItems.map((item, index) => (
+              locatedItems.map((items, index) => (
                 <tr key={index}>
-                  <td>{item.name}</td>
-                  <td>{item.quantity}</td>
+                  <td>{items.name}</td>
+                  <td>{items.quantity}</td>
                 </tr>
               ))
             ) : (

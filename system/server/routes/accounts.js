@@ -808,7 +808,7 @@ router.put('/requests/receive/:id', async (req, res) => {
 router.post('/events/add', async (req, res) => {
   const { eventName, eventDate, volunteers, materialsNeeded = [], numberOfPax } = req.body;
   try {
-    if (!eventName || !eventDate || !volunteers || materialsNeeded.length === 0 || !numberOfPax) {
+    if (!eventName || !eventDate || !volunteers || materialsNeeded.length === 0 ) {
       return res.status(400).json({ message: 'All fields are required' });
     }
     const newEvent = new Event({ eventName, eventDate, volunteers, materialsNeeded, numberOfPax });

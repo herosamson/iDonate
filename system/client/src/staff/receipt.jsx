@@ -100,6 +100,13 @@ function ReceiptS() {
     const xPos = (doc.internal.pageSize.getWidth() - doc.getTextWidth(title)) / 2;
     doc.text(title, xPos, 22);
 
+    const lineY = 28;
+    const lineWidth = 1.2;
+    doc.setLineWidth(lineWidth);
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const margin = 30;
+    doc.line(margin, lineY, pageWidth - margin, lineY);
+
     doc.setFontSize(14);
     const title2 = 'SAINT JOHN THE BAPTIST PARISH | QUIAPO CHURCH';
     const xPos2 = (doc.internal.pageSize.getWidth() - doc.getTextWidth(title2)) / 2;
@@ -152,8 +159,9 @@ function ReceiptS() {
             <option value="This Week">This Week</option>
             <option value="This Month">This Month</option>
           </select>
-          <button onClick={downloadReport}>Download PDF Report</button>
+        
         </div>
+        <button className="print-report-button" onClick={downloadReport}>Download PDF Report</button>
         <table>
           <thead>
             <tr>
@@ -176,7 +184,7 @@ function ReceiptS() {
                       href={`https://idonate1.onrender.com/${proof.imagePath}`} 
                       target="_blank" 
                       rel="noopener noreferrer" 
-                      className="view-image-button"
+                      className="print-report-button"
                     >
                       View Image
                     </a>
@@ -186,7 +194,7 @@ function ReceiptS() {
                   {proof.approved ? (
                     <span className="verified-status">Verified</span>
                   ) : (
-                    <button className="approve-button" onClick={() => approvePayment(proof._id)}>
+                    <button className="enable-button"  onClick={() => approvePayment(proof._id)}>
                       Good
                     </button>
                   )}

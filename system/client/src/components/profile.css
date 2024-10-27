@@ -380,3 +380,7 @@ table tr:hover {
 .edit-container, .profile-info {
   width: 100%;
 }
+.containerProfile {
+  margin-right: 100px;
+  margin-bottom: 50px;
+}

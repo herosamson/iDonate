@@ -172,7 +172,7 @@ const Profile = ({ username }) => {
         </nav>
       </header>
 
-      <div className="containerP">
+      <div className="containerProfile">
       {isEditing ? (
   <div className="profile-container">
     <div className="edit-container">
