@@ -312,15 +312,14 @@ const [locatedItems, setLocatedItems] = useState([]); // Array for item donation
   const fetchMonthlyItemDonations = async () => {
   try {
     const response = await axios.get('/routes/accounts/donations/located', { withCredentials: true });
-    const items = response.data;
-
+    const item = response.data;
 
     // Set the locatedItems for modal display
-    setLocatedItems(items);
+    setLocatedItems(item);
 
     // Existing code for monthly totals...
     const monthlyTotalsMap = new Map();
-    items.forEach(item => {
+    item.forEach(item => {
       const itemDate = new Date(item.date);
       const month = itemDate.toLocaleString('default', { month: 'short', year: 'numeric' });
       const quantity = parseInt(item.quantity, 10);
