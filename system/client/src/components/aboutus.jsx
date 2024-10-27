@@ -21,38 +21,40 @@ class About extends React.Component {
           </ul>
         </nav>
       </header>
-         {/* Donation Methods */}
+       <div className="content">
+        <h1>Who Are We</h1>
+       </div>
          <main className="main2">
           <section className="additional-content2">
             <div className="cardhome">
-              <div  className="card-imagebpi"></div>
-              <center> <p className="card-title">Jacob</p></center>
-              <p className="card-body"><strong>Account Name: RCAM-Minor Basilica of the Black Nazarene</strong></p>
+              <div  className="card-imagedell"></div>
+              <center> <p className="card-title">Project Manager</p></center>
+              <p className="card-body">Name: Wendell Castro</p>
               <p className="card-body">Peso Savings Account # 2273-0504-37</p>
               <p className="card-body">Dollars Savings Account # 2274-0026-22</p>
               <p className="card-body">Swift Code - BIC: B O P I P H M M</p>
             </div>
 
             <div className="cardhome">
-              <div  className="card-imagebdo"></div>
-              <center> <p className="card-title">Hendric</p></center>
-              <p className="card-body"><strong>Account Name: RCAM-Minor Basilica of the Black Nazarene</strong></p>
+              <div  className="card-imagecob"></div>
+              <center> <p className="card-title">Web Developer</p></center>
+              <p className="card-body">Name: Jacob Elchico</p>
               <p className="card-body">Peso Savings Account # 00454-0037-172</p>
               <p className="card-body">Dollars Savings Account # 10454-0037-164</p>
               <p className="card-body">Swift Code - BIC: B N O R P H M M</p>
             </div>
 
             <div className="cardhome">
-              <div  className="card-imagemaya"></div>
-              <center> <p className="card-title">Wendell</p></center>
-              <p className="card-body">Mobile Number: 0961 747 7003</p>
+              <div  className="card-imagehero"></div>
+              <center> <p className="card-title">Mobile Developer</p></center>
+              <p className="card-body">Name: Hendric Samson</p>
               <p className="card-body">Name: Rufino Sescon, Jr.</p>
             </div>
 
             <div className="cardhome">
-              <div className="card-imagegcash"></div>
-              <center><p className="card-title">Jolee</p></center>
-              <p className="card-body">Mobile Number: 0966 863 9861</p>
+              <div className="card-imageulay"></div>
+              <center><p className="card-title">Documentation</p></center>
+              <p className="card-body">Mobile Number: Jolee Tejado</p>
               <p className="card-body">Name: Rufino Sescon, Jr.</p>
             </div>
           </section>
