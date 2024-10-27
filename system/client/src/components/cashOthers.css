@@ -77,12 +77,11 @@
 
   .image3 {
     background-position: center;
-    background-size: auto;
     height: 280px;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 605px;
+    width: 305px;
   }
   
   .image4{
