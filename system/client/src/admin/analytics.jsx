@@ -470,7 +470,7 @@ fetchTotalItemDonations();
             <h2><strong>Total Cash Donations</strong></h2>
             <p>&#8369;{totalApprovedDonations.toFixed(2)}</p>
           </div>
-         <div className="status-box" onClick={() => setIsItemsModalOpen(true)}>
+         <div className="status-box" >
   <h2><strong>Total Item Donations:</strong></h2>
   <p>{totalItemDonations}</p>
 </div>
@@ -639,41 +639,6 @@ fetchTotalItemDonations();
             </div>
           </div>
         )}
-{isItemsModalOpen && (
-  <div className="modal-overlay">
-    <div className="modal">
-      <div className="modal-header">
-        <h2>Located Item Donations</h2>
-        <span className="close-icon" onClick={() => setIsItemsModalOpen(false)}>&times;</span>
-      </div>
-      <div className="item-donations-table">
-        <table>
-          <thead>
-            <tr>
-              <th>Item</th>
-              <th>Quantity</th>
-            </tr>
-          </thead>
-          <tbody>
-            {locatedItems.length > 0 ? (
-              locatedItems.map((item, index) => (
-                <tr key={index}>
-                  <td>{item.itemName || item.name}</td> {/* Display the item name */}
-                  <td>{item.quantity}</td>  {/* Display the item quantity */}
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="2">No located item donations available.</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-)}
-
 
       </div>
     </div>

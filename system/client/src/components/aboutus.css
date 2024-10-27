@@ -100,7 +100,7 @@
   .cardhome {
     padding: 20px;
     width: 350px;
-    min-height: 400px;
+    min-height: 420px;
     border-radius: 20px;
     background: #e8e8e8;
     box-shadow: 5px 5px 6px #dadada,
@@ -121,7 +121,7 @@
   }
   
   .card-imagedell {
-    min-height: 200px;
+    min-height: 220px;
     background-color: #c9c9c9;
     border-radius: 15px;
     background-repeat: no-repeat; /* Ensures the image does not repeat */
@@ -137,7 +137,7 @@
 }
 
 .card-imagecob {
-  min-height: 200px;
+  min-height: 220px;
   background-color: #c9c9c9;
   border-radius: 15px;
   background-repeat: no-repeat; /* Ensures the image does not repeat */
@@ -152,7 +152,7 @@
   display:flex;
 }
 .card-imageulay {
-  min-height: 200px;
+  min-height: 220px;
   background-color: #c9c9c9;
   border-radius: 15px;
   background-repeat: no-repeat; /* Ensures the image does not repeat */
@@ -167,7 +167,7 @@
   display:flex;
 }
 .card-imagehero {
-  min-height: 200px;
+  min-height: 220px;
   background-color: #c9c9c9;
   border-radius: 15px;
   background-repeat: no-repeat; /* Ensures the image does not repeat */
