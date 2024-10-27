@@ -21,6 +21,8 @@ class About extends React.Component {
           </ul>
         </nav>
       </header>
+         <main className="main2">
+          <section className="additional-content2">
             <div className="cardhome">
               <div  className="card-imagedell"></div>
               <center> <p className="card-title">Project Manager</p></center>
@@ -53,6 +55,8 @@ class About extends React.Component {
                  including requirements and user guides, to help 
                 everyone understand the project and refer back to it later.</p>
             </div>
+          </section>
+        </main>
           
         </div>
     );
