@@ -347,7 +347,7 @@ const [locatedItems, setLocatedItems] = useState([]); // Array for item donation
         const items = response.data;
     
         // Set the locatedItems for modal display
-        setLocatedItems(items);  // Assuming 'items' contains the necessary fields
+        setIsItemsModalOpen(items);  // Assuming 'items' contains the necessary fields
     
         // Calculate total item donations
         const totalAmount = items.reduce((sum, item) => sum + (parseInt(item.quantity, 10) || 0), 0);
