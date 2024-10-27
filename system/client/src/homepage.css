@@ -170,6 +170,7 @@
     display: flex;
     justify-content: center; /* Center the containers horizontally */
     align-items: center; /* Center the containers vertically */
+    width: 80%;
   }
   
   .additional-content2 {

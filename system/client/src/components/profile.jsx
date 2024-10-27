@@ -239,7 +239,7 @@ const Profile = ({ username }) => {
     ) : (
       <div className="profile-info">
         <div className="profile-pic">
-          <img src="https://via.placeholder.com/100" alt="Profile" />
+          <img src={pic} alt="Profile" />
         </div>
         <h2>My Information</h2>
         <p><strong>Name:</strong> {user.firstname} {user.lastname}</p>
