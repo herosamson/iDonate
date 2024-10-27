@@ -125,7 +125,7 @@
     background-color: #c9c9c9;
     border-radius: 15px;
     background-repeat: no-repeat; /* Ensures the image does not repeat */
-    background-image: url('./cob.png');
+    background-image: url('./dell.png');
     width: 100%;
     background-size: cover; /* Makes sure the entire image is visible */
     background-position: center; /* Centers the image within the container */
@@ -141,7 +141,7 @@
   background-color: #c9c9c9;
   border-radius: 15px;
   background-repeat: no-repeat; /* Ensures the image does not repeat */
-  background-image: url('./cob.png');
+  background-image: url('./cob1.png');
   width: 100%;
   background-size: cover; /* Makes sure the entire image is visible */
   background-position: center; /* Centers the image within the container */
@@ -171,7 +171,7 @@
   background-color: #c9c9c9;
   border-radius: 15px;
   background-repeat: no-repeat; /* Ensures the image does not repeat */
-  background-image: url('./picM.jpg');
+  background-image: url('./hero.png');
   width: 100%;
   background-size: cover; /* Makes sure the entire image is visible */
   background-position: center; /* Centers the image within the container */
