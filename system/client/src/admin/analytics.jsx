@@ -309,46 +309,44 @@ const [locatedItems, setLocatedItems] = useState([]); // Array for item donation
       }
     };
 
-    const fetchMonthlyItemDonations = async () => {
-      setLoading(true); // Add loading state
-      try {
-        const response = await axios.get('/routes/accounts/donations/located', { withCredentials: true });
-        setLocatedItems(response.data); // Set located items for modal display
-    
-        // Monthly totals logic remains the same
-        const monthlyTotalsMap = new Map();
-        response.data.forEach(item => {
-          const itemDate = new Date(item.date);
-          const month = itemDate.toLocaleString('default', { month: 'short', year: 'numeric' });
-          const quantity = parseInt(item.quantity, 10);
-    
-          if (monthlyTotalsMap.has(month)) {
-            monthlyTotalsMap.set(month, monthlyTotalsMap.get(month) + quantity);
-          } else {
-            monthlyTotalsMap.set(month, quantity);
-          }
-        });
-    
-        const monthlyTotalsArray = Array.from(monthlyTotalsMap, ([month, total]) => ({
-          month,
-          total,
-        }));
-    
-        monthlyTotalsArray.sort((a, b) => new Date(a.month) - new Date(b.month));
-        setMonthlyItemDonations(monthlyTotalsArray);
-      } catch (error) {
-        console.error('Error fetching monthly item donations:', error);
-        setError('Failed to fetch item donations.'); // Set an error message
-      } finally {
-        setLoading(false); // Reset loading state
+  const fetchMonthlyItemDonations = async () => {
+  try {
+    const response = await axios.get('/routes/accounts/donations/located', { withCredentials: true });
+    const item = response.data;
+
+    // Existing code for monthly totals...
+    const monthlyTotalsMap = new Map();
+    item.forEach(item => {
+      const itemDate = new Date(item.date);
+      const month = itemDate.toLocaleString('default', { month: 'short', year: 'numeric' });
+      const quantity = parseInt(item.quantity, 10);
+
+      if (monthlyTotalsMap.has(month)) {
+        monthlyTotalsMap.set(month, monthlyTotalsMap.get(month) + quantity);
+      } else {
+        monthlyTotalsMap.set(month, quantity);
       }
-    };
-    
+    });
+
+    const monthlyTotalsArray = Array.from(monthlyTotalsMap, ([month, total]) => ({
+      month,
+      total,
+    }));
+
+    monthlyTotalsArray.sort((a, b) => new Date(a.month) - new Date(b.month));
+    setMonthlyItemDonations(monthlyTotalsArray);
+  } catch (error) {
+    console.error('Error fetching monthly item donations:', error);
+  }
+};
 
     // Add this function to fetch total item donations
 const fetchTotalItemDonations = async () => {
   try {
     const response = await axios.get('/routes/accounts/donations/located', { withCredentials: true });
+    const item = response.data;
+    // Set the locatedItems for modal display
+    setLocatedItems(item);
     const totalAmount = response.data.reduce((sum, item) => sum + (parseInt(item.quantity, 10) || 0), 0);
     setTotalItemDonations(totalAmount);
   } catch (error) {
@@ -654,15 +652,15 @@ fetchTotalItemDonations();
           </thead>
           <tbody>
             {locatedItems.length > 0 ? (
-              locatedItems.map((item) => (
-                <tr key={item.id || item.name}> {/* Ensure each item has a unique key */}
+              locatedItems.map((item, index) => (
+                <tr key={index}>
                   <td>{item.name}</td>
                   <td>{item.quantity}</td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="2">No located item donations available.</td>
+                <td colSpan="3">No located item donations available.</td>
               </tr>
             )}
           </tbody>
@@ -671,7 +669,6 @@ fetchTotalItemDonations();
     </div>
   </div>
 )}
-
 
       </div>
     </div>
