@@ -175,8 +175,7 @@
   .additional-content2 {
     display: flex;
     justify-content: space-between; /* Add space between containers */
-    width: 80%; /* Adjust width as needed */
-    margin-top: -500px
+    width: 100%; /* Adjust width as needed */
   }
   
   .container {

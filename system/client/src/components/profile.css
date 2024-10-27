@@ -376,5 +376,6 @@ table tr:hover {
   display: flex;
   align-items: flex-start; /* Align items at the start (top-aligned) */
   gap: 20px; /* Add spacing between the button and the profile */
-  margin-top: 50px; /* Add margin at the top */
+  margin-top: 40px; /* Add margin at the top */
+  margin-left: 50px;
 }

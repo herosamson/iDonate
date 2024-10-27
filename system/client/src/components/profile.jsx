@@ -3,6 +3,7 @@ import './profile.css';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import logo from './imagenew.png';
+import pic from './profilepic.jpg';
 
 const Profile = ({ username }) => {
   const [user, setUser] = useState(null);
@@ -173,12 +174,11 @@ const Profile = ({ username }) => {
       </header>
 
       <div className="edit-button-container">
-  <button className="edit-buttonpro" onClick={() => setIsEditing(true)}>Edit</button>
   <div className="profile-container">
     {isEditing ? (
       <div className="edit-container">
         <div className="profile-pic">
-          <img src="https://via.placeholder.com/100" alt="Profile" />
+          <img src={pic} alt="Profile" />
         </div>
         <div className="edit-field">
           <label>First Name:</label>
@@ -247,6 +247,7 @@ const Profile = ({ username }) => {
         <p><strong>Contact:</strong> {user.contact}</p>
         <p><strong>Address:</strong> {user.address}</p>
         <p><strong>Username:</strong> {user.username}</p>
+        <button className="edit-buttonpro" onClick={() => setIsEditing(true)}>Edit</button>
       </div>
     )}
   </div>
