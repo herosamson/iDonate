@@ -400,7 +400,7 @@ function EventsA() {
               value={newEvent.numberOfPax}
               onChange={handleChange}
               placeholder="Number of Pax"
-              required
+          
             />
           </div>
           <div className="materials-list">

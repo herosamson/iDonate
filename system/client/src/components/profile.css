@@ -149,8 +149,6 @@
     width: 100%; /* Ensure it takes full width */
     height: 380px;
     margin: 0 auto; /* Center horizontally */
-    margin-top: -40px;
-    margin-left: 140px;
 }
 
 
@@ -161,7 +159,6 @@
   border-radius: 20px;
   width: 300px;
   margin-top: 100px;
-  margin-left: 120px; /* Adjust the margin between the containers */
 background-color: white;
 box-shadow: 5px 10px 8px #888888;
 }
