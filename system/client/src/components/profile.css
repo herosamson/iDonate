@@ -73,7 +73,8 @@
 display: flex;
 justify-content: center;
 align-items: center;
-margin-top: 20px;
+margin-top: 40px;
+margin-left: 20px;
 }
 
 #Received-Table{
@@ -337,7 +338,7 @@ table tr:hover {
   display: flex;
   flex-direction: column;
   margin-bottom: 15px;
-  width: 80%;
+  width: 100%;
 }
 
 .edit-field label {
@@ -350,7 +351,7 @@ table tr:hover {
   padding: 8px;
   border: 1px solid #ddd;
   border-radius: 5px;
-  width: 80%;
+  width: 100%;
   font-size: 14px;
 }
 
@@ -376,7 +377,6 @@ table tr:hover {
 .edit-button-container {
   display: flex;
   align-items: flex-start; /* Align items at the start (top-aligned) */
-  gap: 20px; /* Add spacing between the button and the profile */
-  margin-top: 20px; /* Add margin at the top */
+  gap: 20px; /* Add spacing between the button and the profile */ /* Add margin at the top */
   margin-left: 120px;
 }
