@@ -650,7 +650,7 @@ fetchTotalItemDonations();
         <table>
           <thead>
             <tr>
-              <th>Item Name</th>
+              <th>Item</th>
               <th>Quantity</th>
             </tr>
           </thead>
@@ -658,7 +658,7 @@ fetchTotalItemDonations();
             {locatedItems.length > 0 ? (
               locatedItems.map((item, index) => (
                 <tr key={index}>
-                  <td>{item.name}</td>  {/* Display the item name */}
+                  <td>{item.itemName || item.name}</td> {/* Display the item name */}
                   <td>{item.quantity}</td>  {/* Display the item quantity */}
                 </tr>
               ))
