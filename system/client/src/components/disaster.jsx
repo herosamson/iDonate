@@ -29,25 +29,58 @@ const Disaster = () => {
   };
 
   const addDisasterRequest = async () => {
+    // Regular expression for validating only letters and spaces
+    const lettersOnlyRegex = /^[A-Za-z\s]+$/;
+  
+    // Check if all fields are filled
     if (!name || !disasterType || !numberOfPax || !contactNumber || !location || !targetDate) {
       alert('All fields are required.');
       return;
     }
-
-    if (!/^\d{11}$/.test(contactNumber) || !/^09\d{9}$/.test(contactNumber)) {
-      alert('Please enter a valid Contact Number.');
+  
+    // Function to check if the input contains < or >
+    const containsInvalidSymbols = (input) => /[<>]/.test(input);
+  
+    // Validate that none of the fields contain < or >
+    if (containsInvalidSymbols(name) || containsInvalidSymbols(disasterType) || containsInvalidSymbols(location)) {
+      alert('Symbols < and > are not allowed.');
       return;
     }
-    
+  
+    // Validate name and disasterType for letters only, no numbers or symbols
+    if (!lettersOnlyRegex.test(name)) {
+      alert('Please enter a valid Name.');
+      return;
+    }
+  
+    if (!lettersOnlyRegex.test(disasterType)) {
+      alert('Please enter a valid Disaster Type.');
+      return;
+    }
+  
+    // Validate numberOfPax for numbers only, no symbols or letters
     if (!/^\d+$/.test(numberOfPax)) {
       alert('Please enter a valid number for the Estimated Number of Pax.');
       return;
     }
-
+  
+    // Validate contactNumber for 11 digits starting with 09 and numbers only
+    if (!/^09\d{9}$/.test(contactNumber)) {
+      alert('Please enter a valid Contact Number that starts with 09 and has exactly 11 digits.');
+      return;
+    }
+  
+    // No symbols or invalid characters allowed for location
+    if (containsInvalidSymbols(location)) {
+      alert('Please enter a valid Location.');
+      return;
+    }
+  
     const newRequest = { name, disasterType, numberOfPax, contactNumber, location, targetDate, username };
+  
     try {
       const response = await axios.post(`/routes/accounts/disaster-relief/add`, newRequest, {
-        headers: { username }
+        headers: { username },
       });
       setDisasterRequests([...disasterRequests, response.data]);
       setName('');
@@ -63,6 +96,7 @@ const Disaster = () => {
       alert('Failed to add disaster relief request. Please try again later.');
     }
   };
+  
   const handleLogout = async () => {
     const username = localStorage.getItem('username'); 
     const role = localStorage.getItem('userRole'); 

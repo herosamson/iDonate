@@ -33,13 +33,14 @@ const Medical = () => {
   // Add medical assistance request
   const addMedicalAssistance = async () => {
     // Validate all fields are filled
+    const lettersOnlyRegex = /^[A-Za-z\s]+$/;
     if (!name || !typeOfMedicine || !quantity || !contactNumber || !location || !reason || !targetDate) {
       alert('All fields are required.');
       return;
     }
 
     // Validate inputs
-    if (name.includes('<') || name.includes('>')) {
+    if (name.includes('<') || name.includes('>') || !lettersOnlyRegex.test(name)) {
       alert('Invalid characters in Name field.');
       return;
     }

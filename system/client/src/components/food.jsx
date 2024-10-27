@@ -28,12 +28,13 @@ const Food = () => {
   };
 
   const addFoodAssistance = async () => {
+    const lettersOnlyRegex = /^[A-Za-z\s]+$/;
     if (!name || !typesOfFood || !contactNumber || !location || !targetDate || !numberOfPax) {
       alert('All fields are required.');
       return;
     }
 
-    if (name.includes('<') || name.includes('>')) {
+    if (name.includes('<') || name.includes('>')|| !lettersOnlyRegex.test(name)) {
       alert('Invalid characters in Name field.');
       return;
     }

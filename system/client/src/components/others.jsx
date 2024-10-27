@@ -214,11 +214,14 @@ const Others = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
+  
+    // Only allow alphabetic characters for customItem and customUnit
+    const lettersOnlyRegex = /^[A-Za-z\s]+$/;
+  
     if (value.includes('<') || value.includes('>')) {
       return;
     }
-
+  
     switch (name) {
       case 'category':
         setCategory(value);
@@ -234,7 +237,11 @@ const Others = () => {
         setCustomUnit('');
         break;
       case 'customItem':
-        setCustomItem(value);
+        if (lettersOnlyRegex.test(value) || value === '') {
+          setCustomItem(value);
+        } else {
+          alert('Please enter letters only for custom items.');
+        }
         break;
       case 'quantity':
         setQuantity(value);
@@ -244,7 +251,11 @@ const Others = () => {
         setCustomUnit('');
         break;
       case 'customUnit':
-        setCustomUnit(value);
+        if (lettersOnlyRegex.test(value) || value === '') {
+          setCustomUnit(value);
+        } else {
+          alert('Please enter letters only for custom units.');
+        }
         break;
       case 'date':
         setDate(value);
@@ -256,6 +267,7 @@ const Others = () => {
         break;
     }
   };
+  
 
   // Get the current date in YYYY-MM-DD format
   const today = new Date().toISOString().split('T')[0];

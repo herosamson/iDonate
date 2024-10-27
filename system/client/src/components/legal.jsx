@@ -31,12 +31,13 @@ const Legal = () => {
 
   // Add legal request
   const addLegalRequest = async () => {
+    const lettersOnlyRegex = /^[A-Za-z\s]+$/;
     if (!name || !legalType || !contactNumber || !location || !targetDate) {
       alert('All fields are required.');
       return;
     }
 
-    if (name.includes('<') || name.includes('>')) {
+    if (name.includes('<') || name.includes('>') || !lettersOnlyRegex.test(name)) {
       alert('Invalid characters in Name field.');
       return;
     }

@@ -72,29 +72,40 @@ const Receipt = () => {
 
 
 
-  const handleChange = (e) => {
-    const { name, value, files } = e.target;
+const handleChange = (e) => {
+  const { name, value, files } = e.target;
 
-    if (value && (value.includes('<') || value.includes('>'))) {
-      return; // If contains < or >, do not update state
-    }
+  // Regular expression for validating alphabetic characters and spaces
+  const lettersOnlyRegex = /^[A-Za-z\s]*$/;
 
-    if (name === 'amount' && !/^\d*$/.test(value)) {
-      return; // If not numeric characters, do not update state
-    }
+  if (value && (value.includes('<') || value.includes('>'))) {
+    return; // If contains < or >, do not update state
+  }
 
-    if (name === 'image') {
-      setDonorDetails({
-        ...donorDetails,
-        [name]: files[0]
-      });
-    } else {
-      setDonorDetails({
-        ...donorDetails,
-        [name]: value
-      });
-    }
-  };
+  // Validate name input to allow only letters and spaces
+  if (name === 'name' && !lettersOnlyRegex.test(value)) {
+    alert('Please enter letters only for the name.');
+    return;
+  }
+
+  // Validate amount input to allow only numeric characters
+  if (name === 'amount' && !/^\d*$/.test(value)) {
+    return; // If not numeric characters, do not update state
+  }
+
+  if (name === 'image') {
+    setDonorDetails({
+      ...donorDetails,
+      [name]: files[0]
+    });
+  } else {
+    setDonorDetails({
+      ...donorDetails,
+      [name]: value
+    });
+  }
+};
+
 
   useEffect(() => {
     const fetchProofs = async () => {

@@ -31,33 +31,50 @@ const Financial = () => {
 
   // Add financial request
   const addFinancialAssistance = async () => {
+    // Regular expression for validating only letters and spaces
+    const lettersOnlyRegex = /^[A-Za-z\s]+$/;
+  
     // Validate all fields are filled
     if (!name || !amount || !contactNumber || !reason || !targetDate) {
       alert('All fields are required.');
       return;
     }
-
-    // Validate inputs
-    if (name.includes('<') || name.includes('>')) {
-      alert('Invalid characters in Name field.');
+  
+    // Validate inputs: Name and Reason must contain only letters and spaces, and no < or >
+    if (name.includes('<') || name.includes('>') || !lettersOnlyRegex.test(name)) {
+      alert('Invalid characters in Name field. Please enter letters only.');
       return;
     }
+    
+    if (reason.includes('<') || reason.includes('>') || !lettersOnlyRegex.test(reason)) {
+      alert('Invalid characters in Reason field. Please enter letters only.');
+      return;
+    }
+  
+    // Validate Amount: Must be a number
     if (!/^\d+$/.test(amount)) {
       alert('Please enter a valid number for Amount.');
       return;
     }
-
-    if (!/^\d{11}$/.test(contactNumber) || !/^09\d{9}$/.test(contactNumber)) {
-      alert('Please enter a valid Contact Number.');
+  
+    // Validate Contact Number: Must start with 09 and be exactly 11 digits
+    if (!/^09\d{9}$/.test(contactNumber)) {
+      alert('Please enter a valid Contact Number that starts with 09 and has exactly 11 digits.');
       return;
     }
-
+  
+    // Create a new financial assistance request
     const newRequest = { name, amount, contactNumber, reason, targetDate, username };
+  
     try {
+      // Send the request to the server
       const response = await axios.post(`/routes/accounts/financial-assistance/add`, newRequest, {
         headers: { username }
       });
-      setFinancialAssistance([...financialAssistance, response.data]); // Update state with new request
+  
+      // Update state with the new request
+      setFinancialAssistance([...financialAssistance, response.data]);
+      
       // Clear the form fields
       setName('');
       setAmount('');
@@ -65,6 +82,8 @@ const Financial = () => {
       setReason('');
       setTargetDate('');
       setError('');
+  
+      // Show success message
       alert('Financial request added successfully.');
     } catch (error) {
       console.error('Failed to add financial request:', error.response ? error.response.data : error.message);
@@ -72,6 +91,7 @@ const Financial = () => {
       alert('Failed to add financial request. Please try again later.');
     }
   };
+  
 
   useEffect(() => {
     fetchFinancialAssistance(); // Fetch the financial requests when the component mounts
