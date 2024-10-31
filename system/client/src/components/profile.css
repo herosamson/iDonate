@@ -52,7 +52,7 @@
   background-color: #740000 ;
     color: #fff; /* Button text color */
     border: none;
-    padding: 15px;
+    padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
     width: 140px;
@@ -80,7 +80,7 @@ margin-left: 50px;
   position:absolute;
   top: 200px;
   left: 520px;
-  margin-bottom: 40px;
+  margin-bottom: 80px;
   justify-content: flex-end; /* Align the table container to the right */
   box-shadow: 5px 10px 8px #888888;
   max-height: 430px;
