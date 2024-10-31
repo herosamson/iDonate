@@ -1,4 +1,7 @@
-
+.Options {
+  overflow-y: auto; 
+  overflow-x: auto;
+}
 .headerP {
     background-color: #fff;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -49,14 +52,14 @@
   background-color: #740000 ;
     color: #fff; /* Button text color */
     border: none;
-    padding: 20px;
+    padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
-    width: 100%;
+    width: 140px;
 display: flex;
 justify-content: center;
 align-items: center;
-margin-left: 48px;
+margin-left: 50px;
 }
 
 #Received-Table{
@@ -68,7 +71,7 @@ margin-left: 48px;
 }
 
 .Rcontainer {
-  width: 100%; /* Adjust width as needed */
+  width: 720px; /* Adjust width as needed */
   background-color: white; /* White background */
   padding: 20px; /* Add padding */
   border-radius: 8px; /* Rounded corners */
@@ -77,10 +80,10 @@ margin-left: 48px;
   position:absolute;
   top: 200px;
   left: 520px;
-  margin-top: 40px;
+  margin-top: 20px;
   justify-content: flex-end; /* Align the table container to the right */
   box-shadow: 5px 10px 8px #888888;
-  max-height: 440px;
+  max-height: 430px;
 }
 
 #Received-Table h3 {

@@ -96,7 +96,7 @@ function Login({ onLogin }) {
       aria-label={showPassword ? 'Hide password' : 'Show password'}
       title={showPassword ? 'Hide password' : 'Show password'}
     >
-      {showPassword ? <FaEyeSlash /> : <FaEye />}
+      {showPassword ? <FaEye /> : <FaEyeSlash />}
     </span>
   </div>
 
