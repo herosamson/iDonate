@@ -1,3 +1,149 @@
+/* Base reset and layout adjustments */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+/* Header responsive adjustments */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .logo img {
+    width: 200px;
+  }
+
+  .navigation ul {
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+  }
+
+  .navigation li {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  .navigation a {
+    font-size: 1.2rem;
+  }
+}
+
+/* Header section adjustments */
+.header-section1 {
+  background-size: cover;
+  background-position: center;
+  padding: 30px;
+  height: auto;
+}
+
+/* Responsive font and padding scaling */
+.header-content h2 {
+  font-size: 1.5rem;
+}
+
+.header-content p {
+  font-size: 1rem;
+}
+
+/* Layout for main and additional content on smaller screens */
+@media (max-width: 768px) {
+  .main1,
+  .main2 {
+    flex-direction: column;
+    padding: 10px;
+    width: 100%;
+  }
+
+  .additional-content,
+  .additional-content2 {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 0;
+  }
+
+  .left-content1,
+  .right-content {
+    width: 100%;
+    margin: 0;
+  }
+
+  .right-content h2 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .right-content p {
+    font-size: 1rem;
+    text-align: center;
+  }
+}
+
+/* Donation cards layout for smaller screens */
+@media (max-width: 768px) {
+  .cardhome {
+    width: 90%;
+    margin: 20px 0;
+  }
+
+  .card-title {
+    font-size: 1.3rem;
+  }
+
+  .card-body {
+    font-size: 1rem;
+  }
+}
+
+/* Footer responsive adjustments */
+@media (max-width: 768px) {
+  .footer {
+    padding: 15px;
+    font-size: 0.9rem;
+  }
+
+  .social-icons a {
+    font-size: 20px;
+  }
+}
+
+/* Additional media queries for extra-small screens */
+@media (max-width: 480px) {
+  .logo img {
+    width: 150px;
+  }
+
+  .navigation a {
+    font-size: 1rem;
+  }
+
+  .header-content h2 {
+    font-size: 1.2rem;
+  }
+
+  .header-content p,
+  .right-content p {
+    font-size: 0.9rem;
+  }
+
+  .cardhome {
+    width: 100%;
+    font-size: 0.9rem;
+  }
+}
+
+/* responsive */
 .homepage {
     margin: 0;
     padding: 0;
@@ -6,6 +152,7 @@
     flex-direction: column;
     height: 100vh; /* Adjust height as needed */
     overflow-y: auto; /* Make homepage scrollable */
+    width: 100%;
 }
 
 .header {

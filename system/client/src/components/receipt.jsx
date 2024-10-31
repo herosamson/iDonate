@@ -299,7 +299,7 @@ const handleChange = (e) => {
         </div>
         <div className="Rcontainer1">
           <div id="Received-Table1">
-            <h3>Cash Donated</h3>
+            <h3>Proof of Payment</h3>
             <table>
               <thead>
                 <tr>
@@ -314,10 +314,10 @@ const handleChange = (e) => {
               <tbody>
                 {proofsOfPayment.map(proof => (
                   <tr key={proof._id}>
-                    <td>{proof.name || 'N/A'}</td>
+                    <td>{proof.name || 'Anonymous'}</td>
                     <td>₱{parseFloat(proof.amount).toLocaleString()}</td>
                     <td>{new Date(proof.date).toLocaleDateString()}</td>
-                    <td>{proof.approved ? 'Approved' : 'Pending'}</td>
+                    <td>{proof.approved ? 'Received' : 'Pending'}</td>
                     <td>
                       {proof.imagePath ? (
                         <a 
@@ -332,7 +332,7 @@ const handleChange = (e) => {
                     </td>
                     <td>
                       {proof.approved && (
-                        <button className="dB" onClick={() => generatePDF(proof)}>Get Receipt</button>
+                        <button className="dB" onClick={() => generatePDF(proof)}>Get Proof</button>
                       )}
                     </td>
                   </tr>
