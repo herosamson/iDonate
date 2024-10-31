@@ -21,8 +21,6 @@ class About extends React.Component {
           </ul>
         </nav>
       </header>
-      <main className="main2">
-          <section className="additional-content2">
           <div className="timeline-container"> 
         <h2>Brief history of the Black Nazarene and Quiapo Church</h2>
         <h4>by: Myrna Cacho</h4>
@@ -90,11 +88,7 @@ In December 11, 1987, His Holiness, Pope John Paul II granted the recognition of
               </div>
             </div>
           </div>
-          
-        </div>
-          </section>
-        </main>
-          
+        </div>   
         </div>
     );
   }
