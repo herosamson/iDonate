@@ -178,22 +178,16 @@
     cursor: default; /* Set cursor to default to reinforce non-clickable behavior */
   }
   
-  
-  
-
-
   .password-field {
     position: relative;
   }
-  
-  .password-field input { 
-
-  }
-  
+  .password-container input {
+    padding-right: 10px;
+    }
   .password-toggle-icon {
     position: absolute;
     top: 50%;
-    right: 7px;
+    right: 2px;
     transform: translateY(-50%);
     cursor: pointer;
     color: #555; /* Adjust color as needed */

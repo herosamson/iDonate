@@ -21,7 +21,7 @@ class About extends React.Component {
           </ul>
         </nav>
       </header>
-      <main className="main23">
+      <main className="main2">
           <section className="additional-content2">
           <div className="timeline-container"> 
         <h2>Brief history of the Black Nazarene and Quiapo Church</h2>

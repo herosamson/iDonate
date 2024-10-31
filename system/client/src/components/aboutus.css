@@ -36,7 +36,6 @@
     border-radius: 5px;
     background: #fff;
     border-radius: 20px;
-    margin-top: 40px;
   }
   
   .timeline-container h2, h4 {
@@ -54,6 +53,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+
     margin-top: 20px;
     width: 100%; /* Ensure the timeline takes up the full width of the container */
   }
@@ -181,14 +181,8 @@
   justify-items: center;
   display:flex;
 }
-
-  
   .card-body {
     margin: 13px 0 0 10px;
     color: rgb(31, 31, 31);
     font-size: 15px;
-  }
-  .main23 {
-    margin-top: 40px;
-    width: 74%;
   }

@@ -362,3 +362,90 @@ table tr:hover {
   gap: 20px; /* Add spacing between the button and the profile */ /* Add margin at the top */
   margin-left: 120px;
 }
+
+/* Mobile-first adjustments for Profile component */
+@media (max-width: 768px) {
+  /* Adjust header and logo for mobile */
+  .headerP {
+    padding: 10px;
+    margin-bottom: 20px; /* Reduce spacing */
+  }
+  
+  .logoP {
+    width: 200px;
+    margin-left: 0; /* Center the logo */
+  }
+
+  /* Profile info and edit container */
+  .profile-info, .edit-container {
+    width: 90%;
+    max-width: 320px;
+    margin: 20px auto; /* Center align */
+  }
+  
+  .profile-container, .Rcontainer {
+    width: 100%; /* Full width on mobile */
+    margin: 0 auto;
+  }
+  
+  /* Button container adjustments */
+  .edit-button-container {
+    flex-direction: column;
+    align-items: center; /* Center align on mobile */
+    margin-left: 0;
+  }
+
+  /* Responsive table within modals */
+  .modalP {
+    width: 90%;
+    max-width: 500px;
+  }
+  
+  .modal-contentP {
+    max-height: 200px;
+    overflow-y: auto;
+  }
+
+  /* Adjust images within profile */
+  .profile-pic img {
+    width: 80px;
+    height: 80px;
+  }
+}
+/* Make tables scrollable on smaller screens */
+@media (max-width: 768px) {
+  table {
+    display: block;
+    overflow-x: auto;
+    width: 100%;
+  }
+
+  table th, table td {
+    white-space: nowrap; /* Prevent text wrapping */
+    font-size: 14px;
+  }
+}
+@media (max-width: 768px) {
+  .save-buttonP, .cancel-buttonP, .edit-buttonpro, .dBP {
+    padding: 8px 16px;
+    font-size: 14px;
+    width: 100%; /* Full width on smaller screens */
+  }
+
+  .edit-field input {
+    width: 100%;
+  }
+
+  .dBP {
+    margin-left: 0; /* Center-align button */
+  }
+}
+.Rcontainer {
+  width: 100%;
+  max-width: 600px; /* Limit width for larger screens */
+  margin: 0 auto;
+  padding: 10px;
+  position: relative; /* Remove absolute positioning */
+  top: 0;
+  left: 0;
+}
