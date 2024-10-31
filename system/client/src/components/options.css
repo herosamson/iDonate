@@ -58,12 +58,10 @@ button:hover {
 .circle {
   width: 50px;
   height: 40px;
-  border: 2px solid #000; /* Change border color to black */
-  border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 30px;
+  font-size: 40px;
   color: #000; /* Change less-than sign color to black */
   text-decoration: none;
 }
@@ -84,14 +82,14 @@ button:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 600px;
+  width: 580px;
 }
 
 .image1{
   background-position: center;
   background-size:auto;
   height: 250px;
-  width: 600px;
+  width: 580px;
   display: flex;
   justify-content: center;
   align-items: center;

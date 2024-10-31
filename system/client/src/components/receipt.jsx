@@ -244,7 +244,7 @@ const handleChange = (e) => {
         </nav>
       </header>
       <div className="back-button">
-        <Link to="/cash">
+        <Link to="/receipt">
           <div className="circle">&#8592;</div>
         </Link>
       </div>

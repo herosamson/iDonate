@@ -111,12 +111,10 @@
 .circle {
   width: 50px;
   height: 40px;
-  border: 2px solid #000; /* Change border color to black */
-  border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 30px;
+  font-size: 40px;
   color: #000; /* Change less-than sign color to black */
   text-decoration: none;
 }

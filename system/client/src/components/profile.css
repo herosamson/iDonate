@@ -79,7 +79,7 @@ margin-left: 50px;
 
 #Received-Table{
   width:700px;
-  max-height: 400px;
+  max-height: 300px;
   overflow-y: auto;
   overflow-x: hidden;
   border-radius: 10px;

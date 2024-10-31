@@ -23,10 +23,9 @@
     padding: 20px; /* Add padding */
     border-radius: 8px; /* Rounded corners */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
-    max-height: 600px;
     overflow-y: auto;
     overflow-x: hidden;
-    max-height: 600px;
+    max-height: 300px;
   }
   .table-wrappermedical {
     display: flex;
@@ -59,12 +58,10 @@
   .circle1 {
     width: 50px;
     height: 40px;
-    border: 2px solid #000; /* Change border color to black */
-    border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 30px;
+    font-size: 40px;
     color: #000; /* Change less-than sign color to black */
     text-decoration: none; 
   }
