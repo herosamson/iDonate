@@ -1,0 +1,92 @@
+.Options {
+    margin: 0;
+    padding: 0;
+    height: 100vh; 
+    }
+.wrap {
+    margin-top: 5px; /* Add some margin at the top */
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+    
+    .containerButton-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px; /* Add space between the buttons */
+        width: 100%; /* Adjust width as needed */
+        margin: 70px 0; /* Add margin to separate rows */
+ 
+      }
+    
+    .containerButton {
+    background-color: white; /* White background */
+    padding: 30px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    width: 390px; /* Adjust width as needed */
+    height: 260px; /* Adjust height as needed */
+    box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    color: #000;
+    box-shadow: 5px 10px 8px #888888;
+    }
+    .containerButton:hover{
+        background-color: rgb(212, 212, 212);
+    }
+    .containerButton img {
+        width: 250px; /* Adjust width as needed */
+        height: 250px; /* Adjust height as needed */
+        border-radius:  30px;
+      }
+    
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+    button:hover {
+      background-color: #0056b3;
+    }
+    
+    .logoO {
+      margin-left: 20px; /* Adjust margin as needed */
+      width: 350px;
+    }
+    
+    .circle {
+      width: 50px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 40px;
+      color: #000; /* Change less-than sign color to black */
+      text-decoration: none; 
+    }
+    
+    .circle:hover {
+      background-color: #000; /* Change circle background to black on hover */
+      color: #fff; /* Change less-than sign color to white on hover */
+    }
+    
+    .back-button a {
+      text-decoration: none; /* Remove underline */
+      
+    }
+
+  
+
+    

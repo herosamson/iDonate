@@ -1,0 +1,186 @@
+.Options {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Adjust height as needed */
+  }
+
+.summary-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.summary-item {
+  width: calc(50% - 20px); /* Subtracting margin from the width */
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.summary-item h3 {
+  margin-bottom: 5px;
+}
+
+.summary-item p {
+  margin: 0;
+}
+.input-container {
+  padding: 40px;
+  border: 1px solid #ccc;
+  border-radius: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex; /* Use flex to align content vertically */
+  flex-direction: column; /* Align children vertically */
+  gap: 10px;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+.input-container input {
+  width: 250px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.input-container1{
+  margin-left: 800px;
+  margin-top: 500px;
+}
+.input-container1 input {
+  width: 250px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.input-container select {
+  width: 270px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.containerothers1 label {
+  display: flex;
+  align-items: center; /* Align checkbox and quantity input vertically */
+  justify-content: space-between; /* Add space between checkbox and quantity input */
+  margin-bottom: 10px; /* Add some margin between each item */
+}
+
+.containerothers1 input[type="number"] {
+  width: 60px; /* Adjust width of the quantity input */
+}
+
+.logoO {
+  margin-left: 20px; /* Adjust margin as needed */
+  width: 350px;
+}
+
+.back-button {
+  margin-right: 1400px;
+  position: absolute;
+  top: 130px;
+}
+.table-containerDo{
+  position: absolute;
+  top: 150px;
+  left: 70px; /* Adjust the left position to align it to the left side */
+  display: flex;
+  gap: 50px; /* Add some gap between the wishlist and table */
+  width: 700px; /* Adjust width as needed */
+  background-color: white; /* White background */
+  padding: 20px; /* Add padding */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  max-height: 350px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.table-wrapperDo {
+  display: flex;
+  position:absolute;
+  top: 1px;
+  left: 550px;
+  justify-content: flex-end; /* Align the table container to the right */
+}
+.donation-container {
+  position: absolute;
+  top: 200px;
+  left: 140px; /* Adjust the left position to align it to the left side */
+  display: flex;
+  gap: 50px; /* Add some gap between the wishlist and table */
+}
+.circle {
+  width: 50px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  color: #000; /* Change less-than sign color to black */
+  text-decoration: none;
+}
+
+.circle:hover {
+  background-color: #000; /* Change circle background to black on hover */
+  color: #fff; /* Change less-than sign color to white on hover */
+}
+
+.back-button a {
+  text-decoration: none; /* Remove underline */
+}
+
+.category-button {
+  background-color: #d8d8d8;
+  color: #000000;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  margin: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+.delete-button {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  background-color: darkred;
+}
+
+
+.category-button:hover {
+  background-color: #aaaaaa;
+}
+
+.selected-category {
+  background-color: #d8d8d8;
+  width: 100%;
+}
+
+.selected-category:hover {
+  background-color: #aaaaaa;
+}
+
+
+.note h3 {
+  color: red;
+  font-style: italic;
+}
+
+
+.ButtonS {
+  position: absolute; /* Use absolute positioning */
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  top: 780px; /* Adjust the top position to 0 to move it to the top */
+}
+
+.input-container1 h3 {
+  margin-bottom: 10px;
+}

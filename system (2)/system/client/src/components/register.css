@@ -1,0 +1,263 @@
+/* General reset and alignment */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .logoR {
+    width: 200px;
+  }
+
+  .registration-form {
+    padding: 20px;
+    max-width: 400px;
+  }
+
+  .registration-form input {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+
+  .password-toggle-icon {
+    font-size: 1em;
+  }
+
+  .registration-form button {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .logoR {
+    width: 150px;
+  }
+
+  .registration-form {
+    padding: 15px;
+    max-width: 300px;
+  }
+
+  .registration-form input {
+    padding: 6px;
+    font-size: 0.85rem;
+  }
+
+  .password-toggle-icon {
+    font-size: 0.9em;
+  }
+
+  .registration-form button {
+    font-size: 0.85rem;
+    padding: 8px;
+  }
+}
+  /* responsive*/
+  
+.App {
+    text-align: center;
+  }
+  
+  .App-logo {
+    height: 40vmin;
+    pointer-events: none;
+  }
+  
+  @media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+      animation: App-logo-spin infinite 20s linear;
+    }
+  }
+  .App-header {
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  }
+  
+  .App-link {
+    color: #61dafb;
+  }
+  
+  @keyframes App-logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  /* App.css */
+  
+  /* Logo */
+  body {
+    overflow: hidden;
+  }
+  .logoR {
+    width: 350px; /* Adjust width as needed */
+    height: auto; /* Maintain aspect ratio */
+    margin-bottom: 20px; /* Add some space below the logo */
+    display: block; /* Ensure it's displayed as a block element */
+    margin-left: auto; /* Center the logo horizontally */
+    margin-right: auto; /* Center the logo horizontally */
+    justify-content: center;
+  }
+  /* Logo Container */
+  .logoR-container {
+    margin-top: 20px; /* Add top margin */
+  }
+  
+  /* Registration Form Container */
+  .registration-container {
+    position: relative; /* Set container to relative positioning */
+    height: 100vh; /* Full viewport height */
+    
+  }
+  
+  .registration-form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 40px;
+    border: 1px solid #ccc;
+    border-radius: 70px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center the items vertically */
+    align-items: center; /* Center the items horizontally */
+    background-color: rgba(255, 255, 255, 0.9);
+    max-width: 500px;
+  }
+  
+  
+  /* Form Heading */
+  .registration-form h2 {
+    text-align: center; /* Center align the heading */
+    margin: 0 0 15px; /* Add margin */
+  }
+  
+  /* Form Inputs */
+  .registration-form input {
+    width: calc(100% - 20px); /* Set input width */
+    padding: 10px; /* Add padding */
+    border: 1px solid #ccc; /* Add border */
+    border-radius: 5px; /* Add border radius */
+    margin-bottom: 10px;
+  }
+  
+  /* Form Button */
+  .registration-form button {
+    width: calc(80% - 20px); /* Set button width */
+    max-width: 200px; /* Set maximum width */
+    padding: 10px; /* Add padding */
+    background-color: #4f0000;/* Button color */
+    color: #fff; /* Button text color */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Add border radius */
+    cursor: pointer; /* Change cursor to pointer */
+  }
+  
+  /* Button Container */
+  .button-container {
+    display: flex; /* Use flex */
+    justify-content: center; /* Center align the content */
+    margin-top: 20px; /* Add top margin */
+  }
+  
+  /* Button Hover Effect */
+  .registration-form button:hover {
+      background-color: #380000; /* Change background color on hover */
+  }
+  
+  /* Picture Container */
+  .picture-container {
+    position: absolute; /* Position the container */
+    top: 0; /* Align to top */
+    left: 0; /* Align to left */
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    z-index: -1; /* Move behind the form */
+  }
+  
+  /* Picture */
+  .picture {
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    object-fit: cover; /* Maintain aspect ratio */
+  }
+  
+  /* Add this CSS to your App.css file or create a new CSS file and import it */
+
+  
+  .select-container select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    cursor: pointer;
+  }
+  
+  .select-container select:focus {
+    outline: none;
+    border-color: #007bff; /* Change border color on focus */
+  }
+  
+  /* Style options */
+  .select-container select option {
+    padding: 10px;
+  }
+  
+  /* Style options on hover */
+  .select-container select option:hover {
+    background-color: #f2f2f2;
+  }
+  
+  /* Style selected option */
+  .select-container select option:checked {
+    background-color: #007bff;
+    color: #fff;
+  }
+  .select-container select option[value=""] {
+    color: #999; /* Light color for the "Select City" option */
+    font-style: italic; /* Italic font style for the "Select City" option */
+    pointer-events: none; /* Disable pointer events to make it non-clickable */
+    cursor: default; /* Set cursor to default to reinforce non-clickable behavior */
+  }
+  
+  
+  
+
+
+  .password-field {
+    position: relative;
+  }
+  
+  .password-field input { 
+
+  }
+  
+  .password-toggle-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #555; /* Adjust color as needed */
+    font-size: 1.2em;
+  }

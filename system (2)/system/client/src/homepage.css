@@ -1,0 +1,420 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+}
+/* Make header elements stack vertically on smaller screens */
+@media (max-width: 768px) {
+  .header {
+      flex-direction: column;
+      padding: 10px;
+  }
+
+  .logo img {
+      width: 200px;
+  }
+
+  .navigation ul {
+      flex-direction: column;
+      align-items: center;
+      padding: 0;
+      margin: 0;
+  }
+
+  .navigation li {
+      margin-right: 0;
+      margin-bottom: 10px;
+  }
+}
+
+/* Adjust the header section background and padding on smaller screens */
+.header-sectionH {
+  background-size: cover;
+  background-position: center;
+  padding: 30px;
+  height: 400px;
+}
+
+/* Responsive font scaling */
+.header-content h2 {
+  font-size: 1.5rem;
+}
+
+.header-content p {
+  font-size: 1.2rem;
+}
+
+/* Adjust the .main and .additional-content layout for small screens */
+@media (max-width: 768px) {
+  .main {
+      flex-direction: column;
+      padding: 0 20px;
+  }
+
+  .additional-content {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .right-content, .left-contentH {
+      margin: 0;
+      width: 100%;
+  }
+}
+
+/* Adjust card layout for smaller screens */
+@media (max-width: 768px) {
+  .main2 {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .additional-content2 {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .cardhome {
+      width: 90%;
+      margin: 20px 0;
+  }
+}
+
+/* Footer responsive styling */
+@media (max-width: 768px) {
+  .footer {
+      padding: 15px;
+      font-size: 0.9rem;
+  }
+}
+
+/* responsive*/
+
+.homepage {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Adjust height as needed */
+    overflow-y: auto; /* Make homepage scrollable */
+    overflow-x: hidden; /* Make homepage scrollable */
+    width: 100%;
+}
+
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #740000;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+   
+}
+
+.logo {
+    align-items: center;
+    margin-left: 40px; /* Adjust margin as needed */
+    margin-top: 10px; /* Move down the logo */
+}
+
+.logo img {
+    width: 300px; /* Adjust width as needed */
+    height: fit-content;
+    margin-bottom: 10px;
+}
+
+.navigation {
+    display: flex;
+    align-items: center;
+    margin-right: 40px; /* Adjust margin as needed */
+    color: white;
+}
+
+.navigation ul {
+    list-style: none;
+    display: flex;
+    margin-left: auto; /* Push navigation to the right */
+    margin-bottom: 1%; /* Move down the logo */
+    color: white;
+}
+
+.navigation li {
+    margin-right: 2rem;
+    color: white;
+}
+
+.navigation a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 140%;
+}
+
+.login-btn {
+    background-color: #d18686;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.header-sectionH {
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  padding: 70px; /* Add padding to center content */
+  height: 610px;
+  transition: background-image 0.7s ease-in-out; /* Smooth transition */
+}
+
+.right-content h3{
+  text-align: center;
+  color: #740000;
+}
+
+.right-content h2{
+  text-align: center;
+  color: #740000;
+}
+
+
+.header-content {
+    text-align: left;
+}
+
+.main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.additional-content {
+    display: flex;
+    padding: 20px;
+}
+.left-contentH {
+  background-image: url('./pic1.jpg');
+  background-size: cover;
+  background-position: center;
+  flex: 1;
+  height: 400px;  /* Change fixed height to auto */
+  object-fit: cover; /* Ensure the image covers the entire space */
+  margin-top: 50px;
+  padding: 10px;
+}
+
+.right-content {
+    flex: 1;
+    margin-left: 110px; /* Adjust spacing between left and right content */
+    margin-top: 10px;
+}
+
+.right-content h3 {
+    font-size: 24px; /* Adjust as needed */
+    margin-bottom: 10px;
+}
+
+.right-content p {
+    font-size: 16px; /* Adjust as needed */
+    margin: 0 0 10px 0;
+}
+.header-section, .main, .main2 {
+    height: 75%;
+}
+
+.header-content h2 {
+    font-size: 230%; /* Adjust font size as needed */
+    color: #ffffff; /* Set text color */
+    font-family: 'Inika', sans-serif;
+    margin: 0; /* Remove margin */
+    
+  }
+  
+.header-content p {
+    font-size: 200%; /* Adjust font size as needed */
+    color: #ffffff; /* Set text color */
+    font-family: 'Inika', sans-serif;
+    margin: 0; /* Remove margin */
+    padding-top: 1rem; /* Add padding */
+}
+.donate-btn {
+    background-color: #f0e875;
+    color: #000000;
+    padding: 0.7rem;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    margin-top: 1rem;
+    font-size: 75%;
+  }
+  .donate-btn:hover {
+    background-color: black; /* Change background color on hover */
+    color: white; /* Change text color on hover */
+  }
+
+  .main2 {
+    flex: 1;
+    display: flex;
+    justify-content: center; /* Center the containers horizontally */
+    align-items: center; /* Center the containers vertically */
+  }
+  
+  .additional-content2 {
+    display: flex;
+    justify-content: space-between; /* Add space between containers */
+    width: 100%; /* Adjust width as needed */
+  }
+  
+  .container {
+    width: calc(33.33% - 10px); /* Adjust width of each container */
+    height: 320px; /* Adjust height as needed */
+    box-sizing: border-box; /* Include border in width calculation */
+    background-color: white; /* White background */
+    padding: 10px;
+    border: 10px solid #740000 ; /* Change border color to black */
+  }
+
+  .right-content p {
+    font-size: 20px;
+}
+.right-content h3 {
+    font-size: 25px;
+}
+.footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #c6c6c6;
+    color: #333;
+    border-top: 1px solid #e7e7e7;
+  }
+  
+  .footer p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .social-icons {
+    margin-bottom: 10px;
+  }
+  
+  .social-icons a {
+    margin: 0 10px;
+    color: #666;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  
+  .social-icons a:hover {
+    color: #000; /* Change this to the color you want on hover */
+  }
+  
+  .icon {
+    font-size: 24px;
+  }
+  
+  .cardhome {
+    padding: 20px;
+    width: 330px;
+    min-height: 370px;
+    border-radius: 20px;
+    background: #e8e8e8;
+    box-shadow: 5px 5px 6px #dadada,
+                 -5px -5px 6px #f6f6f6;
+    transition: 0.4s;
+    margin-right: 40px;
+  }
+  
+  .cardcardhome:hover {
+    translate: 0 -10px;
+  }
+  
+  .card-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #2e54a7;
+    margin: 15px 0 0 10px;
+  }
+  
+  .card-imagebpi {
+    min-height: 150px;
+    background-color: #c9c9c9;
+    border-radius: 15px;
+    background-repeat: no-repeat; /* Ensures the image does not repeat */
+    background-image: url('./bpi.png');
+    width: 100%;
+    background-size: cover; /* Makes sure the entire image is visible */
+    background-position: center; /* Centers the image within the container */
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    justify-items: center;
+    display:flex;
+}
+
+.card-imagebdo {
+  min-height: 150px;
+  background-color: #c9c9c9;
+  border-radius: 15px;
+  background-repeat: no-repeat; /* Ensures the image does not repeat */
+  background-image: url('./bdo.jpg');
+  width: 100%;
+  background-size: cover; /* Makes sure the entire image is visible */
+  background-position: center; /* Centers the image within the container */
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  justify-items: center;
+  display:flex;
+}
+.card-imagegcash {
+  min-height: 150px;
+  background-color: #c9c9c9;
+  border-radius: 15px;
+  background-repeat: no-repeat; /* Ensures the image does not repeat */
+  background-image: url('./logoG.png');
+  width: 100%;
+  background-size: cover; /* Makes sure the entire image is visible */
+  background-position: center; /* Centers the image within the container */
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  justify-items: center;
+  display:flex;
+}
+.card-imagemaya {
+  min-height: 150px;
+  background-color: #c9c9c9;
+  border-radius: 15px;
+  background-repeat: no-repeat; /* Ensures the image does not repeat */
+  background-image: url('./picM.jpg');
+  width: 100%;
+  background-size: cover; /* Makes sure the entire image is visible */
+  background-position: center; /* Centers the image within the container */
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  justify-items: center;
+  display:flex;
+}
+
+  
+  .card-body {
+    margin: 13px 0 0 10px;
+    color: rgb(31, 31, 31);
+    font-size: 15px;
+  }

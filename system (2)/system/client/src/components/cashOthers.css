@@ -1,0 +1,95 @@
+.Options {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Adjust height as needed */
+  }
+  
+  
+  .container1-wrapper {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+  }
+  
+  .container1 {
+    background-color: white; /* White background */
+  padding: 40px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 600px; /* Adjust width as needed */
+  box-shadow: 5px 10px 8px #888888;
+  }
+  
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  .logoO {
+    margin-left: 20px; /* Adjust margin as needed */
+    width: 350px;
+  }
+  
+  .circle {
+    width: 50px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    color: #000; /* Change less-than sign color to black */
+    text-decoration: none; 
+  }
+  
+  .circle:hover {
+    background-color: #000; /* Change circle background to black on hover */
+    color: #fff; /* Change less-than sign color to white on hover */
+  }
+  
+  .back-button a {
+    text-decoration: none; /* Remove underline */
+    
+  }
+
+  .t {
+    font-style: italic;
+    font-weight: bolder;
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Align items to the bottom */
+    height: 84vh; /* Adjust as needed */
+    align-items: center;
+  }
+
+  .image3 {
+    background-position: center;
+    height: 280px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    margin-left: 150px;
+  }
+  
+  .image4{
+    background-position: center;
+    background-size:auto;
+    height: 280px;
+    width: 605px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
