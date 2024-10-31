@@ -101,7 +101,7 @@ body {
   .inventorytable {
     max-height: 500px;
     overflow-y: auto;
-    overflow-x: hidden;
+    overflow-x: auto;
 
   }
   #grid-container {

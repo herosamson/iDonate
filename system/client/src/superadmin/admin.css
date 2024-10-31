@@ -83,7 +83,7 @@ body {
     flex: 1;
     padding: 20px;
     overflow-y: auto;
-    overflow-x: hidden;
+    overflow-x: auto;
     max-height: 720px;
     margin-left: 50px;
 }

@@ -31,11 +31,12 @@
     overflow-y: auto; /* Enable vertical scrolling */
     overflow-x: hidden; /* Disable horizontal scrolling */
     margin: 0 auto; /* Center the container */
-    width: 78%;
+    width: 80%;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     background: #fff;
     border-radius: 20px;
+    margin-top: 40px;
   }
   
   .timeline-container h2, h4 {
@@ -53,7 +54,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-
     margin-top: 20px;
     width: 100%; /* Ensure the timeline takes up the full width of the container */
   }
@@ -188,6 +188,7 @@
     color: rgb(31, 31, 31);
     font-size: 15px;
   }
-  .main2 {
-    margin-top: 20px;
+  .main23 {
+    margin-top: 40px;
+    width: 74%;
   }

@@ -110,7 +110,7 @@ body {
     overflow-y: auto;
     margin: 20px 0;
     width: 1250px;
-    overflow-x: hidden;
+    overflow-x: auto;
     position: absolute;
     top: 90px;
     right: 60px;

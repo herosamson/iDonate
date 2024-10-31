@@ -1,6 +1,7 @@
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './others.css'; // Ensure your CSS handles new elements appropriately
+import './others.css'; 
 import logo from './imagenew.png';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -15,11 +16,9 @@ const Others = () => {
   const [date, setDate] = useState('');
   const [expirationDate, setExpirationDate] = useState('');
   const [error, setError] = useState('');
-  const [isPendingItemsVisible, setIsPendingItemsVisible] = useState(false);
   const [category, setCategory] = useState('');
   const navigate = useNavigate();
 
-  // Define category-based items
   const categoryItems = {
     Food: [
       'Canned Goods',
@@ -111,8 +110,6 @@ const Others = () => {
       setError('User not logged in');
       return;
     }
-
-    // Validate required fields
     if (!category) {
       alert('Category is required.');
       return;
@@ -129,8 +126,6 @@ const Others = () => {
       alert('Unit is required.');
       return;
     }
-
-    // Validate quantity as a positive integer
     if (!/^\d+$/.test(quantity) || parseInt(quantity, 10) <= 0) {
       alert('Please enter a valid positive Quantity.');
       return;
@@ -161,7 +156,6 @@ const Others = () => {
     setCustomUnit('');
     setExpirationDate('');
     setError('');
-    setIsPendingItemsVisible(true);
   };
 
   const submitItems = async () => {
@@ -207,25 +201,17 @@ const Others = () => {
     }
   };
 
-  const deletePendingItem = (index) => {
-    const updatedPendingItems = pendingItems.filter((_, i) => i !== index);
-    setPendingItems(updatedPendingItems);
-  };
-
   const handleChange = (e) => {
     const { name, value } = e.target;
-  
-    // Only allow alphabetic characters for customItem and customUnit
     const lettersOnlyRegex = /^[A-Za-z\s]+$/;
   
     if (value.includes('<') || value.includes('>')) {
       return;
     }
-  
     switch (name) {
       case 'category':
         setCategory(value);
-        setItem(''); // Reset item when category changes
+        setItem('');
         setCustomItem('');
         setUnit('');
         setCustomUnit('');
@@ -268,8 +254,6 @@ const Others = () => {
     }
   };
   
-
-  // Get the current date in YYYY-MM-DD format
   const today = new Date().toISOString().split('T')[0];
 
   return (
@@ -307,11 +291,9 @@ const Others = () => {
               <option value="">Select Category</option>
               <option value="Food">Food</option>
               <option value="Clothes">Clothes</option>
-              <option value="Hygiene">Hygiene</option>
+              <option value="Hygiene">Hygiene Kit</option>
               <option value="Others">Others</option>
             </select>
-
-            {/* Items Dropdown */}
             {category && (
               <>
                 <label htmlFor="item">Item<span style={{color: 'red'}}> *</span>:</label>
@@ -356,8 +338,6 @@ const Others = () => {
                 )}
               </>
             )}
-
-            {/* Unit Dropdown */}
             {item && (
               <>
                 <label htmlFor="unit">Unit<span style={{color: 'red'}}> *</span>:</label>
@@ -374,7 +354,6 @@ const Others = () => {
                       {categoryItems[category].includes('Other') && (
                         <option value="Other">Other</option>
                       )}
-                      {/* Add other units as needed */}
                       <option value="Piece(s)">Piece(s)</option>
                       <option value="Pack(s)">Pack(s)</option>
                       <option value="Box(es)">Box(es)</option>
@@ -414,8 +393,6 @@ const Others = () => {
                 )}
               </>
             )}
-
-            {/* Quantity Input */}
             {category && item && (
               <>
                 <label htmlFor="quantity">Quantity<span style={{color: 'red'}}> *</span>:</label>
@@ -430,8 +407,6 @@ const Others = () => {
                 />
               </>
             )}
-
-            {/* Expiration Date (Optional) - Only for Food Category */}
             {category === 'Food' && (
               <>
                 <label htmlFor="expirationDate">(If necessary) Expiration Date:</label>
@@ -448,8 +423,6 @@ const Others = () => {
             <button className="dB" onClick={addItem}>Add Item</button>
           </div>
         </div>
-        {isPendingItemsVisible && (
-          <>
             <div className="table-wrapperDo">
               <div className="table-containerDo">
                 <h3>Pending Items</h3>
@@ -461,7 +434,6 @@ const Others = () => {
                         <th>Quantity</th>
                         <th>Unit</th>
                         <th>Expiration Date</th>
-                        <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -471,9 +443,6 @@ const Others = () => {
                           <td>{pendingItem.quantity}</td>
                           <td>{pendingItem.unit}</td>
                           <td>{pendingItem.expirationDate ? new Date(pendingItem.expirationDate).toLocaleDateString() : 'N/A'}</td>
-                          <td>
-                            <button className="delete-button" onClick={() => deletePendingItem(index)}>Delete</button>
-                          </td>
                         </tr>
                       ))}
                     </tbody>
@@ -481,7 +450,7 @@ const Others = () => {
                 )}
               </div>
             </div>
-            <div className="input-container1">
+         <div className="input-container1">
               <h3>Date of Delivery<span style={{color: 'red'}}> *</span>:</h3>
               <input
                 type="date"
@@ -493,11 +462,10 @@ const Others = () => {
               />
               <button className="dB" onClick={submitItems}>Submit</button>
             </div>
-          </>
-        )}
       </div>
     </div>
   );
 };
 
 export default Others;
+

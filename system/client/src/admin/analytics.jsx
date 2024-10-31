@@ -557,12 +557,12 @@ fetchTotalItemDonations();
                 <h2>Cash Donations</h2>
                 <span className="close-icon" onClick={closeItemModal}>&times;</span>
               </div>
+              <br></br>
               <div className="donation-details">
                 <p><strong>Today:</strong> &#8369;{todayDonations.toFixed(2)}</p>
                 <p><strong>This Week:</strong> &#8369;{weeklyDonations.toFixed(2)}</p>
                 <p><strong>This Month:</strong> &#8369;{monthlyDonations.toFixed(2)}</p>
               </div>
-              <br />
             </div>
           </div>
         )}

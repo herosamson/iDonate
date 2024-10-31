@@ -66,10 +66,6 @@ button:hover {
   text-decoration: none;
 }
 
-.circle:hover {
-  background-color: #000; /* Change circle background to black on hover */
-  color: #fff; /* Change less-than sign color to white on hover */
-}
 
 .back-button a {
   text-decoration: none; /* Remove underline */
@@ -82,14 +78,14 @@ button:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 500px;
+  width: 520px;
 }
 
 .image1{
   background-position: center;
   background-size:auto;
   height: 250px;
-  width: 500px;
+  width: 520px;
   display: flex;
   justify-content: center;
   align-items: center;

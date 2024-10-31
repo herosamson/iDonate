@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './receipt.css';
 import logo from './logo1.png';
+import logoss from './imagenew.png';
 import { Link } from 'react-router-dom';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable'; 
@@ -231,7 +232,7 @@ const handleChange = (e) => {
     <div className="Options">
       <header className="header">
         <div className="logo">
-          <img className="logo" src={logo} alt="Logo" />
+          <img className="logo" src={logoss} alt="Logo" />
         </div>
         <nav className="navigation">
           <ul>
@@ -243,7 +244,7 @@ const handleChange = (e) => {
         </nav>
       </header>
       <div className="back-button">
-        <Link to="/receipt">
+        <Link to="/cashOthers">
           <div className="circle">&#8592;</div>
         </Link>
       </div>

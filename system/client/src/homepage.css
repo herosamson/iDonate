@@ -44,11 +44,11 @@ body, html {
 
 /* Responsive font scaling */
 .header-content h2 {
-  font-size: 1.5rem;
+  font-size: 2rem;
 }
 
 .header-content p {
-  font-size: 1.2rem;
+  font-size: 2rem;
 }
 
 /* Adjust the .main and .additional-content layout for small screens */

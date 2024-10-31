@@ -78,7 +78,7 @@ body {
     flex: 1;
     padding: 20px;
     overflow-y: auto;
-    overflow-x: hidden;
+    overflow-x: auto;
     display: flex;
     flex-direction: column;
 }
