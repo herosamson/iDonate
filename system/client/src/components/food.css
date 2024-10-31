@@ -24,7 +24,7 @@
     padding: 20px; /* Add padding */
     border-radius: 8px; /* Rounded corners */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
-    max-height: 300px;
+    max-height: 400px;
     overflow-y: auto;
     overflow-x: hidden;
   }

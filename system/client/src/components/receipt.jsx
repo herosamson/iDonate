@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './receipt.css';
-import logo from './imagenew.png';
+import logo from './logo1.png';
 import { Link } from 'react-router-dom';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable'; 
@@ -168,10 +168,9 @@ const handleChange = (e) => {
         doc.setFontSize(12);
         doc.setFont('helvetica', 'normal');
         const receiptData = [
-          { label: 'Name of Donor', value: proof.name || 'N/A' },
+          { label: 'Name of Donor', value: proof.name || 'Anonymous' },
           { label: 'Amount of Donation', value: `${parseFloat(proof.amount).toLocaleString()} pesos` },
           { label: 'Date of Donation', value: new Date(proof.date).toLocaleDateString() },
-          { label: 'Receipt ID', value: proof._id || 'N/A' },
         ];
         receiptData.forEach(item => {
           doc.setFont('helvetica', 'bold');
@@ -190,7 +189,7 @@ const handleChange = (e) => {
         doc.setFontSize(10);
         doc.setFont('helvetica', 'normal');
         doc.text(`Receipt generated on ${new Date().toLocaleDateString()}`, pageWidth / 2, currentY, { align: 'center' });
-        doc.save(`iDonate_Receipt.pdf`);
+        doc.save(`iDonate_Proof.pdf`);
       };
     } catch (error) {
       console.error('Error generating PDF:', error);

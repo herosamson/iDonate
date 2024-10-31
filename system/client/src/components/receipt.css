@@ -50,10 +50,6 @@
     text-decoration: none; 
   }
   
-  .circle:hover {
-    background-color: #000; /* Change circle background to black on hover */
-    color: #fff; /* Change less-than sign color to white on hover */
-  }
   
   .back-button a {
     text-decoration: none; /* Remove underline */

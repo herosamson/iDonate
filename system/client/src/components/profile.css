@@ -73,13 +73,12 @@
 display: flex;
 justify-content: center;
 align-items: center;
-margin-top: 40px;
 margin-left: 50px;
 }
 
 #Received-Table{
   width:700px;
-  max-height: 300px;
+  max-height: 320px;
   overflow-y: auto;
   overflow-x: hidden;
   border-radius: 10px;
@@ -147,7 +146,7 @@ margin-left: 50px;
     display: flex; /* Use flexbox */
     flex-direction: column; /* Stack children vertically */
     align-items: left; /* Align items to the left */
-    max-width: 270px; /* Set maximum width */
+    max-width: 290px; /* Set maximum width */
     width: 100%; /* Ensure it takes full width */
     height: 380px;
     margin: 0 auto; /* Center horizontally */
@@ -160,7 +159,7 @@ margin-left: 50px;
   border: 1px solid #ccc;
   border-radius: 20px;
   width: 300px;
-  margin-top: 100px;
+  margin-top: 50px;
 background-color: white;
 box-shadow: 5px 10px 8px #888888;
 }

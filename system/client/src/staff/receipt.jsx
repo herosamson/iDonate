@@ -119,7 +119,7 @@ function ReceiptS() {
       startY: 65,
       head: [['Name of Donor', 'Amount of Donation', 'Date of Donation', 'Status']],
       body: filteredProofs.map(proof => [
-        proof.name || 'N/A',
+        proof.name || 'Anonymous',
         `${parseFloat(proof.amount).toLocaleString()}`,
         new Date(proof.date).toLocaleDateString(),
         proof.approved ? 'Verified' : 'Pending'
@@ -175,7 +175,7 @@ function ReceiptS() {
           <tbody>
             {filteredProofs.map((proof) => (
               <tr key={proof._id}>
-                <td>{proof.name || 'N/A'}</td>
+                <td>{proof.name || 'Anonymous'}</td>
                 <td>₱{parseFloat(proof.amount).toLocaleString()}</td>
                 <td>{new Date(proof.date).toLocaleDateString()}</td>
                 <td>

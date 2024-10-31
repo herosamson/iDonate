@@ -82,14 +82,14 @@ button:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 580px;
+  width: 500px;
 }
 
 .image1{
   background-position: center;
   background-size:auto;
   height: 250px;
-  width: 580px;
+  width: 500px;
   display: flex;
   justify-content: center;
   align-items: center;

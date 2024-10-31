@@ -359,29 +359,6 @@ fetchTotalItemDonations();
     setIsItemModalOpen(false);
   };
 
-  const totalDonations = consumedCount + unconsumedCount;
-  const consumedPercentage = totalDonations > 0 ? (consumedCount / totalDonations) * 100 : 0;
-  const availablePercentage = 100 - consumedPercentage;
-
-  const donatedToPercentages = Object.entries(donatedToStats)
-    .filter(([key, value]) => value > 0)
-    .map(([key, value]) => ({
-      category: key,
-      percentage: consumedCount > 0 ? ((value / consumedCount) * consumedPercentage).toFixed(2) : 0
-    }));
-
-  const pieColors = ['#2a9cd5', '#b513ec']; 
-  const pieChartData = [
-    { name: 'Consumed Items', value: consumedPercentage },
-    { name: 'Available Items', value: availablePercentage }
-  ];
-
-  const totalDonatedTo = Object.values(donatedToStats).reduce((sum, val) => sum + val, 0);
-  const donatedToPercentagesForLegend = donatedToPercentages.map(item => ({
-    ...item,
-    percentage: parseFloat(item.percentage)
-  }));
-
   return (
     <div id="container">
       <div id="sidebar">
@@ -449,25 +426,6 @@ fetchTotalItemDonations();
                 <p><strong>This Month:</strong> &#8369;{monthlyDonations.toFixed(2)}</p>
               </div>
               <br />
-              <div className="top-donors">
-                <h3>Top 3 Donors</h3>
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Amount</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {topDonors.map((donor, index) => (
-                      <tr key={index}>
-                        <td>{donor.name || 'N/A'}</td>
-                        <td>&#8369;{parseFloat(donor.amount).toFixed(2)}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
             </div>
           </div>
         )}

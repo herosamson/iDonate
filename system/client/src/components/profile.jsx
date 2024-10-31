@@ -241,7 +241,6 @@ const Profile = ({ username }) => {
         <div className="profile-pic">
           <img src={pic} alt="Profile" />
         </div>
-        <h2>My Information</h2>
         <p><strong>Name:</strong> {user.firstname} {user.lastname}</p>
         <p><strong>Email:</strong> {user.email}</p>
         <p><strong>Contact:</strong> {user.contact}</p>
@@ -251,13 +250,9 @@ const Profile = ({ username }) => {
       </div>
     )}
   </div>
-
-
-
-
         <div className='Rcontainer'>
           <div id="Received-Table">
-            <h3>Pending Items</h3> {/* Changed to Pending Items */}
+            <h3>Pending Items</h3> 
             <table>
               <thead>
                 <tr>

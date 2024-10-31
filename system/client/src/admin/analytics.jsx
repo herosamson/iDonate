@@ -563,25 +563,6 @@ fetchTotalItemDonations();
                 <p><strong>This Month:</strong> &#8369;{monthlyDonations.toFixed(2)}</p>
               </div>
               <br />
-              <div className="top-donors">
-                <h3>Top 3 Donors</h3>
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Amount</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {topDonors.map((donor, index) => (
-                      <tr key={index}>
-                        <td>{donor.name || 'N/A'}</td>
-                        <td>&#8369;{parseFloat(donor.amount).toFixed(2)}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
             </div>
           </div>
         )}
