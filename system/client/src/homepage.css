@@ -94,6 +94,18 @@ body, html {
       font-size: 0.9rem;
   }
 }
+/* Stack main and additional content sections on smaller screens */
+@media (max-width: 600px) {
+  .main, .main2, .header-sectionH {
+    flex-direction: column;
+    padding: 10px;
+  }
+}
+@media (max-width: 480px) {
+  .navigation a {
+    font-size: 1rem; /* Scale font size for smaller screens */
+  }
+}
 
 /* responsive*/
 

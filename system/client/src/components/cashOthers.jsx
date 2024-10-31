@@ -62,13 +62,13 @@ const CashOthers = () => {
       <div className="container1-wrapper">
         <div className="container1">
         <img src={pic4} alt="Donate" className="image3" />
-          <h1>Pera (Cash)</h1>
+          <h1>Cash</h1>
           
-          <button className="dB" onClick={() => navigate('/cash')}>Donate</button> 
+          <button className="dB" onClick={() => navigate('/receipt')}>Donate</button> 
         </div>
         <div className="container1">
         <img src={pic3} alt="Donate" className="image4" />
-          <h1>Mga bagay (Items)</h1>
+          <h1>Items</h1>
         
           <button className="dB" onClick={() => navigate('/others')}>Donate</button> 
         </div>

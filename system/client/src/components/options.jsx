@@ -57,22 +57,20 @@ const Options = () => {
         <div className="container1-wrapper">
       <div className="containerOptions">
       <img src={pic1} alt="Donate" className="image1" />
-        <h2>Mag Donate (Donate)</h2>
+        <h2>Donate</h2>
         <p>
-          Ang pag-donate sa isang komunidad na naapektuhan ng mga kalamidad ay 
-          nangangahulugan ng pagbibigay ng mahalagang suporta sa mga taong naapektuhan 
-          ng sakuna tulad ng baha, lindol, o bagyo.
+        Donating to a community affected by disasters means providing essential support to 
+        people impacted by calamities such as floods, earthquakes, or typhoons.
         </p>
         <button className="dB" onClick={() => navigate('/cashOthers')}>Donate Now</button>
       </div>
       <div className="containerOptions">
       <img src={pic2} alt="Request Donation" className="image2" />
-        <h2>Humiling ng Tulong (Request Assistance)</h2>
-        <p>
-          Ang paghiling ng donasyon ay nangangahulugan ng paghahanap ng tulong sa panahon
-          ng mga hamon. Kung ikaw ay nasa isang komunidad na naapektuhan ng mga kalamidad
-          tulad ng baha, lindol, o bagyo, ang pagtanggap ng donasyon ay maaaring magbigay 
-          sa iyo ng mahalagang suporta.
+        <h2>Request Assistance</h2>
+        <p>   
+        Requesting donations means seeking help during challenging times. If you are in a community
+        affected by disasters like floods, earthquakes,
+        or typhoons, receiving donations can provide you with essential support.
         </p>
         <button className="dB" onClick={() => navigate('/buttons')}>Request Assistance</button>
       </div>
