@@ -90,9 +90,14 @@ const Food = () => {
 
   const handleFoodTypeChange = (e) => {
     const selectedFood = e.target.value;
-    setTypesOfFood(selectedFood === "Others" ? "" : selectedFood);
+    if (selectedFood === "Others") {
+      setTypesOfFood("Others"); // Set to "Others" to enable the text input
+      setTypesOfFoodOther(''); // Clear the other input
+    } else {
+      setTypesOfFood(selectedFood);
+      setTypesOfFoodOther(''); // Clear if a normal option is selected
+    }
   };
-
   const handleLocationChange = (e) => {
     const selectedLocation = e.target.value;
     setLocation(selectedLocation);
@@ -162,21 +167,21 @@ const Food = () => {
               value={name}
               onChange={(e) => setName(e.target.value.replace(/[<>]/g, ''))}
             />
-            {typesOfFood === "Others" ? (
-              <input
-                type="text"
-                placeholder="Specify Type(s) of Food"
-                value={typesOfFoodOther}
-                onChange={(e) => setTypesOfFoodOther(e.target.value.replace(/[<>]/g, ''))}
-              />
-            ) : (
-              <select value={typesOfFood} onChange={handleFoodTypeChange}>
-                <option value="">Select Type(s) of Food</option>
-                {foodTypes.map((food) => (
-                  <option key={food} value={food}>{food}</option>
-                ))}
-              </select>
-            )}
+           <select value={typesOfFood} onChange={handleFoodTypeChange}>
+    <option value="">Select Type(s) of Food</option>
+    {foodTypes.map((food) => (
+      <option key={food} value={food}>{food}</option>
+    ))}
+  </select>
+  
+  {typesOfFood === "Others" && ( // Ensure input field is rendered
+    <input
+      type="text"
+      placeholder="Specify Type(s) of Food"
+      value={typesOfFoodOther}
+      onChange={(e) => setTypesOfFoodOther(e.target.value.replace(/[<>]/g, ''))}
+    />
+  )}
             <input
               type="text"
               placeholder="Contact Number"
