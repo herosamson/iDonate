@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './others.css'; 
@@ -43,12 +42,33 @@ const Others = () => {
       'Toothpaste',
       'Other',
     ],
-    Others: [
-      'Medicine',
-      'Pillow',
-      'Wheelchair',
+    Others: [],
+    DisasterRelief: [
+      'Canned Goods',
+      'Instant Noodles',
+      'Water Bottles',
+      'Instant Coffee',
+      'Biscuits',
       'Other',
     ],
+  };
+
+  const unitOptions = {
+    default: ["Piece(s)", "Pack(s)", "Box(es)", "Sack(s)", "Bottle(s)", "Can(s)", "Other"],
+    DisasterRelief: ["Piece(s)", "Pack(s)", "Box(es)", "Bottle(s)", "Can(s)", "Other"],
+    Food: ["Piece(s)", "Pack(s)", "Box(es)", "Sack(s)", "Bottle(s)", "Can(s)", "Other"],
+    Clothes: ["Piece(s)", "Pack(s)", "Box(es)", "Other"],
+    Hygiene: ["Piece(s)", "Pack(s)", "Box(es)", "Other"],
+    Others: ["Piece(s)", "Pack(s)", "Box(es)", "Other"],
+  };
+
+  const unitLimits = {
+    "Piece(s)": 100,
+    "Pack(s)": 50,
+    "Box(es)": 20,
+    "Sack(s)": 10,
+    "Bottle(s)": 100,
+    "Can(s)": 100,
   };
 
   useEffect(() => {
@@ -70,12 +90,7 @@ const Others = () => {
 
       if (response.ok) {
         alert("You have successfully logged out!");
-        localStorage.removeItem('userId');
-        localStorage.removeItem('username');
-        localStorage.removeItem('userRole');
-        localStorage.removeItem('firstname');
-        localStorage.removeItem('lastname');
-        localStorage.removeItem('contact');
+        localStorage.clear();
         window.location.href = '/'; 
       } else {
         alert("Logout failed");
@@ -97,7 +112,6 @@ const Others = () => {
       }
 
       const userDonations = donations.filter(donation => donation.user && donation.user.username === username);
-
       setDonations(userDonations);
     } catch (err) {
       console.error('Error fetching donations:', err);
@@ -128,6 +142,11 @@ const Others = () => {
     }
     if (!/^\d+$/.test(quantity) || parseInt(quantity, 10) <= 0) {
       alert('Please enter a valid positive Quantity.');
+      return;
+    }
+    const limit = unitLimits[unit] || 0;
+    if (parseInt(quantity, 10) > limit) {
+      alert(`Quantity for ${unit} cannot exceed ${limit}.`);
       return;
     }
 
@@ -190,10 +209,9 @@ const Others = () => {
       setPendingItems([]);
       setDate('');
       setError('');
-      setIsPendingItemsVisible(false);
 
       alert('Please check and take note of the donation ID of these item/s from the profile page.');
-      window.alert('Thank you for your in-kind donation'); 
+      alert('Thank you for your in-kind donation'); 
       navigate('/profile');
     } catch (err) {
       console.error('Error submitting items:', err.response ? err.response.data : err.message);
@@ -293,6 +311,7 @@ const Others = () => {
               <option value="Clothes">Clothes</option>
               <option value="Hygiene">Hygiene Kit</option>
               <option value="Others">Others</option>
+              <option value="DisasterRelief">Disaster Relief</option>
             </select>
             {category && (
               <>
@@ -341,46 +360,18 @@ const Others = () => {
             {item && (
               <>
                 <label htmlFor="unit">Unit<span style={{color: 'red'}}> *</span>:</label>
-                {categoryItems[category].includes('Other') && item === 'Other' ? (
-                  <>
-                    <select
-                      id="unit"
-                      value={unit}
-                      onChange={handleChange}
-                      name="unit"
-                      required
-                    >
-                      <option value="">Select Unit</option>
-                      {categoryItems[category].includes('Other') && (
-                        <option value="Other">Other</option>
-                      )}
-                      <option value="Piece(s)">Piece(s)</option>
-                      <option value="Pack(s)">Pack(s)</option>
-                      <option value="Box(es)">Box(es)</option>
-                      <option value="Sack(s)">Sack(s)</option>
-                      <option value="Bottle(s)">Bottle(s)</option>
-                      <option value="Can(s)">Can(s)</option>
-                    </select>
-                    
-                  </>
-                ) : (
-                  <select
-                    id="unit"
-                    value={unit}
-                    onChange={handleChange}
-                    name="unit"
-                    required
-                  >
-                    <option value="">Select Unit</option>
-                    <option value="Piece(s)">Piece(s)</option>
-                    <option value="Pack(s)">Pack(s)</option>
-                    <option value="Box(es)">Box(es)</option>
-                    <option value="Sack(s)">Sack(s)</option>
-                    <option value="Bottle(s)">Bottle(s)</option>
-                    <option value="Can(s)">Can(s)</option>
-                    <option value="Other">Other</option>
-                  </select>
-                )}
+                <select
+                  id="unit"
+                  value={unit}
+                  onChange={handleChange}
+                  name="unit"
+                  required
+                >
+                  <option value="">Select Unit</option>
+                  {unitOptions[category || 'default'].map((unitOption, idx) => (
+                    <option key={idx} value={unitOption}>{unitOption}</option>
+                  ))}
+                </select>
                 {unit === 'Other' && (
                   <input
                     type="text"
@@ -403,6 +394,7 @@ const Others = () => {
                   name="quantity"
                   placeholder="Quantity"
                   min="1"
+                  max={unitLimits[unit] || ''}
                   required
                 />
               </>
@@ -423,49 +415,48 @@ const Others = () => {
             <button className="dB" onClick={addItem}>Add Item</button>
           </div>
         </div>
-            <div className="table-wrapperDo">
-              <div className="table-containerDo">
-                <h3>Pending Items</h3>
-                {pendingItems.length > 0 && (
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>Item</th>
-                        <th>Quantity</th>
-                        <th>Unit</th>
-                        <th>Expiration Date</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {pendingItems.map((pendingItem, index) => (
-                        <tr key={index}>
-                          <td>{pendingItem.item}</td>
-                          <td>{pendingItem.quantity}</td>
-                          <td>{pendingItem.unit}</td>
-                          <td>{pendingItem.expirationDate ? new Date(pendingItem.expirationDate).toLocaleDateString() : 'N/A'}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                )}
-              </div>
-            </div>
-         <div className="input-container1">
-              <h3>Date of Delivery<span style={{color: 'red'}}> *</span>:</h3>
-              <input
-                type="date"
-                value={date}
-                onChange={handleChange}
-                name="date"
-                min={today}
-                required
-              />
-              <button className="dB" onClick={submitItems}>Submit</button>
-            </div>
+        <div className="table-wrapperDo">
+          <div className="table-containerDo">
+            <h3>Pending Items</h3>
+            {pendingItems.length > 0 && (
+              <table>
+                <thead>
+                  <tr>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                    <th>Unit</th>
+                    <th>Expiration Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {pendingItems.map((pendingItem, index) => (
+                    <tr key={index}>
+                      <td>{pendingItem.item}</td>
+                      <td>{pendingItem.quantity}</td>
+                      <td>{pendingItem.unit}</td>
+                      <td>{pendingItem.expirationDate ? new Date(pendingItem.expirationDate).toLocaleDateString() : 'N/A'}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
+        </div>
+        <div className="input-container1">
+          <h3>Date of Delivery<span style={{color: 'red'}}> *</span>:</h3>
+          <input
+            type="date"
+            value={date}
+            onChange={handleChange}
+            name="date"
+            min={today}
+            required
+          />
+          <button className="dB" onClick={submitItems}>Submit</button>
+        </div>
       </div>
     </div>
   );
 };
 
 export default Others;
-
