@@ -17,26 +17,24 @@ const Disaster = () => {
   const [error, setError] = useState('');
 
   const username = localStorage.getItem('username');
-  
-  // Options for Disaster Type and Locations
-  const disasterTypes = ["Typhoons", "Earthquakes", "Floods", "Volcanic Eruptions", "Landslides", "Fires"];
-  const locations = {
-  "Tondo": Array.from({ length: 267 }, (_, i) => `Barangay ${i + 1}`), // Barangay 1 to 267
-  "San Nicolas": Array.from({ length: 19 }, (_, i) => `Barangay ${268 + i}`), // Barangay 268 to 286
-  "Binondo": Array.from({ length: 10 }, (_, i) => `Barangay ${287 + i}`), // Barangay 287 to 296
-  "Santa Cruz": Array.from({ length: 86 }, (_, i) => `Barangay ${297 + i}`), // Barangay 297 to 382
-  "Quiapo": [...Array.from({ length: 4 }, (_, i) => `Barangay ${306 + i}`), ...Array.from({ length: 12 }, (_, i) => `Barangay ${383 + i}`)], // Barangay 306-309, 383-394
-  "Sampaloc": Array.from({ length: 192 }, (_, i) => `Barangay ${395 + i}`), // Barangay 395 to 586
-  "Santa Mesa": Array.from({ length: 50 }, (_, i) => `Barangay ${587 + i}`), // Barangay 587 to 636
-  "San Miguel": Array.from({ length: 12 }, (_, i) => `Barangay ${637 + i}`), // Barangay 637 to 648
-  "Port Area": Array.from({ length: 5 }, (_, i) => `Barangay ${649 + i}`), // Barangay 649 to 653
-  "Intramuros": Array.from({ length: 5 }, (_, i) => `Barangay ${654 + i}`), // Barangay 654 to 658
-  "Ermita": Array.from({ length: 12 }, (_, i) => `Barangay ${659 + i}`), // Barangay 659 to 670
-  "Paco": Array.from({ length: 26 }, (_, i) => `Barangay ${662 + i}`), // Barangay 662 to 687
-  "Malate": Array.from({ length: 57 }, (_, i) => `Barangay ${688 + i}`), // Barangay 688 to 744
-  "Others": []
-};
 
+  const disasterTypes = ["Typhoons", "Earthquakes", "Floods", "Volcanic Eruptions", "Landslides", "Fires", "Others"];
+  const locations = {
+    "Tondo": Array.from({ length: 267 }, (_, i) => `Barangay ${i + 1}`), // Barangay 1 to 267
+    "San Nicolas": Array.from({ length: 19 }, (_, i) => `Barangay ${268 + i}`), // Barangay 268 to 286
+    "Binondo": Array.from({ length: 10 }, (_, i) => `Barangay ${287 + i}`), // Barangay 287 to 296
+    "Santa Cruz": Array.from({ length: 86 }, (_, i) => `Barangay ${297 + i}`), // Barangay 297 to 382
+    "Quiapo": [...Array.from({ length: 4 }, (_, i) => `Barangay ${306 + i}`), ...Array.from({ length: 12 }, (_, i) => `Barangay ${383 + i}`)], // Barangay 306-309, 383-394
+    "Sampaloc": Array.from({ length: 192 }, (_, i) => `Barangay ${395 + i}`), // Barangay 395 to 586
+    "Santa Mesa": Array.from({ length: 50 }, (_, i) => `Barangay ${587 + i}`), // Barangay 587 to 636
+    "San Miguel": Array.from({ length: 12 }, (_, i) => `Barangay ${637 + i}`), // Barangay 637 to 648
+    "Port Area": Array.from({ length: 5 }, (_, i) => `Barangay ${649 + i}`), // Barangay 649 to 653
+    "Intramuros": Array.from({ length: 5 }, (_, i) => `Barangay ${654 + i}`), // Barangay 654 to 658
+    "Ermita": Array.from({ length: 12 }, (_, i) => `Barangay ${659 + i}`), // Barangay 659 to 670
+    "Paco": Array.from({ length: 26 }, (_, i) => `Barangay ${662 + i}`), // Barangay 662 to 687
+    "Malate": Array.from({ length: 57 }, (_, i) => `Barangay ${688 + i}`), // Barangay 688 to 744
+    "Others": []
+  };
 
   const fetchDisasterRequests = async () => {
     try {
@@ -51,7 +49,6 @@ const Disaster = () => {
   };
 
   const addDisasterRequest = async () => {
-    const lettersOnlyRegex = /^[A-Za-z\s]+$/;
     if (!name || !disasterType || !numberOfPax || !contactNumber || !location || !targetDate || (!barangay && location !== 'Others')) {
       alert('All fields are required.');
       return;
@@ -60,16 +57,6 @@ const Disaster = () => {
     const containsInvalidSymbols = (input) => /[<>]/.test(input);
     if (containsInvalidSymbols(name) || containsInvalidSymbols(disasterType) || containsInvalidSymbols(location)) {
       alert('Symbols < and > are not allowed.');
-      return;
-    }
-
-    if (!lettersOnlyRegex.test(name)) {
-      alert('Please enter a valid Name.');
-      return;
-    }
-
-    if (!lettersOnlyRegex.test(disasterType)) {
-      alert('Please enter a valid Disaster Type.');
       return;
     }
 
@@ -107,6 +94,12 @@ const Disaster = () => {
     }
   };
 
+  const handleLocationChange = (e) => {
+    const selectedLocation = e.target.value;
+    setLocation(selectedLocation === "Others" ? "" : selectedLocation);
+    setBarangay('');
+  };
+
   const handleLogout = async () => {
     const username = localStorage.getItem('username'); 
     const role = localStorage.getItem('userRole'); 
@@ -122,12 +115,7 @@ const Disaster = () => {
   
       if (response.ok) {
         alert("You have successfully logged out!");
-        localStorage.removeItem('userId');
-        localStorage.removeItem('username');
-        localStorage.removeItem('userRole');
-        localStorage.removeItem('firstname');
-        localStorage.removeItem('lastname');
-        localStorage.removeItem('contact');
+        localStorage.clear();
         window.location.href = '/'; 
       } else {
         alert("Logout failed");
@@ -172,7 +160,7 @@ const Disaster = () => {
               type="text"
               placeholder="Name/ Name of Organization"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => setName(e.target.value.replace(/[<>]/g, ''))}
             />
             <select value={disasterType} onChange={(e) => setDisasterType(e.target.value)}>
               <option value="">Select Type of Disaster</option>
@@ -184,7 +172,7 @@ const Disaster = () => {
               type="number"
               placeholder="Estimated Number of Pax"
               value={numberOfPax}
-              onChange={(e) => setNumberOfPax(e.target.value)}
+              onChange={(e) => setNumberOfPax(e.target.value.replace(/[<>]/g, ''))}
               min="1"
               max="500"
             />
@@ -192,14 +180,23 @@ const Disaster = () => {
               type="text"
               placeholder="Contact Number"
               value={contactNumber}
-              onChange={(e) => setContactNumber(e.target.value)}
+              onChange={(e) => setContactNumber(e.target.value.replace(/[<>]/g, ''))}
             />
-            <select value={location} onChange={(e) => setLocation(e.target.value)}>
-              <option value="">Select Location</option>
-              {Object.keys(locations).map((loc) => (
-                <option key={loc} value={loc}>{loc}</option>
-              ))}
-            </select>
+            {location === "" ? (
+              <input
+                type="text"
+                placeholder="Please Specify Exact Location"
+                value={location}
+                onChange={(e) => setLocation(e.target.value.replace(/[<>]/g, ''))}
+              />
+            ) : (
+              <select value={location} onChange={handleLocationChange}>
+                <option value="">Select Location</option>
+                {Object.keys(locations).map((loc) => (
+                  <option key={loc} value={loc}>{loc}</option>
+                ))}
+              </select>
+            )}
             {location && location !== "Others" && (
               <>
                 <select value={barangay} onChange={(e) => setBarangay(e.target.value)}>
@@ -212,17 +209,9 @@ const Disaster = () => {
                   type="text"
                   placeholder="House Address"
                   value={houseAddress}
-                  onChange={(e) => setHouseAddress(e.target.value)}
+                  onChange={(e) => setHouseAddress(e.target.value.replace(/[<>]/g, ''))}
                 />
               </>
-            )}
-            {location === "Others" && (
-              <input
-                type="text"
-                placeholder="Please Specify Exact Location"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-              />
             )}
             <h3>Target Date:</h3>
             <input

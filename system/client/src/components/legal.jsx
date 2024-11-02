@@ -12,9 +12,8 @@ const Legal = () => {
   const [legalRequests, setLegalRequests] = useState([]);
   const [error, setError] = useState('');
 
-  const username = localStorage.getItem('username'); // Get the username from local storage
+  const username = localStorage.getItem('username');
 
-  // List of legal assistance types
   const legalAssistanceTypes = [
     "Intellectual Property Law", "Family Law", "Corporate Law", "Criminal Law", "Tax Law",
     "Environmental Law", "Labour Law", "Constitutional Law", "Construction Law", "Contract",
@@ -22,7 +21,6 @@ const Legal = () => {
     "Legal Advice", "Corporate Lawyer", "Employment Lawyer", "Legal Advice", "Others"
   ];
 
-  // Fetch legal requests for the logged-in user
   const fetchLegalRequests = async () => {
     try {
       const response = await axios.get(`/routes/accounts/legal-assistance`, {
@@ -35,7 +33,6 @@ const Legal = () => {
     }
   };
 
-  // Add legal request
   const addLegalRequest = async () => {
     const lettersOnlyRegex = /^[A-Za-z\s]+$/;
     if (!name || !legalType || !contactNumber || !targetDate) {
@@ -73,41 +70,12 @@ const Legal = () => {
   };
 
   useEffect(() => {
-    fetchLegalRequests(); // Fetch the legal requests when the component mounts
+    fetchLegalRequests();
   }, []);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    if (value.includes('<') || value.includes('>')) {
-      return;
-    }
-
-    switch (name) {
-      case 'name':
-        setName(value);
-        break;
-      case 'legalType':
-        setLegalType(value);
-        break;
-      case 'contactNumber':
-        setContactNumber(value);
-        break;
-      case 'targetDate':
-        setTargetDate(value);
-        break;
-      default:
-        break;
-    }
-  };
 
   const handleLegalTypeChange = (e) => {
     const selectedType = e.target.value;
-    if (selectedType === "Others") {
-      setLegalType(''); // Clear the field to allow typing for "Others"
-    } else {
-      setLegalType(selectedType);
-    }
+    setLegalType(selectedType === "Others" ? "" : selectedType);
   };
 
   const handleLogout = async () => {
@@ -125,12 +93,7 @@ const Legal = () => {
   
       if (response.ok) {
         alert("You have successfully logged out!");
-        localStorage.removeItem('userId');
-        localStorage.removeItem('username');
-        localStorage.removeItem('userRole');
-        localStorage.removeItem('firstname');
-        localStorage.removeItem('lastname');
-        localStorage.removeItem('contact');
+        localStorage.clear();
         window.location.href = '/'; 
       } else {
         alert("Logout failed");
@@ -140,7 +103,6 @@ const Legal = () => {
     }
   };
 
-  // Get the current date in YYYY-MM-DD format
   const today = new Date().toISOString().split('T')[0];
 
   return (
@@ -173,9 +135,9 @@ const Legal = () => {
               name="name"
               placeholder="Name/ Name of Organization"
               value={name}
-              onChange={handleChange}
+              onChange={(e) => setName(e.target.value.replace(/[<>]/g, ''))}
             />
-            {legalType === "Others" ? (
+            {legalType === "" ? (
               <input
                 type="text"
                 name="legalType"
@@ -196,14 +158,14 @@ const Legal = () => {
               name="contactNumber"
               placeholder="Contact Number"
               value={contactNumber}
-              onChange={handleChange}
+              onChange={(e) => setContactNumber(e.target.value.replace(/[<>]/g, ''))}
             />
             <h3>Target Date:</h3>
             <input
               type="date"
               name="targetDate"
               value={targetDate}
-              onChange={handleChange}
+              onChange={(e) => setTargetDate(e.target.value)}
               min={today}
             />
             <button className="dB" onClick={addLegalRequest}>Add Legal Request</button>

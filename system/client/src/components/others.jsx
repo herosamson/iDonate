@@ -310,8 +310,8 @@ const Others = () => {
               <option value="Food">Food</option>
               <option value="Clothes">Clothes</option>
               <option value="Hygiene">Hygiene Kit</option>
-              <option value="Others">Others</option>
               <option value="DisasterRelief">Disaster Relief</option>
+              <option value="Others">Others</option>
             </select>
             {category && (
               <>

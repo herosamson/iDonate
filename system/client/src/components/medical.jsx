@@ -42,7 +42,6 @@ const Medical = () => {
     "Others": []
   };
 
-  // Fetch medical assistance data
   const fetchMedicalAssistance = async () => {
     try {
       const response = await axios.get(`/routes/accounts/medical-assistance`, {
@@ -55,26 +54,9 @@ const Medical = () => {
     }
   };
 
-  // Add medical assistance request
   const addMedicalAssistance = async () => {
-    const lettersOnlyRegex = /^[A-Za-z\s]+$/;
     if (!name || !typeOfMedicine || !quantity || !contactNumber || !location || !reason || !targetDate || (!barangay && location !== 'Others')) {
       alert('All fields are required.');
-      return;
-    }
-
-    if (name.includes('<') || name.includes('>') || !lettersOnlyRegex.test(name)) {
-      alert('Invalid characters in Name field.');
-      return;
-    }
-
-    if (!/^\d+$/.test(quantity)) {
-      alert('Please enter a valid number for Quantity.');
-      return;
-    }
-
-    if (!/^\d{11}$/.test(contactNumber) || !/^09\d{9}$/.test(contactNumber)) {
-      alert('Please enter a valid Contact Number.');
       return;
     }
 
@@ -86,7 +68,6 @@ const Medical = () => {
         headers: { username }
       });
       setMedicalAssistance([...medicalAssistance, response.data.request]);
-      // Clear form
       setName('');
       setTypeOfMedicine('');
       setQuantity('');
@@ -109,26 +90,21 @@ const Medical = () => {
 
   const handleTypeOfMedicineChange = (e) => {
     const selectedMedicine = e.target.value;
-    if (selectedMedicine === "Others") {
-      setTypeOfMedicine(''); // Clear for text input
-    } else {
-      setTypeOfMedicine(selectedMedicine);
-    }
+    setTypeOfMedicine(selectedMedicine === "Others" ? "" : selectedMedicine);
   };
 
   const handleLocationChange = (e) => {
     const selectedLocation = e.target.value;
-    setLocation(selectedLocation);
-    setBarangay(''); // Reset barangay when location changes
+    setLocation(selectedLocation === "Others" ? "" : selectedLocation);
+    setBarangay(''); 
   };
 
-  // Get the current date in YYYY-MM-DD format
   const today = new Date().toISOString().split('T')[0];
 
   const handleLogout = async () => {
     const username = localStorage.getItem('username'); 
     const role = localStorage.getItem('userRole'); 
-  
+
     try {
       const response = await fetch('https://idonate1.onrender.com/routes/accounts/logout', {
         method: 'POST', 
@@ -137,15 +113,9 @@ const Medical = () => {
         },
         body: JSON.stringify({ username, role }), 
       });
-  
       if (response.ok) {
         alert("You have successfully logged out!");
-        localStorage.removeItem('userId');
-        localStorage.removeItem('username');
-        localStorage.removeItem('userRole');
-        localStorage.removeItem('firstname');
-        localStorage.removeItem('lastname');
-        localStorage.removeItem('contact');
+        localStorage.clear();
         window.location.href = '/'; 
       } else {
         alert("Logout failed");
@@ -154,6 +124,7 @@ const Medical = () => {
       console.error('Error logging out:', error);
     }
   };
+
   return (
     <div className="Options">
       <header className="header">
@@ -184,7 +155,7 @@ const Medical = () => {
               value={name}
               onChange={(e) => setName(e.target.value.replace(/[<>]/g, ''))}
             />
-            {typeOfMedicine === "Others" ? (
+            {typeOfMedicine === "" ? (
               <input
                 type="text"
                 placeholder="Specify Type of Medicine"
@@ -211,12 +182,21 @@ const Medical = () => {
               value={contactNumber}
               onChange={(e) => setContactNumber(e.target.value.replace(/[<>]/g, ''))}
             />
-            <select value={location} onChange={handleLocationChange}>
-              <option value="">Select Location</option>
-              {Object.keys(locations).map((loc) => (
-                <option key={loc} value={loc}>{loc}</option>
-              ))}
-            </select>
+            {location === "" ? (
+              <input
+                type="text"
+                placeholder="Specify Location"
+                value={location}
+                onChange={(e) => setLocation(e.target.value.replace(/[<>]/g, ''))}
+              />
+            ) : (
+              <select value={location} onChange={handleLocationChange}>
+                <option value="">Select Location</option>
+                {Object.keys(locations).map((loc) => (
+                  <option key={loc} value={loc}>{loc}</option>
+                ))}
+              </select>
+            )}
             {location && location !== "Others" && (
               <>
                 <select value={barangay} onChange={(e) => setBarangay(e.target.value)}>
@@ -232,14 +212,6 @@ const Medical = () => {
                   onChange={(e) => setHouseAddress(e.target.value.replace(/[<>]/g, ''))}
                 />
               </>
-            )}
-            {location === "Others" && (
-              <input
-                type="text"
-                placeholder="Specify Location"
-                value={location}
-                onChange={(e) => setLocation(e.target.value.replace(/[<>]/g, ''))}
-              />
             )}
             <input
               type="text"

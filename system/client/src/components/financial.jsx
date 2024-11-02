@@ -205,7 +205,7 @@ const Financial = () => {
             <input
               type="number"
               name="amount"
-              placeholder="Amount (max 10,000)"
+              placeholder="Amount"
               value={amount}
               onChange={(e) => setAmount(e.target.value > 10000 ? 10000 : e.target.value)}
               min="1"

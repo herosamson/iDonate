@@ -17,9 +17,7 @@ const Food = () => {
 
   const username = localStorage.getItem('username');
 
-  // Food types
   const foodTypes = ["Rice", "Canned Goods", "Instant Noodles", "Coffee", "Biscuits", "Water Bottles", "Others"];
-
   const locations = {
     "Tondo": Array.from({ length: 267 }, (_, i) => `Barangay ${i + 1}`), // Barangay 1 to 267
     "San Nicolas": Array.from({ length: 19 }, (_, i) => `Barangay ${268 + i}`), // Barangay 268 to 286
@@ -37,7 +35,7 @@ const Food = () => {
     "Others": []
   };
 
-  // Fetch food assistance data
+
   const fetchFoodAssistance = async () => {
     try {
       const response = await axios.get(`/routes/accounts/food-assistance`, {
@@ -49,26 +47,9 @@ const Food = () => {
     }
   };
 
-  // Add food assistance request
   const addFoodAssistance = async () => {
-    const lettersOnlyRegex = /^[A-Za-z\s]+$/;
     if (!name || !typesOfFood || !contactNumber || !location || !targetDate || !numberOfPax || (!barangay && location !== 'Others')) {
       alert('All fields are required.');
-      return;
-    }
-
-    if (name.includes('<') || name.includes('>') || !lettersOnlyRegex.test(name)) {
-      alert('Invalid characters in Name field.');
-      return;
-    }
-
-    if (!/^\d{11}$/.test(contactNumber) || !/^09\d{9}$/.test(contactNumber)) {
-      alert('Please enter a valid Contact Number.');
-      return;
-    }
-
-    if (!/^\d+$/.test(numberOfPax)) {
-      alert('Please enter a valid number for the Estimated Number of Pax.');
       return;
     }
 
@@ -80,7 +61,6 @@ const Food = () => {
         headers: { username }
       });
       setFoodAssistance([...foodAssistance, response.data.request]);
-      // Clear form fields
       setName('');
       setTypesOfFood('');
       setContactNumber('');
@@ -102,25 +82,21 @@ const Food = () => {
 
   const handleFoodTypeChange = (e) => {
     const selectedFood = e.target.value;
-    if (selectedFood === "Others") {
-      setTypesOfFood(''); // Clear for text input
-    } else {
-      setTypesOfFood(selectedFood);
-    }
+    setTypesOfFood(selectedFood === "Others" ? "" : selectedFood);
   };
 
   const handleLocationChange = (e) => {
     const selectedLocation = e.target.value;
     setLocation(selectedLocation);
-    setBarangay(''); // Reset barangay when location changes
+    setBarangay(''); 
   };
 
-  // Get the current date in YYYY-MM-DD format
   const today = new Date().toISOString().split('T')[0];
+
   const handleLogout = async () => {
     const username = localStorage.getItem('username'); 
     const role = localStorage.getItem('userRole'); 
-  
+
     try {
       const response = await fetch('https://idonate1.onrender.com/routes/accounts/logout', {
         method: 'POST', 
@@ -129,15 +105,9 @@ const Food = () => {
         },
         body: JSON.stringify({ username, role }), 
       });
-  
       if (response.ok) {
         alert("You have successfully logged out!");
-        localStorage.removeItem('userId');
-        localStorage.removeItem('username');
-        localStorage.removeItem('userRole');
-        localStorage.removeItem('firstname');
-        localStorage.removeItem('lastname');
-        localStorage.removeItem('contact');
+        localStorage.clear();
         window.location.href = '/'; 
       } else {
         alert("Logout failed");
@@ -177,7 +147,7 @@ const Food = () => {
               value={name}
               onChange={(e) => setName(e.target.value.replace(/[<>]/g, ''))}
             />
-            {typesOfFood === "Others" ? (
+            {typesOfFood === "" ? (
               <input
                 type="text"
                 placeholder="Specify Type(s) of Food"
@@ -198,12 +168,21 @@ const Food = () => {
               value={contactNumber}
               onChange={(e) => setContactNumber(e.target.value.replace(/[<>]/g, ''))}
             />
-            <select value={location} onChange={handleLocationChange}>
-              <option value="">Select Location</option>
-              {Object.keys(locations).map((loc) => (
-                <option key={loc} value={loc}>{loc}</option>
-              ))}
-            </select>
+            {location === "Others" ? (
+              <input
+                type="text"
+                placeholder="Specify Location"
+                value={location}
+                onChange={(e) => setLocation(e.target.value.replace(/[<>]/g, ''))}
+              />
+            ) : (
+              <select value={location} onChange={handleLocationChange}>
+                <option value="">Select Location</option>
+                {Object.keys(locations).map((loc) => (
+                  <option key={loc} value={loc}>{loc}</option>
+                ))}
+              </select>
+            )}
             {location && location !== "Others" && (
               <>
                 <select value={barangay} onChange={(e) => setBarangay(e.target.value)}>
@@ -220,14 +199,6 @@ const Food = () => {
                 />
               </>
             )}
-            {location === "Others" && (
-              <input
-                type="text"
-                placeholder="Specify Location"
-                value={location}
-                onChange={(e) => setLocation(e.target.value.replace(/[<>]/g, ''))}
-              />
-            )}
             <h3>Target Date:</h3>
             <input
               type="date"
@@ -240,6 +211,8 @@ const Food = () => {
               placeholder="Number of Pax"
               value={numberOfPax}
               onChange={(e) => setNumberOfPax(e.target.value.replace(/[<>]/g, ''))}
+              min="1"
+              max="200"
             />
             <button className="dB" onClick={addFoodAssistance}>Add Food Request</button>
           </div>
