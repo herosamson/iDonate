@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './others.css'; 
@@ -15,23 +16,39 @@ const Others = () => {
   const [date, setDate] = useState('');
   const [expirationDate, setExpirationDate] = useState('');
   const [error, setError] = useState('');
-  const [isPendingItemsVisible, setIsPendingItemsVisible] = useState(false);
   const [category, setCategory] = useState('');
   const navigate = useNavigate();
 
   const categoryItems = {
-    Food: ['Canned Goods', 'Noodles', 'Cup Noodles', 'Rice', 'Water Bottles', 'Other'],
-    Clothes: ['T-Shirt', 'Socks', 'Blanket', 'Stuffed Toy', 'Other'],
-    HygieneKit: ['Shampoo', 'Soap', 'Tampons', 'Toothbrush', 'Toothpaste', 'Other'],
-    Others: [],
-    DisasterRelief: ['Water Bottles', 'Canned Goods', 'Noodles', 'Rice', 'Other'],
-  };
-
-  const applicableUnits = {
-    Food: ['Piece(s)', 'Pack(s)', 'Box(es)', 'Sack(s)', 'Bottle(s)', 'Can(s)'],
-    Clothes: ['Piece(s)', 'Pack(s)'],
-    HygieneKit: ['Piece(s)', 'Bottle(s)'],
-    DisasterRelief: ['Piece(s)', 'Pack(s)', 'Box(es)', 'Sack(s)', 'Bottle(s)', 'Can(s)'],
+    Food: [
+      'Canned Goods',
+      'Noodles',
+      'Cup Noodles',
+      'Rice (25 kg)',
+      'Water Bottles',
+      'Other',
+    ],
+    Clothes: [
+      'T-Shirt',
+      'Socks',
+      'Blanket',
+      'Stuffed Toy',
+      'Other',
+    ],
+    Hygiene: [
+      'Shampoo',
+      'Soap',
+      'Tampons',
+      'Toothbrush',
+      'Toothpaste',
+      'Other',
+    ],
+    Others: [
+      'Medicine',
+      'Pillow',
+      'Wheelchair',
+      'Other',
+    ],
   };
 
   useEffect(() => {
@@ -45,14 +62,21 @@ const Others = () => {
     try {
       const response = await fetch('https://idonate1.onrender.com/routes/accounts/logout', {
         method: 'POST', 
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({ username, role }), 
       });
 
       if (response.ok) {
         alert("You have successfully logged out!");
-        localStorage.clear();
-        window.location.href = '/';
+        localStorage.removeItem('userId');
+        localStorage.removeItem('username');
+        localStorage.removeItem('userRole');
+        localStorage.removeItem('firstname');
+        localStorage.removeItem('lastname');
+        localStorage.removeItem('contact');
+        window.location.href = '/'; 
       } else {
         alert("Logout failed");
       }
@@ -73,6 +97,7 @@ const Others = () => {
       }
 
       const userDonations = donations.filter(donation => donation.user && donation.user.username === username);
+
       setDonations(userDonations);
     } catch (err) {
       console.error('Error fetching donations:', err);
@@ -80,72 +105,58 @@ const Others = () => {
   };
 
   const addItem = () => {
-  const username = localStorage.getItem('username');
-  if (!username) {
-    setError('User not logged in');
-    return;
-  }
-  if (!category) {
-    alert('Category is required.');
-    return;
-  }
-  if (!item && !customItem) {
-    alert('Item is required.');
-    return;
-  }
-  if (!quantity || isNaN(quantity)) {
-    alert('Please enter a valid Quantity.');
-    return;
-  }
-  if (!unit && !customUnit) {
-    alert('Unit is required.');
-    return;
-  }
+    const username = localStorage.getItem('username');
+    if (!username) {
+      setError('User not logged in');
+      return;
+    }
+    if (!category) {
+      alert('Category is required.');
+      return;
+    }
+    if (!item && !customItem) {
+      alert('Item is required.');
+      return;
+    }
+    if (!quantity) {
+      alert('Quantity is required.');
+      return;
+    }
+    if (!unit && !customUnit) {
+      alert('Unit is required.');
+      return;
+    }
+    if (!/^\d+$/.test(quantity) || parseInt(quantity, 10) <= 0) {
+      alert('Please enter a valid positive Quantity.');
+      return;
+    }
 
-  // Quantity limits based on unit
-  const quantityLimits = {
-    "Piece(s)": 100,
-    "Pack(s)": 50,
-    "Box(es)": 10,
-    "Sack(s)": 10,
-    "Bottle(s)": 50,
-    "Can(s)": 50,
+    const selectedItem = item === 'Other' ? customItem : item;
+    const selectedUnit = unit === 'Other' ? customUnit : unit;
+    const normalizedItem = selectedItem.toLowerCase();
+
+    if (pendingItems.some(pendingItem => pendingItem.item.toLowerCase() === normalizedItem)) {
+      alert('This item is already in the pending list.');
+      return;
+    }
+
+    const newItem = { 
+      item: selectedItem, 
+      quantity, 
+      unit: selectedUnit, 
+      expirationDate, 
+      username, 
+      category 
+    };
+    setPendingItems([...pendingItems, newItem]);
+    setItem('');
+    setCustomItem('');
+    setQuantity('');
+    setUnit('');
+    setCustomUnit('');
+    setExpirationDate('');
+    setError('');
   };
-
-  const selectedUnit = unit === 'Other' ? customUnit : unit;
-  const selectedItem = item === 'Other' || category === 'Others' ? customItem : item;
-  const normalizedItem = selectedItem.toLowerCase();
-
-  if (quantityLimits[selectedUnit] && parseInt(quantity, 10) > quantityLimits[selectedUnit]) {
-    alert(`Quantity limit for ${selectedUnit} is ${quantityLimits[selectedUnit]}.`);
-    return;
-  }
-
-  if (pendingItems.some(pendingItem => pendingItem.item.toLowerCase() === normalizedItem)) {
-    alert('This item is already in the pending list.');
-    return;
-  }
-
-  const newItem = { 
-    item: selectedItem, 
-    quantity, 
-    unit: selectedUnit, 
-    expirationDate, 
-    username, 
-    category 
-  };
-
-  setPendingItems([...pendingItems, newItem]);
-  setItem('');
-  setCustomItem('');
-  setQuantity('');
-  setUnit('');
-  setCustomUnit('');
-  setExpirationDate('');
-  setError('');
-  setIsPendingItemsVisible(true);
-};
-
 
   const submitItems = async () => {
     const username = localStorage.getItem('username');
@@ -188,11 +199,6 @@ const Others = () => {
       console.error('Error submitting items:', err.response ? err.response.data : err.message);
       alert('Error submitting items.');
     }
-  };
-
-  const deletePendingItem = (index) => {
-    const updatedPendingItems = pendingItems.filter((_, i) => i !== index);
-    setPendingItems(updatedPendingItems);
   };
 
   const handleChange = (e) => {
@@ -247,11 +253,8 @@ const Others = () => {
         break;
     }
   };
-
+  
   const today = new Date().toISOString().split('T')[0];
-  const oneMonthFromToday = new Date();
-  oneMonthFromToday.setMonth(oneMonthFromToday.getMonth() + 1);
-  const minDeliveryDate = oneMonthFromToday.toISOString().split('T')[0];
 
   return (
     <div className="Options">
@@ -286,147 +289,183 @@ const Others = () => {
               required
             >
               <option value="">Select Category</option>
-              {Object.keys(categoryItems).map((category) => (
-                <option key={category} value={category}>
-                  {category}
-                </option>
-              ))}
+              <option value="Food">Food</option>
+              <option value="Clothes">Clothes</option>
+              <option value="Hygiene">Hygiene Kit</option>
+              <option value="Others">Others</option>
             </select>
-          </div>
-          <div className="input-container">
-            <label htmlFor="item">Item Name<span style={{color: 'red'}}> *</span>:</label>
-            {category === 'Others' ? (
-              <input
-                type="text"
-                id="customItem"
-                value={customItem}
-                onChange={handleChange}
-                name="customItem"
-                required
-                placeholder="Custom item name"
-              />
-            ) : (
-              <select
-                id="item"
-                value={item}
-                onChange={handleChange}
-                name="item"
-                required
-              >
-                <option value="">Select an item</option>
-                {categoryItems[category].map((item) => (
-                  <option key={item} value={item}>
-                    {item}
-                  </option>
-                ))}
-              </select>
+            {category && (
+              <>
+                <label htmlFor="item">Item<span style={{color: 'red'}}> *</span>:</label>
+                {categoryItems[category].includes('Other') ? (
+                  <>
+                    <select
+                      id="item"
+                      value={item}
+                      onChange={handleChange}
+                      name="item"
+                      required
+                    >
+                      <option value="">Select Item</option>
+                      {categoryItems[category].map((itm, idx) => (
+                        itm !== 'Other' ? <option key={idx} value={itm}>{itm}</option> : <option key={idx} value="Other">Other</option>
+                      ))}
+                    </select>
+                    {item === 'Other' && (
+                      <input
+                        type="text"
+                        value={customItem}
+                        onChange={handleChange}
+                        name="customItem"
+                        placeholder="Specify item"
+                        required
+                      />
+                    )}
+                  </>
+                ) : (
+                  <select
+                    id="item"
+                    value={item}
+                    onChange={handleChange}
+                    name="item"
+                    required
+                  >
+                    <option value="">Select Item</option>
+                    {categoryItems[category].map((itm, idx) => (
+                      <option key={idx} value={itm}>{itm}</option>
+                    ))}
+                  </select>
+                )}
+              </>
             )}
-          </div>
-          <div className="input-container">
-            <label htmlFor="quantity">Quantity<span style={{color: 'red'}}> *</span>:</label>
-            <input
-              type="number"
-              id="quantity"
-              value={quantity}
-              onChange={handleChange}
-              name="quantity"
-              min="1"
-              required
-            />
-          </div>
-          <div className="input-container">
-            <label htmlFor="unit">Unit<span style={{color: 'red'}}> *</span>:</label>
-            {applicableUnits[category] && applicableUnits[category].includes('Other') ? (
-              <input
-                type="text"
-                id="customUnit"
-                value={customUnit}
-                onChange={handleChange}
-                name="customUnit"
-                required
-                placeholder="Custom unit name"
-              />
-            ) : (
-              <select
-                id="unit"
-                value={unit}
-                onChange={handleChange}
-                name="unit"
-                required
-              >
-                <option value="">Select unit</option>
-                {applicableUnits[category]?.map((unit) => (
-                  <option key={unit} value={unit}>
-                    {unit}
-                  </option>
-                ))}
-              </select>
+            {item && (
+              <>
+                <label htmlFor="unit">Unit<span style={{color: 'red'}}> *</span>:</label>
+                {categoryItems[category].includes('Other') && item === 'Other' ? (
+                  <>
+                    <select
+                      id="unit"
+                      value={unit}
+                      onChange={handleChange}
+                      name="unit"
+                      required
+                    >
+                      <option value="">Select Unit</option>
+                      {categoryItems[category].includes('Other') && (
+                        <option value="Other">Other</option>
+                      )}
+                      <option value="Piece(s)">Piece(s)</option>
+                      <option value="Pack(s)">Pack(s)</option>
+                      <option value="Box(es)">Box(es)</option>
+                      <option value="Sack(s)">Sack(s)</option>
+                      <option value="Bottle(s)">Bottle(s)</option>
+                      <option value="Can(s)">Can(s)</option>
+                    </select>
+                    
+                  </>
+                ) : (
+                  <select
+                    id="unit"
+                    value={unit}
+                    onChange={handleChange}
+                    name="unit"
+                    required
+                  >
+                    <option value="">Select Unit</option>
+                    <option value="Piece(s)">Piece(s)</option>
+                    <option value="Pack(s)">Pack(s)</option>
+                    <option value="Box(es)">Box(es)</option>
+                    <option value="Sack(s)">Sack(s)</option>
+                    <option value="Bottle(s)">Bottle(s)</option>
+                    <option value="Can(s)">Can(s)</option>
+                    <option value="Other">Other</option>
+                  </select>
+                )}
+                {unit === 'Other' && (
+                  <input
+                    type="text"
+                    value={customUnit}
+                    onChange={handleChange}
+                    name="customUnit"
+                    placeholder="Enter unit"
+                    required
+                  />
+                )}
+              </>
             )}
+            {category && item && (
+              <>
+                <label htmlFor="quantity">Quantity<span style={{color: 'red'}}> *</span>:</label>
+                <input
+                  type="number"
+                  value={quantity}
+                  onChange={handleChange}
+                  name="quantity"
+                  placeholder="Quantity"
+                  min="1"
+                  required
+                />
+              </>
+            )}
+            {category === 'Food' && (
+              <>
+                <label htmlFor="expirationDate">(If necessary) Expiration Date:</label>
+                <input
+                  type="date"
+                  value={expirationDate}
+                  onChange={handleChange}
+                  name="expirationDate"
+                  min={today}
+                />
+              </>
+            )}
+
+            <button className="dB" onClick={addItem}>Add Item</button>
           </div>
-          {['Food', 'DisasterRelief'].includes(category) && (
-            <div className="input-container">
-              <label htmlFor="expirationDate">Expiration Date:</label>
+        </div>
+            <div className="table-wrapperDo">
+              <div className="table-containerDo">
+                <h3>Pending Items</h3>
+                {pendingItems.length > 0 && (
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Item</th>
+                        <th>Quantity</th>
+                        <th>Unit</th>
+                        <th>Expiration Date</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {pendingItems.map((pendingItem, index) => (
+                        <tr key={index}>
+                          <td>{pendingItem.item}</td>
+                          <td>{pendingItem.quantity}</td>
+                          <td>{pendingItem.unit}</td>
+                          <td>{pendingItem.expirationDate ? new Date(pendingItem.expirationDate).toLocaleDateString() : 'N/A'}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )}
+              </div>
+            </div>
+         <div className="input-container1">
+              <h3>Date of Delivery<span style={{color: 'red'}}> *</span>:</h3>
               <input
                 type="date"
-                id="expirationDate"
-                value={expirationDate}
+                value={date}
                 onChange={handleChange}
-                name="expirationDate"
+                name="date"
                 min={today}
+                required
               />
+              <button className="dB" onClick={submitItems}>Submit</button>
             </div>
-          )}
-          <button className="dB" onClick={addItem}>Add Item</button>
-        </div>
-        <div className="table-wrapperDo">
-        <div className="table-containerDo">
-        <h2>Pending Items</h2>
-        {pendingItems.length === 0 && <p>No items added yet.</p>}
-        <table>
-          <thead>
-            <tr>
-              <th>Item Name</th>
-              <th>Quantity</th>
-              <th>Unit</th>
-              <th>Expiration Date</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {pendingItems.map((pendingItem, index) => (
-              <tr key={index}>
-                <td>{pendingItem.item}</td>
-                <td>{pendingItem.quantity}</td>
-                <td>{pendingItem.unit}</td>
-                <td>{pendingItem.expirationDate || '-'}</td>
-                <td>
-                  <button onClick={() => deletePendingItem(index)}>Delete</button>
-                </td>
-              </tr>
-            ))}
-            
-          </tbody>
-        </table>
-        </div>
-        </div>
-        <div className="input-container1">
-          <label htmlFor="date">Date of Delivery<span style={{color: 'red'}}> *</span>:</label>
-          <input
-            type="date"
-            id="date"
-            value={date}
-            onChange={handleChange}
-            name="date"
-            min={minDeliveryDate}
-            required
-          />
-        </div>
-        <button className="dB" onClick={submitItems} disabled={pendingItems.length === 0}>
-          Submit All Items
-        </button>
       </div>
     </div>
   );
 };
 
 export default Others;
+

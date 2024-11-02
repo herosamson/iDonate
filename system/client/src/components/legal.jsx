@@ -4,17 +4,23 @@ import './legal.css';
 import logo from './imagenew.png';
 import { Link } from 'react-router-dom';
 
-
 const Legal = () => {
   const [name, setName] = useState('');
   const [legalType, setLegalType] = useState('');
   const [contactNumber, setContactNumber] = useState('');
-  const [location, setLocation] = useState('');
   const [targetDate, setTargetDate] = useState('');
   const [legalRequests, setLegalRequests] = useState([]);
   const [error, setError] = useState('');
 
   const username = localStorage.getItem('username'); // Get the username from local storage
+
+  // List of legal assistance types
+  const legalAssistanceTypes = [
+    "Intellectual Property Law", "Family Law", "Corporate Law", "Criminal Law", "Tax Law",
+    "Environmental Law", "Labour Law", "Constitutional Law", "Construction Law", "Contract",
+    "Civil Procedure", "Financial Law", "Health Law", "Land Law", "Personal Injury Lawyer",
+    "Legal Advice", "Corporate Lawyer", "Employment Lawyer", "Legal Advice", "Others"
+  ];
 
   // Fetch legal requests for the logged-in user
   const fetchLegalRequests = async () => {
@@ -32,7 +38,7 @@ const Legal = () => {
   // Add legal request
   const addLegalRequest = async () => {
     const lettersOnlyRegex = /^[A-Za-z\s]+$/;
-    if (!name || !legalType || !contactNumber || !location || !targetDate) {
+    if (!name || !legalType || !contactNumber || !targetDate) {
       alert('All fields are required.');
       return;
     }
@@ -47,7 +53,7 @@ const Legal = () => {
       return;
     }
 
-    const newRequest = { name, legalType, contactNumber, location, targetDate, username };
+    const newRequest = { name, legalType, contactNumber, targetDate, username };
     try {
       const response = await axios.post(`/routes/accounts/legal-assistance/add`, newRequest, {
         headers: { username }
@@ -56,7 +62,6 @@ const Legal = () => {
       setName('');
       setLegalType('');
       setContactNumber('');
-      setLocation('');
       setTargetDate('');
       setError('');
       alert('Legal request added successfully.');
@@ -88,14 +93,20 @@ const Legal = () => {
       case 'contactNumber':
         setContactNumber(value);
         break;
-      case 'location':
-        setLocation(value);
-        break;
       case 'targetDate':
         setTargetDate(value);
         break;
       default:
         break;
+    }
+  };
+
+  const handleLegalTypeChange = (e) => {
+    const selectedType = e.target.value;
+    if (selectedType === "Others") {
+      setLegalType(''); // Clear the field to allow typing for "Others"
+    } else {
+      setLegalType(selectedType);
     }
   };
 
@@ -129,8 +140,8 @@ const Legal = () => {
     }
   };
 
-     // Get the current date in YYYY-MM-DD format
-     const today = new Date().toISOString().split('T')[0];
+  // Get the current date in YYYY-MM-DD format
+  const today = new Date().toISOString().split('T')[0];
 
   return (
     <div className="Options">
@@ -164,25 +175,27 @@ const Legal = () => {
               value={name}
               onChange={handleChange}
             />
-            <input
-              type="text"
-              name="legalType"
-              placeholder="Type of Legal Assistance"
-              value={legalType}
-              onChange={handleChange}
-            />
+            {legalType === "Others" ? (
+              <input
+                type="text"
+                name="legalType"
+                placeholder="Specify Type of Legal Assistance"
+                value={legalType}
+                onChange={(e) => setLegalType(e.target.value)}
+              />
+            ) : (
+              <select name="legalType" value={legalType} onChange={handleLegalTypeChange}>
+                <option value="">Select Type of Legal Assistance</option>
+                {legalAssistanceTypes.map((type) => (
+                  <option key={type} value={type}>{type}</option>
+                ))}
+              </select>
+            )}
             <input
               type="text"
               name="contactNumber"
               placeholder="Contact Number"
               value={contactNumber}
-              onChange={handleChange}
-            />
-            <input
-              type="text"
-              name="location"
-              placeholder="Location"
-              value={location}
               onChange={handleChange}
             />
             <h3>Target Date:</h3>
@@ -204,9 +217,8 @@ const Legal = () => {
                   <th>Name</th>
                   <th>Type of Legal Assistance</th>
                   <th>Contact Number</th>
-                  <th>Location</th>
                   <th>Target Date</th>
-                  <th>Approved</th> {/* New column */}
+                  <th>Approved</th>
                 </tr>
               </thead>
               <tbody>
@@ -215,9 +227,8 @@ const Legal = () => {
                     <td>{request.name}</td>
                     <td>{request.legalType}</td>
                     <td>{request.contactNumber}</td>
-                    <td>{request.location}</td>
                     <td>{new Date(request.targetDate).toLocaleDateString()}</td>
-                    <td>{request.approved ? 'Yes' : 'No'}</td> {/* New column */}
+                    <td>{request.approved ? 'Yes' : 'No'}</td>
                   </tr>
                 ))}
               </tbody>

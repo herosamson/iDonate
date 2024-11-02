@@ -1163,7 +1163,7 @@ router.patch('/disaster-relief/approve/:id', async (req, res) => {
 
 // Add a new legal assistance request
 router.post('/legal-assistance/add', async (req, res) => {
-  const { name, legalType, contactNumber, location, targetDate, username } = req.body;
+  const { name, legalType, contactNumber, targetDate, username } = req.body;
 
   try {
     const user = await Register.findOne({ username });
@@ -1175,7 +1175,6 @@ router.post('/legal-assistance/add', async (req, res) => {
       name,
       legalType,
       contactNumber,
-      location,
       targetDate,
       username
     });

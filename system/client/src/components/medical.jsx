@@ -4,20 +4,45 @@ import './medical.css';
 import logo from './imagenew.png';
 import { Link } from 'react-router-dom';
 
-
 const Medical = () => {
   const [name, setName] = useState('');
   const [typeOfMedicine, setTypeOfMedicine] = useState('');
   const [quantity, setQuantity] = useState('');
   const [contactNumber, setContactNumber] = useState('');
   const [location, setLocation] = useState('');
+  const [barangay, setBarangay] = useState('');
+  const [houseAddress, setHouseAddress] = useState('');
   const [reason, setReason] = useState('');
   const [targetDate, setTargetDate] = useState('');
   const [medicalAssistance, setMedicalAssistance] = useState([]);
 
-  const username = localStorage.getItem('username'); // Get the username from local storage
+  const username = localStorage.getItem('username');
 
-  // Fetch medical requests for the logged-in user
+  // Medicine options
+  const medicineTypes = [
+    "Biogesic", "Neozep", "Solmux", "Ceterizine", "Amlodipine", "Amoxicillin", "Bioflu", 
+    "Decolgen", "Tempra", "Medicol", "Tuseran", "Robitussin", "Diatabs", "Dolfenal", 
+    "Buscopan", "Ventolin", "Lagundi", "Sinutab", "Others"
+  ];
+
+  const locations = {
+    "Tondo": Array.from({ length: 267 }, (_, i) => `Barangay ${i + 1}`), // Barangay 1 to 267
+    "San Nicolas": Array.from({ length: 19 }, (_, i) => `Barangay ${268 + i}`), // Barangay 268 to 286
+    "Binondo": Array.from({ length: 10 }, (_, i) => `Barangay ${287 + i}`), // Barangay 287 to 296
+    "Santa Cruz": Array.from({ length: 86 }, (_, i) => `Barangay ${297 + i}`), // Barangay 297 to 382
+    "Quiapo": [...Array.from({ length: 4 }, (_, i) => `Barangay ${306 + i}`), ...Array.from({ length: 12 }, (_, i) => `Barangay ${383 + i}`)], // Barangay 306-309, 383-394
+    "Sampaloc": Array.from({ length: 192 }, (_, i) => `Barangay ${395 + i}`), // Barangay 395 to 586
+    "Santa Mesa": Array.from({ length: 50 }, (_, i) => `Barangay ${587 + i}`), // Barangay 587 to 636
+    "San Miguel": Array.from({ length: 12 }, (_, i) => `Barangay ${637 + i}`), // Barangay 637 to 648
+    "Port Area": Array.from({ length: 5 }, (_, i) => `Barangay ${649 + i}`), // Barangay 649 to 653
+    "Intramuros": Array.from({ length: 5 }, (_, i) => `Barangay ${654 + i}`), // Barangay 654 to 658
+    "Ermita": Array.from({ length: 12 }, (_, i) => `Barangay ${659 + i}`), // Barangay 659 to 670
+    "Paco": Array.from({ length: 26 }, (_, i) => `Barangay ${662 + i}`), // Barangay 662 to 687
+    "Malate": Array.from({ length: 57 }, (_, i) => `Barangay ${688 + i}`), // Barangay 688 to 744
+    "Others": []
+  };
+
+  // Fetch medical assistance data
   const fetchMedicalAssistance = async () => {
     try {
       const response = await axios.get(`/routes/accounts/medical-assistance`, {
@@ -32,14 +57,12 @@ const Medical = () => {
 
   // Add medical assistance request
   const addMedicalAssistance = async () => {
-    // Validate all fields are filled
     const lettersOnlyRegex = /^[A-Za-z\s]+$/;
-    if (!name || !typeOfMedicine || !quantity || !contactNumber || !location || !reason || !targetDate) {
+    if (!name || !typeOfMedicine || !quantity || !contactNumber || !location || !reason || !targetDate || (!barangay && location !== 'Others')) {
       alert('All fields are required.');
       return;
     }
 
-    // Validate inputs
     if (name.includes('<') || name.includes('>') || !lettersOnlyRegex.test(name)) {
       alert('Invalid characters in Name field.');
       return;
@@ -55,18 +78,22 @@ const Medical = () => {
       return;
     }
 
-    const newRequest = { name, typeOfMedicine, quantity, contactNumber, location, reason, targetDate, username };
+    const fullLocation = location === "Others" ? location : `${location} - ${barangay}, ${houseAddress}`;
+    const newRequest = { name, typeOfMedicine, quantity, contactNumber, location: fullLocation, reason, targetDate, username };
+
     try {
       const response = await axios.post(`/routes/accounts/medical-assistance/add`, newRequest, {
         headers: { username }
       });
-      setMedicalAssistance([...medicalAssistance, response.data.request]); // Update state with new request
-      // Clear the form fields
+      setMedicalAssistance([...medicalAssistance, response.data.request]);
+      // Clear form
       setName('');
       setTypeOfMedicine('');
       setQuantity('');
       setContactNumber('');
       setLocation('');
+      setBarangay('');
+      setHouseAddress('');
       setReason('');
       setTargetDate('');
       alert('Medical request added successfully.');
@@ -77,67 +104,22 @@ const Medical = () => {
   };
 
   useEffect(() => {
-    fetchMedicalAssistance(); // Fetch the medical requests when the component mounts
+    fetchMedicalAssistance();
   }, []);
 
-  const handleNameChange = (e) => {
-    // Remove < and > symbols from the input
-    setName(e.target.value.replace(/[<>]/g, ''));
-  };
-
   const handleTypeOfMedicineChange = (e) => {
-    // Remove < and > symbols from the input
-    setTypeOfMedicine(e.target.value.replace(/[<>]/g, ''));
-  };
-
-  const handleQuantityChange = (e) => {
-    // Remove < and > symbols from the input
-    setQuantity(e.target.value.replace(/[<>]/g, ''));
-  };
-
-  const handleContactNumberChange = (e) => {
-    // Remove < and > symbols from the input
-    setContactNumber(e.target.value.replace(/[<>]/g, ''));
+    const selectedMedicine = e.target.value;
+    if (selectedMedicine === "Others") {
+      setTypeOfMedicine(''); // Clear for text input
+    } else {
+      setTypeOfMedicine(selectedMedicine);
+    }
   };
 
   const handleLocationChange = (e) => {
-    // Remove < and > symbols from the input
-    setLocation(e.target.value.replace(/[<>]/g, ''));
-  };
-
-  const handleReasonChange = (e) => {
-    // Remove < and > symbols from the input
-    setReason(e.target.value.replace(/[<>]/g, ''));
-  };
-  
-  const handleLogout = async () => {
-    const username = localStorage.getItem('username'); 
-    const role = localStorage.getItem('userRole'); 
-  
-    try {
-      const response = await fetch('https://idonate1.onrender.com/routes/accounts/logout', {
-        method: 'POST', 
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, role }), 
-      });
-  
-      if (response.ok) {
-        alert("You have successfully logged out!");
-        localStorage.removeItem('userId');
-        localStorage.removeItem('username');
-        localStorage.removeItem('userRole');
-        localStorage.removeItem('firstname');
-        localStorage.removeItem('lastname');
-        localStorage.removeItem('contact');
-        window.location.href = '/'; 
-      } else {
-        alert("Logout failed");
-      }
-    } catch (error) {
-      console.error('Error logging out:', error);
-    }
+    const selectedLocation = e.target.value;
+    setLocation(selectedLocation);
+    setBarangay(''); // Reset barangay when location changes
   };
 
   // Get the current date in YYYY-MM-DD format
@@ -154,7 +136,7 @@ const Medical = () => {
             <li><Link to="/homepageuser">Home</Link></li>
             <li><Link to="/options">Donate</Link></li>
             <li><Link to="/profile">Profile</Link></li>
-            <li><Link to="/" onClick={handleLogout}>Logout</Link></li> 
+            <li><Link to="/" onClick={handleLogout}>Logout</Link></li>
           </ul>
         </nav>
       </header>
@@ -171,37 +153,70 @@ const Medical = () => {
               type="text"
               placeholder="Name/ Name of Organization"
               value={name}
-              onChange={handleNameChange}
+              onChange={(e) => setName(e.target.value.replace(/[<>]/g, ''))}
             />
+            {typeOfMedicine === "Others" ? (
+              <input
+                type="text"
+                placeholder="Specify Type of Medicine"
+                value={typeOfMedicine}
+                onChange={(e) => setTypeOfMedicine(e.target.value.replace(/[<>]/g, ''))}
+              />
+            ) : (
+              <select value={typeOfMedicine} onChange={handleTypeOfMedicineChange}>
+                <option value="">Select Type of Medicine</option>
+                {medicineTypes.map((medicine) => (
+                  <option key={medicine} value={medicine}>{medicine}</option>
+                ))}
+              </select>
+            )}
             <input
-              type="text"
-              placeholder="Type of Medicine"
-              value={typeOfMedicine}
-              onChange={handleTypeOfMedicineChange}
-            />
-            <input
-              type="text"
+              type="number"
               placeholder="Quantity"
               value={quantity}
-              onChange={handleQuantityChange}
+              onChange={(e) => setQuantity(e.target.value.replace(/[<>]/g, ''))}
             />
             <input
               type="text"
               placeholder="Contact Number"
               value={contactNumber}
-              onChange={handleContactNumberChange}
+              onChange={(e) => setContactNumber(e.target.value.replace(/[<>]/g, ''))}
             />
-            <input
-              type="text"
-              placeholder="Location"
-              value={location}
-              onChange={handleLocationChange}
-            />
+            <select value={location} onChange={handleLocationChange}>
+              <option value="">Select Location</option>
+              {Object.keys(locations).map((loc) => (
+                <option key={loc} value={loc}>{loc}</option>
+              ))}
+            </select>
+            {location && location !== "Others" && (
+              <>
+                <select value={barangay} onChange={(e) => setBarangay(e.target.value)}>
+                  <option value="">Select Barangay</option>
+                  {locations[location].map((brgy) => (
+                    <option key={brgy} value={brgy}>{brgy}</option>
+                  ))}
+                </select>
+                <input
+                  type="text"
+                  placeholder="House Address"
+                  value={houseAddress}
+                  onChange={(e) => setHouseAddress(e.target.value.replace(/[<>]/g, ''))}
+                />
+              </>
+            )}
+            {location === "Others" && (
+              <input
+                type="text"
+                placeholder="Specify Location"
+                value={location}
+                onChange={(e) => setLocation(e.target.value.replace(/[<>]/g, ''))}
+              />
+            )}
             <input
               type="text"
               placeholder="What type of Disease/Illness/Sickness?"
               value={reason}
-              onChange={handleReasonChange}
+              onChange={(e) => setReason(e.target.value.replace(/[<>]/g, ''))}
             />
             <h3>Target Date:</h3>
             <input
@@ -238,7 +253,7 @@ const Medical = () => {
                     <td>{new Date(request.targetDate).toLocaleDateString()}</td>
                     <td>{request.contactNumber}</td>
                     <td>{request.reason}</td>
-                    <td>{request.approved ? 'Yes' : 'No'}</td> 
+                    <td>{request.approved ? 'Yes' : 'No'}</td>
                   </tr>
                 ))}
               </tbody>

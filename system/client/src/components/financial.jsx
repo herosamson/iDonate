@@ -4,17 +4,27 @@ import './financial.css';
 import logo from './imagenew.png';
 import { Link } from 'react-router-dom';
 
-
 const Financial = () => {
   const [name, setName] = useState('');
   const [amount, setAmount] = useState('');
   const [contactNumber, setContactNumber] = useState('');
   const [reason, setReason] = useState('');
+  const [customReason, setCustomReason] = useState(''); // State for custom reason
   const [targetDate, setTargetDate] = useState('');
   const [financialAssistance, setFinancialAssistance] = useState([]);
   const [error, setError] = useState('');
 
   const username = localStorage.getItem('username'); // Get the username from local storage
+
+  // List of reasons for financial assistance
+  const reasonOptions = [
+    "Educational Support", 
+    "Food Assistance", 
+    "Medical Expenses", 
+    "Burial Assistance", 
+    "Disability Support", 
+    "Others"
+  ];
 
   // Fetch financial requests for the logged-in user
   const fetchFinancialAssistance = async () => {
@@ -31,48 +41,49 @@ const Financial = () => {
 
   // Add financial request
   const addFinancialAssistance = async () => {
-    // Regular expression for validating only letters and spaces
     const lettersOnlyRegex = /^[A-Za-z\s]+$/;
-  
+    
     // Validate all fields are filled
-    if (!name || !amount || !contactNumber || !reason || !targetDate) {
+    if (!name || !amount || !contactNumber || !reason || !targetDate || (reason === 'Others' && !customReason)) {
       alert('All fields are required.');
       return;
     }
-  
-    // Validate inputs: Name and Reason must contain only letters and spaces, and no < or >
+
+    // Validate inputs: Name must contain only letters and spaces, and no < or >
     if (name.includes('<') || name.includes('>') || !lettersOnlyRegex.test(name)) {
       alert('Invalid characters in Name field. Please enter letters only.');
       return;
     }
     
-    if (reason.includes('<') || reason.includes('>') || !lettersOnlyRegex.test(reason)) {
+    // Validate Reason field if custom reason is selected
+    if (reason === 'Others' && (customReason.includes('<') || customReason.includes('>') || !lettersOnlyRegex.test(customReason))) {
       alert('Invalid characters in Reason field. Please enter letters only.');
       return;
     }
-  
-    // Validate Amount: Must be a number
-    if (!/^\d+$/.test(amount)) {
-      alert('Please enter a valid number for Amount.');
+
+    // Validate Amount: Must be a number and not exceed 10,000
+    if (!/^\d+$/.test(amount) || parseInt(amount, 10) > 10000) {
+      alert('Please enter a valid number for Amount not exceeding 10,000.');
       return;
     }
-  
+
     // Validate Contact Number: Must start with 09 and be exactly 11 digits
     if (!/^09\d{9}$/.test(contactNumber)) {
       alert('Please enter a valid Contact Number that starts with 09 and has exactly 11 digits.');
       return;
     }
-  
+
+    // Use custom reason if "Others" is selected, else use the selected reason
+    const finalReason = reason === 'Others' ? customReason : reason;
+
     // Create a new financial assistance request
-    const newRequest = { name, amount, contactNumber, reason, targetDate, username };
-  
+    const newRequest = { name, amount, contactNumber, reason: finalReason, targetDate, username };
+
     try {
-      // Send the request to the server
       const response = await axios.post(`/routes/accounts/financial-assistance/add`, newRequest, {
         headers: { username }
       });
-  
-      // Update state with the new request
+
       setFinancialAssistance([...financialAssistance, response.data]);
       
       // Clear the form fields
@@ -80,10 +91,10 @@ const Financial = () => {
       setAmount('');
       setContactNumber('');
       setReason('');
+      setCustomReason(''); // Clear custom reason field
       setTargetDate('');
       setError('');
-  
-      // Show success message
+
       alert('Financial request added successfully.');
     } catch (error) {
       console.error('Failed to add financial request:', error.response ? error.response.data : error.message);
@@ -91,7 +102,6 @@ const Financial = () => {
       alert('Failed to add financial request. Please try again later.');
     }
   };
-  
 
   useEffect(() => {
     fetchFinancialAssistance(); // Fetch the financial requests when the component mounts
@@ -100,12 +110,9 @@ const Financial = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // Validate input to exclude < and > symbols
-    if (value.includes('<') || value.includes('>')) {
-      return; // If contains < or >, do not update state
-    }
+    // Exclude < and > symbols
+    if (value.includes('<') || value.includes('>')) return;
 
-    // Update state based on input name
     switch (name) {
       case 'name':
         setName(value);
@@ -116,15 +123,18 @@ const Financial = () => {
       case 'contactNumber':
         setContactNumber(value);
         break;
-      case 'reason':
-        setReason(value);
-        break;
       case 'targetDate':
         setTargetDate(value);
         break;
       default:
         break;
     }
+  };
+
+  const handleReasonChange = (e) => {
+    const selectedReason = e.target.value;
+    setReason(selectedReason);
+    if (selectedReason !== "Others") setCustomReason(''); // Clear custom reason if another option is selected
   };
 
   const handleLogout = async () => {
@@ -157,8 +167,8 @@ const Financial = () => {
     }
   };
 
-     // Get the current date in YYYY-MM-DD format
- const today = new Date().toISOString().split('T')[0];
+  // Get the current date in YYYY-MM-DD format
+  const today = new Date().toISOString().split('T')[0];
   
   return (
     <div className="Options">
@@ -193,11 +203,13 @@ const Financial = () => {
               onChange={handleChange}
             />
             <input
-              type="text"
+              type="number"
               name="amount"
-              placeholder="Amount"
+              placeholder="Amount (max 10,000)"
               value={amount}
-              onChange={handleChange}
+              onChange={(e) => setAmount(e.target.value > 10000 ? 10000 : e.target.value)}
+              min="1"
+              max="10000"
             />
             <input
               type="text"
@@ -206,13 +218,21 @@ const Financial = () => {
               value={contactNumber}
               onChange={handleChange}
             />
-            <input
-              type="text"
-              name="reason"
-              placeholder="Para saan ito gagamitin?"
-              value={reason}
-              onChange={handleChange}
-            />
+            {reason === "Others" ? (
+              <input
+                type="text"
+                placeholder="Specify Reason"
+                value={customReason}
+                onChange={(e) => setCustomReason(e.target.value)}
+              />
+            ) : (
+              <select value={reason} onChange={handleReasonChange}>
+                <option value="">Select Reason</option>
+                {reasonOptions.map((option) => (
+                  <option key={option} value={option}>{option}</option>
+                ))}
+              </select>
+            )}
             <h3>Target Date:</h3>
             <input
               type="date"
