@@ -10,11 +10,33 @@ const Disaster = () => {
   const [numberOfPax, setNumberOfPax] = useState('');
   const [contactNumber, setContactNumber] = useState('');
   const [location, setLocation] = useState('');
+  const [barangay, setBarangay] = useState('');
+  const [houseAddress, setHouseAddress] = useState('');
   const [targetDate, setTargetDate] = useState('');
   const [disasterRequests, setDisasterRequests] = useState([]);
   const [error, setError] = useState('');
 
   const username = localStorage.getItem('username');
+  
+  // Options for Disaster Type and Locations
+  const disasterTypes = ["Typhoons", "Earthquakes", "Floods", "Volcanic Eruptions", "Landslides", "Fires"];
+  const locations = {
+  "Tondo": Array.from({ length: 267 }, (_, i) => `Barangay ${i + 1}`), // Barangay 1 to 267
+  "San Nicolas": Array.from({ length: 19 }, (_, i) => `Barangay ${268 + i}`), // Barangay 268 to 286
+  "Binondo": Array.from({ length: 10 }, (_, i) => `Barangay ${287 + i}`), // Barangay 287 to 296
+  "Santa Cruz": Array.from({ length: 86 }, (_, i) => `Barangay ${297 + i}`), // Barangay 297 to 382
+  "Quiapo": [...Array.from({ length: 4 }, (_, i) => `Barangay ${306 + i}`), ...Array.from({ length: 12 }, (_, i) => `Barangay ${383 + i}`)], // Barangay 306-309, 383-394
+  "Sampaloc": Array.from({ length: 192 }, (_, i) => `Barangay ${395 + i}`), // Barangay 395 to 586
+  "Santa Mesa": Array.from({ length: 50 }, (_, i) => `Barangay ${587 + i}`), // Barangay 587 to 636
+  "San Miguel": Array.from({ length: 12 }, (_, i) => `Barangay ${637 + i}`), // Barangay 637 to 648
+  "Port Area": Array.from({ length: 5 }, (_, i) => `Barangay ${649 + i}`), // Barangay 649 to 653
+  "Intramuros": Array.from({ length: 5 }, (_, i) => `Barangay ${654 + i}`), // Barangay 654 to 658
+  "Ermita": Array.from({ length: 12 }, (_, i) => `Barangay ${659 + i}`), // Barangay 659 to 670
+  "Paco": Array.from({ length: 26 }, (_, i) => `Barangay ${662 + i}`), // Barangay 662 to 687
+  "Malate": Array.from({ length: 57 }, (_, i) => `Barangay ${688 + i}`), // Barangay 688 to 744
+  "Others": []
+};
+
 
   const fetchDisasterRequests = async () => {
     try {
@@ -29,55 +51,41 @@ const Disaster = () => {
   };
 
   const addDisasterRequest = async () => {
-    // Regular expression for validating only letters and spaces
     const lettersOnlyRegex = /^[A-Za-z\s]+$/;
-  
-    // Check if all fields are filled
-    if (!name || !disasterType || !numberOfPax || !contactNumber || !location || !targetDate) {
+    if (!name || !disasterType || !numberOfPax || !contactNumber || !location || !targetDate || (!barangay && location !== 'Others')) {
       alert('All fields are required.');
       return;
     }
-  
-    // Function to check if the input contains < or >
+
     const containsInvalidSymbols = (input) => /[<>]/.test(input);
-  
-    // Validate that none of the fields contain < or >
     if (containsInvalidSymbols(name) || containsInvalidSymbols(disasterType) || containsInvalidSymbols(location)) {
       alert('Symbols < and > are not allowed.');
       return;
     }
-  
-    // Validate name and disasterType for letters only, no numbers or symbols
+
     if (!lettersOnlyRegex.test(name)) {
       alert('Please enter a valid Name.');
       return;
     }
-  
+
     if (!lettersOnlyRegex.test(disasterType)) {
       alert('Please enter a valid Disaster Type.');
       return;
     }
-  
-    // Validate numberOfPax for numbers only, no symbols or letters
-    if (!/^\d+$/.test(numberOfPax)) {
-      alert('Please enter a valid number for the Estimated Number of Pax.');
+
+    if (!/^\d+$/.test(numberOfPax) || numberOfPax > 500) {
+      alert('Please enter a valid number for the Estimated Number of Pax (max 500).');
       return;
     }
-  
-    // Validate contactNumber for 11 digits starting with 09 and numbers only
+
     if (!/^09\d{9}$/.test(contactNumber)) {
       alert('Please enter a valid Contact Number that starts with 09 and has exactly 11 digits.');
       return;
     }
-  
-    // No symbols or invalid characters allowed for location
-    if (containsInvalidSymbols(location)) {
-      alert('Please enter a valid Location.');
-      return;
-    }
-  
-    const newRequest = { name, disasterType, numberOfPax, contactNumber, location, targetDate, username };
-  
+
+    const fullLocation = location === "Others" ? location : `${location} - ${barangay}, ${houseAddress}`;
+    const newRequest = { name, disasterType, numberOfPax, contactNumber, location: fullLocation, targetDate, username };
+
     try {
       const response = await axios.post(`/routes/accounts/disaster-relief/add`, newRequest, {
         headers: { username },
@@ -88,6 +96,8 @@ const Disaster = () => {
       setNumberOfPax('');
       setContactNumber('');
       setLocation('');
+      setBarangay('');
+      setHouseAddress('');
       setTargetDate('');
       setError('');
       alert('Disaster relief request added successfully.');
@@ -96,7 +106,7 @@ const Disaster = () => {
       alert('Failed to add disaster relief request. Please try again later.');
     }
   };
-  
+
   const handleLogout = async () => {
     const username = localStorage.getItem('username'); 
     const role = localStorage.getItem('userRole'); 
@@ -126,13 +136,12 @@ const Disaster = () => {
       console.error('Error logging out:', error);
     }
   };
-  
+
   useEffect(() => {
     fetchDisasterRequests();
   }, []);
 
-   // Get the current date in YYYY-MM-DD format
- const today = new Date().toISOString().split('T')[0];
+  const today = new Date().toISOString().split('T')[0];
 
   return (
     <div className="Options">
@@ -165,17 +174,19 @@ const Disaster = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
+            <select value={disasterType} onChange={(e) => setDisasterType(e.target.value)}>
+              <option value="">Select Type of Disaster</option>
+              {disasterTypes.map((type) => (
+                <option key={type} value={type}>{type}</option>
+              ))}
+            </select>
             <input
-              type="text"
-              placeholder="Type of Disaster"
-              value={disasterType}
-              onChange={(e) => setDisasterType(e.target.value)}
-            />
-            <input
-              type="text"
+              type="number"
               placeholder="Estimated Number of Pax"
               value={numberOfPax}
               onChange={(e) => setNumberOfPax(e.target.value)}
+              min="1"
+              max="500"
             />
             <input
               type="text"
@@ -183,12 +194,36 @@ const Disaster = () => {
               value={contactNumber}
               onChange={(e) => setContactNumber(e.target.value)}
             />
-            <input
-              type="text"
-              placeholder="Location"
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-            />
+            <select value={location} onChange={(e) => setLocation(e.target.value)}>
+              <option value="">Select Location</option>
+              {Object.keys(locations).map((loc) => (
+                <option key={loc} value={loc}>{loc}</option>
+              ))}
+            </select>
+            {location && location !== "Others" && (
+              <>
+                <select value={barangay} onChange={(e) => setBarangay(e.target.value)}>
+                  <option value="">Select Barangay</option>
+                  {locations[location].map((brgy) => (
+                    <option key={brgy} value={brgy}>{brgy}</option>
+                  ))}
+                </select>
+                <input
+                  type="text"
+                  placeholder="House Address"
+                  value={houseAddress}
+                  onChange={(e) => setHouseAddress(e.target.value)}
+                />
+              </>
+            )}
+            {location === "Others" && (
+              <input
+                type="text"
+                placeholder="Please Specify Exact Location"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+              />
+            )}
             <h3>Target Date:</h3>
             <input
               type="date"
