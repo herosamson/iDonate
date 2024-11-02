@@ -7,20 +7,23 @@ import { Link } from 'react-router-dom';
 const Legal = () => {
   const [name, setName] = useState('');
   const [legalType, setLegalType] = useState('');
+  const [customLegalType, setCustomLegalType] = useState(''); // New state for custom legal type
   const [contactNumber, setContactNumber] = useState('');
   const [targetDate, setTargetDate] = useState('');
   const [legalRequests, setLegalRequests] = useState([]);
   const [error, setError] = useState('');
 
-  const username = localStorage.getItem('username');
+  const username = localStorage.getItem('username'); // Get the username from local storage
 
+  // List of legal assistance types
   const legalAssistanceTypes = [
     "Intellectual Property Law", "Family Law", "Corporate Law", "Criminal Law", "Tax Law",
     "Environmental Law", "Labour Law", "Constitutional Law", "Construction Law", "Contract",
     "Civil Procedure", "Financial Law", "Health Law", "Land Law", "Personal Injury Lawyer",
-    "Legal Advice", "Corporate Lawyer", "Employment Lawyer", "Legal Advice", "Others"
+    "Legal Advice", "Corporate Lawyer", "Employment Lawyer", "Others"
   ];
 
+  // Fetch legal requests for the logged-in user
   const fetchLegalRequests = async () => {
     try {
       const response = await axios.get(`/routes/accounts/legal-assistance`, {
@@ -33,6 +36,7 @@ const Legal = () => {
     }
   };
 
+  // Add legal request
   const addLegalRequest = async () => {
     const lettersOnlyRegex = /^[A-Za-z\s]+$/;
     if (!name || !legalType || !contactNumber || !targetDate) {
@@ -50,14 +54,18 @@ const Legal = () => {
       return;
     }
 
-    const newRequest = { name, legalType, contactNumber, targetDate, username };
+    const finalLegalType = legalType === "Others" ? customLegalType : legalType; // Use custom legal type if "Others" is selected
+    const newRequest = { name, legalType: finalLegalType, contactNumber, targetDate, username };
+
     try {
       const response = await axios.post(`/routes/accounts/legal-assistance/add`, newRequest, {
         headers: { username }
       });
       setLegalRequests([...legalRequests, response.data]);
+      // Clear form fields
       setName('');
       setLegalType('');
+      setCustomLegalType(''); // Clear custom input
       setContactNumber('');
       setTargetDate('');
       setError('');
@@ -70,12 +78,40 @@ const Legal = () => {
   };
 
   useEffect(() => {
-    fetchLegalRequests();
+    fetchLegalRequests(); // Fetch the legal requests when the component mounts
   }, []);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    if (value.includes('<') || value.includes('>')) {
+      return;
+    }
+
+    switch (name) {
+      case 'name':
+        setName(value);
+        break;
+      case 'legalType':
+        setLegalType(value);
+        break;
+      case 'contactNumber':
+        setContactNumber(value);
+        break;
+      case 'targetDate':
+        setTargetDate(value);
+        break;
+      default:
+        break;
+    }
+  };
 
   const handleLegalTypeChange = (e) => {
     const selectedType = e.target.value;
-    setLegalType(selectedType === "Others" ? "" : selectedType);
+    setLegalType(selectedType);
+    if (selectedType === "Others") {
+      setCustomLegalType(''); // Clear the custom input
+    }
   };
 
   const handleLogout = async () => {
@@ -93,7 +129,12 @@ const Legal = () => {
   
       if (response.ok) {
         alert("You have successfully logged out!");
-        localStorage.clear();
+        localStorage.removeItem('userId');
+        localStorage.removeItem('username');
+        localStorage.removeItem('userRole');
+        localStorage.removeItem('firstname');
+        localStorage.removeItem('lastname');
+        localStorage.removeItem('contact');
         window.location.href = '/'; 
       } else {
         alert("Logout failed");
@@ -103,6 +144,7 @@ const Legal = () => {
     }
   };
 
+  // Get the current date in YYYY-MM-DD format
   const today = new Date().toISOString().split('T')[0];
 
   return (
@@ -135,15 +177,15 @@ const Legal = () => {
               name="name"
               placeholder="Name/ Name of Organization"
               value={name}
-              onChange={(e) => setName(e.target.value.replace(/[<>]/g, ''))}
+              onChange={handleChange}
             />
-            {legalType === "" ? (
+            {legalType === "Others" ? (
               <input
                 type="text"
                 name="legalType"
                 placeholder="Specify Type of Legal Assistance"
-                value={legalType}
-                onChange={(e) => setLegalType(e.target.value)}
+                value={customLegalType} // Use customLegalType state
+                onChange={(e) => setCustomLegalType(e.target.value)}
               />
             ) : (
               <select name="legalType" value={legalType} onChange={handleLegalTypeChange}>
@@ -158,14 +200,14 @@ const Legal = () => {
               name="contactNumber"
               placeholder="Contact Number"
               value={contactNumber}
-              onChange={(e) => setContactNumber(e.target.value.replace(/[<>]/g, ''))}
+              onChange={handleChange}
             />
             <h3>Target Date:</h3>
             <input
               type="date"
               name="targetDate"
               value={targetDate}
-              onChange={(e) => setTargetDate(e.target.value)}
+              onChange={handleChange}
               min={today}
             />
             <button className="dB" onClick={addLegalRequest}>Add Legal Request</button>

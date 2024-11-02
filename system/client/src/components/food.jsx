@@ -14,27 +14,27 @@ const Food = () => {
   const [targetDate, setTargetDate] = useState('');
   const [numberOfPax, setNumberOfPax] = useState('');
   const [foodAssistance, setFoodAssistance] = useState([]);
+  const [customLocation, setCustomLocation] = useState(''); // New state for custom location
 
   const username = localStorage.getItem('username');
 
   const foodTypes = ["Rice", "Canned Goods", "Instant Noodles", "Coffee", "Biscuits", "Water Bottles", "Others"];
   const locations = {
-    "Tondo": Array.from({ length: 267 }, (_, i) => `Barangay ${i + 1}`), // Barangay 1 to 267
-    "San Nicolas": Array.from({ length: 19 }, (_, i) => `Barangay ${268 + i}`), // Barangay 268 to 286
-    "Binondo": Array.from({ length: 10 }, (_, i) => `Barangay ${287 + i}`), // Barangay 287 to 296
-    "Santa Cruz": Array.from({ length: 86 }, (_, i) => `Barangay ${297 + i}`), // Barangay 297 to 382
-    "Quiapo": [...Array.from({ length: 4 }, (_, i) => `Barangay ${306 + i}`), ...Array.from({ length: 12 }, (_, i) => `Barangay ${383 + i}`)], // Barangay 306-309, 383-394
-    "Sampaloc": Array.from({ length: 192 }, (_, i) => `Barangay ${395 + i}`), // Barangay 395 to 586
-    "Santa Mesa": Array.from({ length: 50 }, (_, i) => `Barangay ${587 + i}`), // Barangay 587 to 636
-    "San Miguel": Array.from({ length: 12 }, (_, i) => `Barangay ${637 + i}`), // Barangay 637 to 648
-    "Port Area": Array.from({ length: 5 }, (_, i) => `Barangay ${649 + i}`), // Barangay 649 to 653
-    "Intramuros": Array.from({ length: 5 }, (_, i) => `Barangay ${654 + i}`), // Barangay 654 to 658
-    "Ermita": Array.from({ length: 12 }, (_, i) => `Barangay ${659 + i}`), // Barangay 659 to 670
-    "Paco": Array.from({ length: 26 }, (_, i) => `Barangay ${662 + i}`), // Barangay 662 to 687
-    "Malate": Array.from({ length: 57 }, (_, i) => `Barangay ${688 + i}`), // Barangay 688 to 744
+    "Tondo": Array.from({ length: 267 }, (_, i) => `Barangay ${i + 1}`),
+    "San Nicolas": Array.from({ length: 19 }, (_, i) => `Barangay ${268 + i}`),
+    "Binondo": Array.from({ length: 10 }, (_, i) => `Barangay ${287 + i}`),
+    "Santa Cruz": Array.from({ length: 86 }, (_, i) => `Barangay ${297 + i}`),
+    "Quiapo": [...Array.from({ length: 4 }, (_, i) => `Barangay ${306 + i}`), ...Array.from({ length: 12 }, (_, i) => `Barangay ${383 + i}`)],
+    "Sampaloc": Array.from({ length: 192 }, (_, i) => `Barangay ${395 + i}`),
+    "Santa Mesa": Array.from({ length: 50 }, (_, i) => `Barangay ${587 + i}`),
+    "San Miguel": Array.from({ length: 12 }, (_, i) => `Barangay ${637 + i}`),
+    "Port Area": Array.from({ length: 5 }, (_, i) => `Barangay ${649 + i}`),
+    "Intramuros": Array.from({ length: 5 }, (_, i) => `Barangay ${654 + i}`),
+    "Ermita": Array.from({ length: 12 }, (_, i) => `Barangay ${659 + i}`),
+    "Paco": Array.from({ length: 26 }, (_, i) => `Barangay ${662 + i}`),
+    "Malate": Array.from({ length: 57 }, (_, i) => `Barangay ${688 + i}`),
     "Others": []
   };
-
 
   const fetchFoodAssistance = async () => {
     try {
@@ -53,7 +53,7 @@ const Food = () => {
       return;
     }
 
-    const fullLocation = location === "Others" ? location : `${location} - ${barangay}, ${houseAddress}`;
+    const fullLocation = location === "Others" ? customLocation : `${location} - ${barangay}, ${houseAddress}`;
     const newRequest = { name, typesOfFood, contactNumber, location: fullLocation, targetDate, numberOfPax, username };
 
     try {
@@ -69,6 +69,7 @@ const Food = () => {
       setHouseAddress('');
       setTargetDate('');
       setNumberOfPax('');
+      setCustomLocation(''); // Clear custom location
       alert('Food request added successfully.');
     } catch (error) {
       console.error('Failed to add food request:', error.response ? error.response.data : error.message);
@@ -88,7 +89,8 @@ const Food = () => {
   const handleLocationChange = (e) => {
     const selectedLocation = e.target.value;
     setLocation(selectedLocation);
-    setBarangay(''); 
+    setBarangay('');
+    setCustomLocation(''); // Clear custom location when changing the location
   };
 
   const today = new Date().toISOString().split('T')[0];
@@ -172,8 +174,8 @@ const Food = () => {
               <input
                 type="text"
                 placeholder="Specify Location"
-                value={location}
-                onChange={(e) => setLocation(e.target.value.replace(/[<>]/g, ''))}
+                value={customLocation}
+                onChange={(e) => setCustomLocation(e.target.value)}
               />
             ) : (
               <select value={location} onChange={handleLocationChange}>
@@ -199,52 +201,19 @@ const Food = () => {
                 />
               </>
             )}
-            <h3>Target Date:</h3>
             <input
               type="date"
               value={targetDate}
-              onChange={(e) => setTargetDate(e.target.value)}
               min={today}
+              onChange={(e) => setTargetDate(e.target.value)}
             />
             <input
               type="number"
               placeholder="Number of Pax"
               value={numberOfPax}
               onChange={(e) => setNumberOfPax(e.target.value.replace(/[<>]/g, ''))}
-              min="1"
-              max="200"
             />
-            <button className="dB" onClick={addFoodAssistance}>Add Food Request</button>
-          </div>
-        </div>
-        <div className="table-wrapperfood">
-          <div className="food-container">
-            <table>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Type(s) of Food</th>
-                  <th>Target Date</th>
-                  <th>Contact Number</th>
-                  <th>Location</th>
-                  <th>Number of Pax</th>
-                  <th>Approved</th> 
-                </tr>
-              </thead>
-              <tbody>
-                {foodAssistance.map((request) => (
-                  <tr key={request._id}>
-                    <td>{request.name}</td>
-                    <td>{request.typesOfFood}</td>
-                    <td>{new Date(request.targetDate).toLocaleDateString()}</td>
-                    <td>{request.contactNumber}</td>
-                    <td>{request.location}</td>
-                    <td>{request.numberOfPax}</td>
-                    <td>{request.approved ? 'Yes' : 'No'}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <button onClick={addFoodAssistance}>Request</button>
           </div>
         </div>
       </div>

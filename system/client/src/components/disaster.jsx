@@ -7,9 +7,11 @@ import { Link } from 'react-router-dom';
 const Disaster = () => {
   const [name, setName] = useState('');
   const [disasterType, setDisasterType] = useState('');
+  const [disasterTypeOther, setDisasterTypeOther] = useState('');
   const [numberOfPax, setNumberOfPax] = useState('');
   const [contactNumber, setContactNumber] = useState('');
   const [location, setLocation] = useState('');
+  const [locationOther, setLocationOther] = useState('');
   const [barangay, setBarangay] = useState('');
   const [houseAddress, setHouseAddress] = useState('');
   const [targetDate, setTargetDate] = useState('');
@@ -18,7 +20,8 @@ const Disaster = () => {
 
   const username = localStorage.getItem('username');
 
-  const disasterTypes = ["Typhoons", "Earthquakes", "Floods", "Volcanic Eruptions", "Landslides", "Fires", "Others"];
+  // Options for Disaster Type and Locations
+  const disasterTypes = ["Typhoons", "Earthquakes", "Floods", "Volcanic Eruptions", "Landslides", "Fires"];
   const locations = {
     "Tondo": Array.from({ length: 267 }, (_, i) => `Barangay ${i + 1}`), // Barangay 1 to 267
     "San Nicolas": Array.from({ length: 19 }, (_, i) => `Barangay ${268 + i}`), // Barangay 268 to 286
@@ -49,14 +52,23 @@ const Disaster = () => {
   };
 
   const addDisasterRequest = async () => {
-    if (!name || !disasterType || !numberOfPax || !contactNumber || !location || !targetDate || (!barangay && location !== 'Others')) {
+    const lettersOnlyRegex = /^[A-Za-z\s]+$/;
+    const selectedDisasterType = disasterType === "Others" ? disasterTypeOther : disasterType;
+    const selectedLocation = location === "Others" ? locationOther : location;
+
+    if (!name || !selectedDisasterType || !numberOfPax || !contactNumber || !selectedLocation || (!barangay && selectedLocation !== 'Others')) {
       alert('All fields are required.');
       return;
     }
 
     const containsInvalidSymbols = (input) => /[<>]/.test(input);
-    if (containsInvalidSymbols(name) || containsInvalidSymbols(disasterType) || containsInvalidSymbols(location)) {
+    if (containsInvalidSymbols(name) || containsInvalidSymbols(selectedDisasterType) || containsInvalidSymbols(selectedLocation)) {
       alert('Symbols < and > are not allowed.');
+      return;
+    }
+
+    if (!lettersOnlyRegex.test(name)) {
+      alert('Please enter a valid Name.');
       return;
     }
 
@@ -70,8 +82,8 @@ const Disaster = () => {
       return;
     }
 
-    const fullLocation = location === "Others" ? location : `${location} - ${barangay}, ${houseAddress}`;
-    const newRequest = { name, disasterType, numberOfPax, contactNumber, location: fullLocation, targetDate, username };
+    const fullLocation = selectedLocation === "Others" ? selectedLocation : `${selectedLocation} - ${barangay}, ${houseAddress}`;
+    const newRequest = { name, disasterType: selectedDisasterType, numberOfPax, contactNumber, location: fullLocation, targetDate, username };
 
     try {
       const response = await axios.post(`/routes/accounts/disaster-relief/add`, newRequest, {
@@ -80,9 +92,11 @@ const Disaster = () => {
       setDisasterRequests([...disasterRequests, response.data]);
       setName('');
       setDisasterType('');
+      setDisasterTypeOther('');
       setNumberOfPax('');
       setContactNumber('');
       setLocation('');
+      setLocationOther('');
       setBarangay('');
       setHouseAddress('');
       setTargetDate('');
@@ -94,29 +108,28 @@ const Disaster = () => {
     }
   };
 
-  const handleLocationChange = (e) => {
-    const selectedLocation = e.target.value;
-    setLocation(selectedLocation === "Others" ? "" : selectedLocation);
-    setBarangay('');
-  };
-
   const handleLogout = async () => {
-    const username = localStorage.getItem('username'); 
-    const role = localStorage.getItem('userRole'); 
-  
+    const username = localStorage.getItem('username');
+    const role = localStorage.getItem('userRole');
+
     try {
       const response = await fetch('https://idonate1.onrender.com/routes/accounts/logout', {
-        method: 'POST', 
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, role }), 
+        body: JSON.stringify({ username, role }),
       });
-  
+
       if (response.ok) {
         alert("You have successfully logged out!");
-        localStorage.clear();
-        window.location.href = '/'; 
+        localStorage.removeItem('userId');
+        localStorage.removeItem('username');
+        localStorage.removeItem('userRole');
+        localStorage.removeItem('firstname');
+        localStorage.removeItem('lastname');
+        localStorage.removeItem('contact');
+        window.location.href = '/';
       } else {
         alert("Logout failed");
       }
@@ -142,7 +155,7 @@ const Disaster = () => {
             <li><Link to="/homepageuser">Home</Link></li>
             <li><Link to="/options">Donate</Link></li>
             <li><Link to="/profile">Profile</Link></li>
-            <li><Link to="/" onClick={handleLogout}>Logout</Link></li> 
+            <li><Link to="/" onClick={handleLogout}>Logout</Link></li>
           </ul>
         </nav>
       </header>
@@ -160,19 +173,29 @@ const Disaster = () => {
               type="text"
               placeholder="Name/ Name of Organization"
               value={name}
-              onChange={(e) => setName(e.target.value.replace(/[<>]/g, ''))}
+              onChange={(e) => setName(e.target.value)}
             />
-            <select value={disasterType} onChange={(e) => setDisasterType(e.target.value)}>
-              <option value="">Select Type of Disaster</option>
-              {disasterTypes.map((type) => (
-                <option key={type} value={type}>{type}</option>
-              ))}
-            </select>
+            {disasterType === "Others" ? (
+              <input
+                type="text"
+                placeholder="Please Specify Type of Disaster"
+                value={disasterTypeOther}
+                onChange={(e) => setDisasterTypeOther(e.target.value)}
+              />
+            ) : (
+              <select value={disasterType} onChange={(e) => setDisasterType(e.target.value)}>
+                <option value="">Select Type of Disaster</option>
+                {disasterTypes.map((type) => (
+                  <option key={type} value={type}>{type}</option>
+                ))}
+                <option value="Others">Others</option>
+              </select>
+            )}
             <input
               type="number"
               placeholder="Estimated Number of Pax"
               value={numberOfPax}
-              onChange={(e) => setNumberOfPax(e.target.value.replace(/[<>]/g, ''))}
+              onChange={(e) => setNumberOfPax(e.target.value)}
               min="1"
               max="500"
             />
@@ -180,37 +203,40 @@ const Disaster = () => {
               type="text"
               placeholder="Contact Number"
               value={contactNumber}
-              onChange={(e) => setContactNumber(e.target.value.replace(/[<>]/g, ''))}
+              onChange={(e) => setContactNumber(e.target.value)}
             />
-            {location === "" ? (
+            {location === "Others" ? (
               <input
                 type="text"
                 placeholder="Please Specify Exact Location"
-                value={location}
-                onChange={(e) => setLocation(e.target.value.replace(/[<>]/g, ''))}
+                value={locationOther}
+                onChange={(e) => setLocationOther(e.target.value)}
               />
             ) : (
-              <select value={location} onChange={handleLocationChange}>
-                <option value="">Select Location</option>
-                {Object.keys(locations).map((loc) => (
-                  <option key={loc} value={loc}>{loc}</option>
-                ))}
-              </select>
-            )}
-            {location && location !== "Others" && (
               <>
-                <select value={barangay} onChange={(e) => setBarangay(e.target.value)}>
-                  <option value="">Select Barangay</option>
-                  {locations[location].map((brgy) => (
-                    <option key={brgy} value={brgy}>{brgy}</option>
+                <select value={location} onChange={(e) => setLocation(e.target.value)}>
+                  <option value="">Select Location</option>
+                  {Object.keys(locations).map((loc) => (
+                    <option key={loc} value={loc}>{loc}</option>
                   ))}
+                  <option value="Others">Others</option>
                 </select>
-                <input
-                  type="text"
-                  placeholder="House Address"
-                  value={houseAddress}
-                  onChange={(e) => setHouseAddress(e.target.value.replace(/[<>]/g, ''))}
-                />
+                {location && location !== "Others" && (
+                  <>
+                    <select value={barangay} onChange={(e) => setBarangay(e.target.value)}>
+                      <option value="">Select Barangay</option>
+                      {locations[location].map((brgy) => (
+                        <option key={brgy} value={brgy}>{brgy}</option>
+                      ))}
+                    </select>
+                    <input
+                      type="text"
+                      placeholder="House Address"
+                      value={houseAddress}
+                      onChange={(e) => setHouseAddress(e.target.value)}
+                    />
+                  </>
+                )}
               </>
             )}
             <h3>Target Date:</h3>
