@@ -639,7 +639,7 @@ const Donations = () => {
                   />
                 </div>
                 {addDonationError && <p className="error">{addDonationError}</p>}
-                <button type="submit" className="submit-buttonAdd1">Submit</button>
+                <button type="submit" className="submit-buttonAdd">Submit</button>
               </form>
             </div>
           </div>
@@ -694,7 +694,7 @@ const Donations = () => {
           </select></center>
         </div>
         {addCabinetError && <p className="error">{addCabinetError}</p>}
-        <center> <button type="submit" className="submit-buttonAdd1" disabled={getAvailableCabinetNumbers().length === 0}>
+        <center> <button type="submit" className="submit-buttonAdd" disabled={getAvailableCabinetNumbers().length === 0}>
           Add Cabinet
         </button></center>
         {getAvailableCabinetNumbers().length === 0 && (
@@ -775,7 +775,7 @@ const Donations = () => {
 
             
             {locationError && <p className="error">{locationError}</p>}
-            <center> <button type="button" onClick={submitLocation} className="submit-buttonAdd1">Submit</button></center>
+            <center> <button type="button" onClick={submitLocation} className="submit-buttonAdd">Submit</button></center>
           </form>
         </div>
       ) : (

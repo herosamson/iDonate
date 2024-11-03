@@ -241,19 +241,9 @@ body {
   background-color: #f1f1f1;
 }
 .submit-buttonAdd {
-  margin-left: 315px;
+  margin-left: 290px;
   background-color: #4f0000;
   color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-
-}
-.submit-buttonAdd1 {
-  margin-left: 270px;
-  background-color: #4f0000;
-  color: white;
-  width: 150px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -263,9 +253,7 @@ body {
 .submit-buttonAdd:hover {
   background-color: #380000;
 }
-.submit-buttonAdd1:hover {
-  background-color: #380000;
-}
+
 .submit-buttonLoc {
   margin-left: 50px;
 }

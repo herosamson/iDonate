@@ -623,7 +623,7 @@ const Donations = () => {
                   />
                 </div>
                 {addDonationError && <p className="error">{addDonationError}</p>}
-                <button type="submit" className="submit-buttonAdd1">Submit</button>
+                <button type="submit" className="submit-buttonAdd">Submit</button>
               </form>
             </div>
           </div>
@@ -759,7 +759,7 @@ const Donations = () => {
 
             
             {locationError && <p className="error">{locationError}</p>}
-            <center> <button type="button" onClick={submitLocation} className="submit-buttonAdd1">Submit</button></center>
+            <center> <button type="button" onClick={submitLocation} className="submit-buttonAdd">Submit</button></center>
           </form>
         </div>
       ) : (

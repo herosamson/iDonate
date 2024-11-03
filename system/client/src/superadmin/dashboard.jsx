@@ -482,7 +482,7 @@ const validateAdminInput = () => {
             <input type="text" name="email" placeholder="Email" value={newUser.email} onChange={(e) => handleInputChange(e, 'user')} />
             <input type="text" name="username" placeholder="Username" value={newUser.username} onChange={(e) => handleInputChange(e, 'user')} />
             <input type="password" name="password" placeholder="Password" value={newUser.password} onChange={(e) => handleInputChange(e, 'user')} />
-            <button className="sBtn1" onClick={handleAddUser}>Save</button>
+            <button className="print-report-button" onClick={handleAddUser}>Save</button>
           </div>
           </div>
         </div>

@@ -421,13 +421,11 @@ function Inventory() {
       <div id="contentDInventory">
         <h1>Inventory</h1>
         <div className="filters">
-          <div className="filter-group">
+          <div className="fil">
             <label>Status:</label>
             <select value={filterStatus} onChange={handleFilterStatusChange}>
               <option value="All">All</option>
-              <br></br>
               <option value="Consumed">Consumed</option>
-              <br></br>
               <option value="Unconsumed">Unconsumed</option>
             </select>
           </div>
@@ -503,11 +501,11 @@ function Inventory() {
                               return (
                                 <div key={row} className="row">
                                   <center>
-                                    <p><strong>Row {row}:</strong></p>
+                                    <p><strong>Row {row}:</strong></p> </center>
                                     <p><strong>Item:</strong> {donation.item}</p>
                                     <p><strong>Quantity:</strong> {donation.quantity}</p>
                                     <p><strong>Expiration:</strong> {donation.expirationDate ? new Date(donation.expirationDate).toLocaleDateString() : 'N/A'}</p>
-                                  </center>
+                               
                                 </div>
                               );
                             })}

@@ -531,11 +531,11 @@ function Inventory() {
                               return (
                                 <div key={row} className="row">
                                   <center>
-                                    <p><strong>Row {row}:</strong></p>
+                                    <p><strong>Row {row}:</strong></p> </center>
                                     <p><strong>Item:</strong> {donation.item}</p>
                                     <p><strong>Quantity:</strong> {donation.quantity}</p>
                                     <p><strong>Expiration:</strong> {donation.expirationDate ? new Date(donation.expirationDate).toLocaleDateString() : 'N/A'}</p>
-                                  </center>
+                               
                                 </div>
                               );
                             })}

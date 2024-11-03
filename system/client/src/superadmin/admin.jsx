@@ -478,7 +478,7 @@ function Administrator() {
                 <input type="text" name="email" placeholder="Email" value={newAdmin.email} onChange={(e) => handleInputChange(e, 'admin')} />
                 <input type="text" name="username" placeholder="Username" value={newAdmin.username} onChange={(e) => handleInputChange(e, 'admin')} />
                 <input type="password" name="password" placeholder="Password" value={newAdmin.password} onChange={(e) => handleInputChange(e, 'admin')} />
-                <button className="sBtn1" onClick={handleAddAdmin}>Save</button>
+                <button className="print-report-button" onClick={handleAddAdmin}>Save</button>
               </div>
             </div>
           </div>
@@ -496,7 +496,7 @@ function Administrator() {
                 <input type="text" name="email" placeholder="Email" value={newSuperAdmin.email} onChange={(e) => handleInputChange(e, 'superadmin')} />
                 <input type="text" name="username" placeholder="Username" value={newSuperAdmin.username} onChange={(e) => handleInputChange(e, 'superadmin')} />
                 <input type="password" name="password" placeholder="Password" value={newSuperAdmin.password} onChange={(e) => handleInputChange(e, 'superadmin')} />
-                <button className="sBtn1" onClick={handleAddSuperAdmin}>Save</button>
+                <button className="print-report-button" onClick={handleAddSuperAdmin}>Save</button>
               </div>
             </div>
           </div>

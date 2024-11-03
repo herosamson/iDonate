@@ -141,7 +141,7 @@ const Others = () => {
       return;
     }
     if (!/^\d+$/.test(quantity) || parseInt(quantity, 10) <= 0) {
-      alert('Please enter a valid positive Quantity.');
+      alert('Please enter a valid Quantity.');
       return;
     }
     const limit = unitLimits[unit] || 0;
@@ -150,7 +150,7 @@ const Others = () => {
       return;
     }
 
-    const selectedItem = item === 'Other' ? customItem : item;
+    const selectedItem = category === 'Others' ? customItem : (item === 'Other' ? customItem : item);
     const selectedUnit = unit === 'Other' ? customUnit : unit;
     const normalizedItem = selectedItem.toLowerCase();
 
@@ -313,50 +313,47 @@ const Others = () => {
               <option value="DisasterRelief">Disaster Relief</option>
               <option value="Others">Others</option>
             </select>
-            {category && (
+
+            {category === 'Others' ? (
+              <>
+                <label htmlFor="customItem">Item<span style={{color: 'red'}}> *</span>:</label>
+                <input
+                  type="text"
+                  value={customItem}
+                  onChange={handleChange}
+                  name="customItem"
+                  placeholder="Specify item"
+                  required
+                />
+              </>
+            ) : (
               <>
                 <label htmlFor="item">Item<span style={{color: 'red'}}> *</span>:</label>
-                {categoryItems[category].includes('Other') ? (
-                  <>
-                    <select
-                      id="item"
-                      value={item}
-                      onChange={handleChange}
-                      name="item"
-                      required
-                    >
-                      <option value="">Select Item</option>
-                      {categoryItems[category].map((itm, idx) => (
-                        itm !== 'Other' ? <option key={idx} value={itm}>{itm}</option> : <option key={idx} value="Other">Other</option>
-                      ))}
-                    </select>
-                    {item === 'Other' && (
-                      <input
-                        type="text"
-                        value={customItem}
-                        onChange={handleChange}
-                        name="customItem"
-                        placeholder="Specify item"
-                        required
-                      />
-                    )}
-                  </>
-                ) : (
-                  <select
-                    id="item"
-                    value={item}
+                <select
+                  id="item"
+                  value={item}
+                  onChange={handleChange}
+                  name="item"
+                  required
+                >
+                  <option value="">Select Item</option>
+                  {categoryItems[category].map((itm, idx) => (
+                    itm !== 'Other' ? <option key={idx} value={itm}>{itm}</option> : <option key={idx} value="Other">Other</option>
+                  ))}
+                </select>
+                {item === 'Other' && (
+                  <input
+                    type="text"
+                    value={customItem}
                     onChange={handleChange}
-                    name="item"
+                    name="customItem"
+                    placeholder="Specify item"
                     required
-                  >
-                    <option value="">Select Item</option>
-                    {categoryItems[category].map((itm, idx) => (
-                      <option key={idx} value={itm}>{itm}</option>
-                    ))}
-                  </select>
+                  />
                 )}
               </>
             )}
+
             {item && (
               <>
                 <label htmlFor="unit">Unit<span style={{color: 'red'}}> *</span>:</label>

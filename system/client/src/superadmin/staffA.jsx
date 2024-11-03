@@ -382,7 +382,7 @@ function Staff() {
             <input type="text" name="email" placeholder="Email" value={newStaff.email} onChange={(e) => handleInputChange(e, 'staff')} />
             <input type="text" name="username" placeholder="Username" value={newStaff.username} onChange={(e) => handleInputChange(e, 'staff')} />
             <input type="password" name="password" placeholder="Password" value={newStaff.password} onChange={(e) => handleInputChange(e, 'staff')} />
-            <button className="sBtn1" onClick={handleAddStaff}>Save</button>
+            <button className="print-report-button" onClick={handleAddStaff}>Save</button>
           </div>
           </div>
         </div>
