@@ -337,10 +337,9 @@ const Others = () => {
                   name="item"
                   required
                 >
-                  <option value="">Select Item</option>
-                  {categoryItems[category].map((itm, idx) => (
-                    itm !== 'Other' ? <option key={idx} value={itm}>{itm}</option> : <option key={idx} value="Other">Other</option>
-                  ))}
+                  {category && (categoryItems[category] || []).map((itm, idx) => (
+  itm !== 'Other' ? <option key={idx} value={itm}>{itm}</option> : <option key={idx} value="Other">Other</option>
+))}
                 </select>
                 {item === 'Other' && (
                   <input
@@ -366,9 +365,9 @@ const Others = () => {
                   required
                 >
                   <option value="">Select Unit</option>
-                  {unitOptions[category || 'default'].map((unitOption, idx) => (
-                    <option key={idx} value={unitOption}>{unitOption}</option>
-                  ))}
+                  {unitOptions[category || 'default']?.map((unitOption, idx) => (
+  <option key={idx} value={unitOption}>{unitOption}</option>
+))}
                 </select>
                 {unit === 'Other' && (
                   <input
