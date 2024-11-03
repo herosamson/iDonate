@@ -437,7 +437,7 @@ function Inventory() {
               <option value="Unconsumed">Unconsumed</option>
             </select>
           </div>
-          <div className="filter-group">
+          <div className="fil">
             <label>Category:</label>
             <select value={filterCategory} onChange={handleFilterCategoryChange}>
               <option value="All">All</option>
@@ -447,7 +447,7 @@ function Inventory() {
               <option value="Others">Others</option>
             </select>
           </div>
-          <div className="filter-group">
+          <div className="fil">
             <label>Expiration Date (Before):</label>
             <input
               type="date"
