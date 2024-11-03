@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './others.css'; 
+import './others.css';
 import logo from './imagenew.png';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -312,7 +312,6 @@ const Others = () => {
               <option value="Hygiene">Hygiene Kit</option>
               <option value="DisasterRelief">Disaster Relief</option>
               <option value="Others">Others</option>
-      
             </select>
 
             {category === 'Others' ? (
@@ -338,8 +337,8 @@ const Others = () => {
                   required
                 >
                   {category && (categoryItems[category] || []).map((itm, idx) => (
-  itm !== 'Other' ? <option key={idx} value={itm}>{itm}</option> : <option key={idx} value="Other">Other</option>
-))}
+                    itm !== 'Other' ? <option key={idx} value={itm}>{itm}</option> : <option key={idx} value="Other">Other</option>
+                  ))}
                 </select>
                 {item === 'Other' && (
                   <input
@@ -354,7 +353,8 @@ const Others = () => {
               </>
             )}
 
-            {item && (
+            {/* Render the unit dropdown based on item or customItem */}
+            {(item || customItem) && (
               <>
                 <label htmlFor="unit">Unit<span style={{color: 'red'}}> *</span>:</label>
                 <select
@@ -366,8 +366,8 @@ const Others = () => {
                 >
                   <option value="">Select Unit</option>
                   {unitOptions[category || 'default']?.map((unitOption, idx) => (
-  <option key={idx} value={unitOption}>{unitOption}</option>
-))}
+                    <option key={idx} value={unitOption}>{unitOption}</option>
+                  ))}
                 </select>
                 {unit === 'Other' && (
                   <input
@@ -381,7 +381,9 @@ const Others = () => {
                 )}
               </>
             )}
-            {category && item && (
+
+            {/* Render the quantity input based on item or customItem */}
+            {(item || customItem) && (
               <>
                 <label htmlFor="quantity">Quantity<span style={{color: 'red'}}> *</span>:</label>
                 <input
