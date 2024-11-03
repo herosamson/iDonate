@@ -23,15 +23,16 @@ const Others = () => {
       'Canned Goods',
       'Noodles',
       'Cup Noodles',
-      'Rice (25 kg)',
+      'Rice',
       'Water Bottles',
       'Other',
     ],
     Clothes: [
       'T-Shirt',
+      'Short',
+      'Sando',
       'Socks',
       'Blanket',
-      'Stuffed Toy',
       'Other',
     ],
     Hygiene: [
@@ -40,6 +41,7 @@ const Others = () => {
       'Tampons',
       'Toothbrush',
       'Toothpaste',
+      'Alcohol',
       'Other',
     ],
     Others: [],
@@ -49,6 +51,7 @@ const Others = () => {
       'Water Bottles',
       'Instant Coffee',
       'Biscuits',
+      'Rice',
       'Other',
     ],
   };
@@ -141,7 +144,7 @@ const Others = () => {
       return;
     }
     if (!/^\d+$/.test(quantity) || parseInt(quantity, 10) <= 0) {
-      alert('Please enter a valid positive Quantity.');
+      alert('Please enter a valid Quantity.');
       return;
     }
     const limit = unitLimits[unit] || 0;
@@ -310,8 +313,8 @@ const Others = () => {
               <option value="Food">Food</option>
               <option value="Clothes">Clothes</option>
               <option value="Hygiene">Hygiene Kit</option>
-              <option value="Others">Others</option>
               <option value="DisasterRelief">Disaster Relief</option>
+              <option value="Others">Others</option>
             </select>
 
             {category === 'Others' ? (

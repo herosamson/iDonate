@@ -47,8 +47,8 @@ function Analytics() {
   const [mostDonatedItem, setMostDonatedItem] = useState({ name: '', quantity: 0 });
   const [lineData, setLineData] = useState([]);
   const navigate = useNavigate();
-const [isItemsModalOpen, setIsItemsModalOpen] = useState(false);
-const [locatedItems, setLocatedItems] = useState([]); // Array for item donations
+  const [isItemsModalOpen, setIsItemsModalOpen] = useState(false); // Modal for located items
+  const [locatedItems, setLocatedItems] = useState([]);
 
 
   const openDonorsModal = async () => {
@@ -340,8 +340,7 @@ const [locatedItems, setLocatedItems] = useState([]); // Array for item donation
   }
 };
 
-    // Add this function to fetch total item donations
-    const fetchTotalItemDonations = async () => {
+   const fetchTotalItemDonations = async () => {
       try {
         const response = await axios.get('/routes/accounts/donations/located', { withCredentials: true });
         const items = response.data;
@@ -470,10 +469,10 @@ fetchTotalItemDonations();
             <h2><strong>Total Cash Donations</strong></h2>
             <p>&#8369;{totalApprovedDonations.toFixed(2)}</p>
           </div>
-         <div className="status-box" >
-  <h2><strong>Total Item Donations:</strong></h2>
-  <p>{totalItemDonations}</p>
-</div>
+      <div className="status-box" onClick={openItemModal}>
+            <h2><strong>Total Item Donations:</strong></h2>
+            <p>{totalItemDonations}</p>
+          </div>
 
           <div className="status-box" onClick={openDonorsModal}>
             <h2><strong>Number of Donors</strong></h2>
@@ -614,6 +613,39 @@ fetchTotalItemDonations();
                   </table>
                 ) : (
                   <p>No donation data available.</p>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+  {/* Items Modal to show located items in a table */}
+        {isItemsModalOpen && (
+          <div className="modal-overlay">
+            <div className="modal">
+              <div className="modal-header">
+                <h2>Located Items</h2>
+                <span className="close-button" onClick={closeItemModal}>&times;</span>
+              </div>
+              <div className="modal-content">
+                {locatedItems.length > 0 ? (
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Item Name</th>
+                        <th>Quantity</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {locatedItems.map((item, index) => (
+                        <tr key={index}>
+                          <td>{item.item}</td>
+                          <td>{item.quantity}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                ) : (
+                  <p>No located items available.</p>
                 )}
               </div>
             </div>

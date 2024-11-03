@@ -271,7 +271,7 @@ const Profile = ({ username }) => {
                     <td>{donation.item}</td>
                     <td>{`${donation.quantity} ${donation.unit || ''}`}</td>
                     <td>{new Date(donation.date).toLocaleDateString()}</td>
-                    <td>{donation.expirationDate ? new Date(donation.expirationDate).toLocaleDateString() : 'N/A'}</td>
+                    <td>{donation.expirationDate ? new Date(donation.expirationDate).toLocaleDateString() : 'None'}</td>
                     <td>{donation.received ? 'Through System: Delivered' : 'Through System: In Transit'}</td>
                   </tr>
                 ))}
@@ -307,7 +307,7 @@ const Profile = ({ username }) => {
                       <td>{item.item}</td>
                       <td>{`${item.quantity} ${item.unit || ''}`}</td>
                       <td>{new Date(item.date).toLocaleDateString()}</td>
-                      <td>{item.expirationDate ? new Date(item.expirationDate).toLocaleDateString() : 'N/A'}</td>
+                      <td>{item.expirationDate ? new Date(item.expirationDate).toLocaleDateString() : 'None'}</td>
                       <td>{item.received ? 'Through System: Delivered' : 'Through System: In Transit'}</td>
                     </tr>
                   ))}
