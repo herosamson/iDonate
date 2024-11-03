@@ -304,6 +304,18 @@ margin-bottom: 5px;
 .print-report-button:hover {
   background-color: #380000;
 }
+.can {
+
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.can:hover {
+  background-color: darkred;
+}
 .fil select {
   width: 100px;
   padding: 5px;

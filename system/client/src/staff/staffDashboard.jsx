@@ -425,7 +425,6 @@ fetchTotalItemDonations();
                 <p><strong>This Week:</strong> &#8369;{weeklyDonations.toFixed(2)}</p>
                 <p><strong>This Month:</strong> &#8369;{monthlyDonations.toFixed(2)}</p>
               </div>
-              <br />
             </div>
           </div>
         )}

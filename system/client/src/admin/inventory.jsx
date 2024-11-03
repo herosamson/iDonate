@@ -686,7 +686,7 @@ function Inventory() {
                     </div>
                     <div className="modal-buttons">
                       <button type="submit"  className="print-report-button" >Submit</button> 
-                      <button type="button" className="deleteBtni" onClick={handleCloseModal}>Cancel</button>
+                      <button type="button" className="can" onClick={handleCloseModal}>Cancel</button>
                     </div>
                   </form>
                 </div>
