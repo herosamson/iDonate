@@ -207,10 +207,10 @@ const Donations = () => {
       const logoX = (pdfWidth - logoWidth) / 2;
       doc.addImage(logoBase64, 'PNG', logoX, 5, logoWidth, logoHeight);
       const item = donation.item;
-      const expirationDate = donation.expirationDate ? new Date(donation.expirationDate).toLocaleDateString() : 'N/A';
+      const expirationDate = donation.expirationDate ? new Date(donation.expirationDate).toLocaleDateString() : 'None';
       const locationText = donation.location 
         ? `Cabinet ${donation.location.cabinet}: Column ${donation.location.column}, Row ${donation.location.row}`
-        : 'N/A';
+        : 'None';
       const donationId = donation.donationId;
       doc.setFont('Helvetica', 'normal');
       doc.setFontSize(12);
@@ -767,10 +767,10 @@ const Donations = () => {
           <h2>Donor Details</h2>
           {selectedDonation && (
             <div>
-              <p><strong>UserID:</strong> {selectedDonation.user?._id || 'N/A'}</p>
-              <p><strong>First Name:</strong> {selectedDonation.user?.firstname || selectedDonation.firstname || 'N/A'}</p>
-              <p><strong>Last Name:</strong> {selectedDonation.user?.lastname || selectedDonation.lastname || 'N/A'}</p>
-              <p><strong>Contact:</strong> {selectedDonation.user?.contact || selectedDonation.contact || 'N/A'}</p>
+              <p><strong>UserID:</strong> {selectedDonation.user?._id || 'None'}</p>
+              <p><strong>First Name:</strong> {selectedDonation.user?.firstname || selectedDonation.firstname || 'None'}</p>
+              <p><strong>Last Name:</strong> {selectedDonation.user?.lastname || selectedDonation.lastname || 'None'}</p>
+              <p><strong>Contact:</strong> {selectedDonation.user?.contact || selectedDonation.contact || 'None'}</p>
               <p><strong>Location:</strong> Cabinet {selectedDonation.location.cabinet}: Column {selectedDonation.location.column}, Row {selectedDonation.location.row}</p>
             </div>
           )}

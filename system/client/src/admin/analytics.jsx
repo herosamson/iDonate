@@ -555,7 +555,7 @@ fetchTotalItemDonations();
             <div className="modal">
               <div className="modal-header">
                 <h2>Cash Donations</h2>
-                <span className="close-icon" onClick={closeItemModal}>&times;</span>
+                <span className="close-button" onClick={closeItemModal}>&times;</span>
               </div>
               <div className="donation-details">
                 <p><strong>Today:</strong> &#8369;{todayDonations.toFixed(2)}</p>
@@ -571,7 +571,7 @@ fetchTotalItemDonations();
             <div className="modal">
               <div className="modal-header">
                 <h2>Top Contributors</h2>
-                <span className="close-icon" onClick={closeDonorsModal}>&times;</span>
+                <span className="close-button" onClick={closeDonorsModal}>&times;</span>
               </div>
               <div className="donors-details">
                 <h3>Top Donor</h3>

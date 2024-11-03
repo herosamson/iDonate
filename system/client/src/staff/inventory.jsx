@@ -369,12 +369,12 @@ function Inventory() {
       donation.donationId,
       donation.item,
       donation.quantity,
-      donation.expirationDate ? new Date(donation.expirationDate).toLocaleDateString() : 'N/A',
+      donation.expirationDate ? new Date(donation.expirationDate).toLocaleDateString() : 'None',
       Array.isArray(donation.donatedTo) && donation.donatedTo.length > 0 ? 'Consumed' : 'Unconsumed',
       donation.location
         ? `Cabinet ${donation.location.cabinet}: Column ${donation.location.column}, Row ${donation.location.row}`
         : 'Not assigned',
-      Array.isArray(donation.donatedTo) && donation.donatedTo.length > 0 ? donation.donatedTo.join(', ') : 'N/A',
+      Array.isArray(donation.donatedTo) && donation.donatedTo.length > 0 ? donation.donatedTo.join(', ') : 'None',
     ]);
 
     doc.autoTable({
@@ -473,7 +473,7 @@ function Inventory() {
                     <td>{donation.donationId}</td>
                     <td>{donation.item}</td>
                     <td>{donation.quantity}</td>
-                    <td>{donation.expirationDate ? new Date(donation.expirationDate).toLocaleDateString() : 'N/A'}</td>
+                    <td>{donation.expirationDate ? new Date(donation.expirationDate).toLocaleDateString() : 'None'}</td>
                     <td>{Array.isArray(donation.donatedTo) && donation.donatedTo.length > 0 ? 'Consumed' : 'Unconsumed'}</td>
                     <td>
                       {donation.location
@@ -504,7 +504,7 @@ function Inventory() {
                                     <p><strong>Row {row}:</strong></p> </center>
                                     <p><strong>Item:</strong> {donation.item}</p>
                                     <p><strong>Quantity:</strong> {donation.quantity}</p>
-                                    <p><strong>Expiration:</strong> {donation.expirationDate ? new Date(donation.expirationDate).toLocaleDateString() : 'N/A'}</p>
+                                    <p><strong>Expiration:</strong> {donation.expirationDate ? new Date(donation.expirationDate).toLocaleDateString() : 'None'}</p>
                                
                                 </div>
                               );

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './others.css'; 
+import './others.css';
 import logo from './imagenew.png';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -76,22 +76,22 @@ const Others = () => {
   }, []);
 
   const handleLogout = async () => {
-    const username = localStorage.getItem('username'); 
-    const role = localStorage.getItem('userRole'); 
+    const username = localStorage.getItem('username');
+    const role = localStorage.getItem('userRole');
 
     try {
       const response = await fetch('https://idonate1.onrender.com/routes/accounts/logout', {
-        method: 'POST', 
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, role }), 
+        body: JSON.stringify({ username, role }),
       });
 
       if (response.ok) {
         alert("You have successfully logged out!");
         localStorage.clear();
-        window.location.href = '/'; 
+        window.location.href = '/';
       } else {
         alert("Logout failed");
       }
@@ -141,7 +141,7 @@ const Others = () => {
       return;
     }
     if (!/^\d+$/.test(quantity) || parseInt(quantity, 10) <= 0) {
-      alert('Please enter a valid Quantity.');
+      alert('Please enter a valid positive Quantity.');
       return;
     }
     const limit = unitLimits[unit] || 0;
@@ -310,9 +310,8 @@ const Others = () => {
               <option value="Food">Food</option>
               <option value="Clothes">Clothes</option>
               <option value="Hygiene">Hygiene Kit</option>
-              <option value="DisasterRelief">Disaster Relief</option>
               <option value="Others">Others</option>
-      
+              <option value="DisasterRelief">Disaster Relief</option>
             </select>
 
             {category === 'Others' ? (
@@ -338,7 +337,7 @@ const Others = () => {
                   required
                 >
                   <option value="">Select Item</option>
-                  {categoryItems[category].map((itm, idx) => (
+                  {(categoryItems[category] || []).map((itm, idx) => (
                     itm !== 'Other' ? <option key={idx} value={itm}>{itm}</option> : <option key={idx} value="Other">Other</option>
                   ))}
                 </select>
@@ -366,7 +365,7 @@ const Others = () => {
                   required
                 >
                   <option value="">Select Unit</option>
-                  {unitOptions[category || 'default'].map((unitOption, idx) => (
+                  {(unitOptions[category] || unitOptions['default']).map((unitOption, idx) => (
                     <option key={idx} value={unitOption}>{unitOption}</option>
                   ))}
                 </select>
@@ -432,7 +431,7 @@ const Others = () => {
                       <td>{pendingItem.item}</td>
                       <td>{pendingItem.quantity}</td>
                       <td>{pendingItem.unit}</td>
-                      <td>{pendingItem.expirationDate ? new Date(pendingItem.expirationDate).toLocaleDateString() : 'N/A'}</td>
+                      <td>{pendingItem.expirationDate ? new Date(pendingItem.expirationDate).toLocaleDateString() : 'None'}</td>
                     </tr>
                   ))}
                 </tbody>
