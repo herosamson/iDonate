@@ -414,6 +414,14 @@ fetchTotalItemDonations();
   const closeItemModal = () => {
     setIsItemModalOpen(false);
   };
+  const openItemModal1 = () => {
+    fetchMostDonatedItem();
+    setIsItemsModalOpen(true);
+  };
+
+  const closeItemModal1 = () => {
+    setIsItemsModalOpen(false);
+  };
 
   const totalDonations = consumedCount + unconsumedCount;
   const consumedPercentage = totalDonations > 0 ? (consumedCount / totalDonations) * 100 : 0;
@@ -469,7 +477,7 @@ fetchTotalItemDonations();
             <h2><strong>Total Cash Donations</strong></h2>
             <p>&#8369;{totalApprovedDonations.toFixed(2)}</p>
           </div>
-      <div className="status-box" onClick={openItemModal}>
+      <div className="status-box" onClick={openItemModal1}>
             <h2><strong>Total Item Donations:</strong></h2>
             <p>{totalItemDonations}</p>
           </div>
@@ -624,7 +632,7 @@ fetchTotalItemDonations();
             <div className="modal">
               <div className="modal-header">
                 <h2>Located Items</h2>
-                <span className="close-button" onClick={closeItemModal}>&times;</span>
+                <span className="close-button" onClick={closeItemModal1}>&times;</span>
               </div>
               <div className="modal-content">
                 {locatedItems.length > 0 ? (
