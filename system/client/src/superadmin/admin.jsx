@@ -468,8 +468,8 @@ function Administrator() {
         {showAdminModal && (
           <div className="modal-overlayAccounts">
             <div className="modalAccounts">
-              <span className="close-icon" onClick={() => setShowAdminModal(false)}>&times;</span>
               <div className="modal-headerAccounts">
+              <span className="close-icon" onClick={() => setShowAdminModal(false)}>&times;</span>
                 <h2>Add New Administrator</h2>
                 <input type="text" name="firstname" placeholder="First Name" value={newAdmin.firstname} onChange={(e) => handleInputChange(e, 'admin')} />
                 <input type="text" name="lastname" placeholder="Last Name" value={newAdmin.lastname} onChange={(e) => handleInputChange(e, 'admin')} />
@@ -487,8 +487,8 @@ function Administrator() {
         {showSuperAdminModal && (
           <div className="modal-overlayAccounts">
             <div className="modalAccounts">
-              <span className="close-icon" onClick={() => setShowSuperAdminModal(false)}>&times;</span>
               <div className="modal-headerAccounts">
+              <span className="close-icon" onClick={() => setShowSuperAdminModal(false)}>&times;</span>
                 <h2>Add New Super Administrator</h2>
                 <input type="text" name="firstname" placeholder="First Name" value={newSuperAdmin.firstname} onChange={(e) => handleInputChange(e, 'superadmin')} />
                 <input type="text" name="lastname" placeholder="Last Name" value={newSuperAdmin.lastname} onChange={(e) => handleInputChange(e, 'superadmin')} />

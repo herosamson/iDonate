@@ -177,7 +177,7 @@ const Food = () => {
   {typesOfFood === "Others" && ( // Ensure input field is rendered
     <input
       type="text"
-      placeholder="Specify Type(s) of Food"
+      placeholder="Specify Type of Food"
       value={typesOfFoodOther}
       onChange={(e) => setTypesOfFoodOther(e.target.value.replace(/[<>]/g, ''))}
     />
@@ -191,7 +191,7 @@ const Food = () => {
             {location === "Others" ? (
               <input
                 type="text"
-                placeholder="Specify Location"
+                placeholder="Please Specify Exact Location"
                 value={locationOther}
                 onChange={(e) => setLocationOther(e.target.value.replace(/[<>]/g, ''))}
               />

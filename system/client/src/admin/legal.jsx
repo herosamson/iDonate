@@ -104,7 +104,6 @@ function Legal() {
               <th>Name</th>
               <th>Type of Legal Assistance</th>
               <th>Contact Number</th>
-              <th>Location</th>
               <th>Target Date</th>
               <th>Approved</th>
               <th>Actions</th>
@@ -116,7 +115,6 @@ function Legal() {
                 <td>{request.name}</td>
                 <td>{request.legalType}</td>
                 <td>{request.contactNumber}</td>
-                <td>{request.location}</td>
                 <td>{new Date(request.targetDate).toLocaleDateString()}</td>
                 <td>{request.approved ? 'Yes' : 'No'}</td>
                 <td>

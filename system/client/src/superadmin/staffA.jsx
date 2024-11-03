@@ -372,8 +372,8 @@ function Staff() {
       {showStaffModal && (
         <div className="modal-overlayAccounts">
         <div className="modalAccounts">
-        <span className="close-icon" onClick={() => setShowStaffModal(false)}>&times;</span>
           <div className="modal-headerAccounts">
+          <span className="close-icon" onClick={() => setShowStaffModal(false)}>&times;</span>
             <h2>Add New Staff</h2>
             <input type="text" name="firstname" placeholder="First Name" value={newStaff.firstname} onChange={(e) => handleInputChange(e, 'staff')} />
             <input type="text" name="lastname" placeholder="Last Name" value={newStaff.lastname} onChange={(e) => handleInputChange(e, 'staff')} />

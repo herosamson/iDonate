@@ -472,8 +472,8 @@ const validateAdminInput = () => {
         {showUserModal && (
      <div className="modal-overlayAccounts">
         <div className="modalAccounts">
-        <span className="close-icon" onClick={() => setShowUserModal(false)}>&times;</span>
           <div className="modal-headerAccounts">
+          <span className="close-icon" onClick={() => setShowUserModal(false)}>&times;</span>
             <h2>Add New Donor</h2>
             <input type="text" name="firstname" placeholder="First Name" value={newUser.firstname} onChange={(e) => handleInputChange(e, 'user')} />
             <input type="text" name="lastname" placeholder="Last Name" value={newUser.lastname} onChange={(e) => handleInputChange(e, 'user')} />

@@ -229,4 +229,16 @@ body {
   .eventse:hover {
     background-color: #380000;
   }
+  .eventse1 {
+margin-left: 10px;
+    background-color: #4f0000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .eventse1:hover {
+    background-color: #380000;
+  }
   

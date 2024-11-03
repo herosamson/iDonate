@@ -60,7 +60,7 @@ const Medical = () => {
   // Add medical assistance request
   const addMedicalAssistance = async () => {
     const lettersOnlyRegex = /^[A-Za-z\s]+$/;
-    if (!name || !typeOfMedicine || !quantity || !contactNumber || !location || reason || !targetDate || (!barangay && location !== 'Others')) {
+    if (!name || !typeOfMedicine || !quantity || !contactNumber || !location || !reason || !targetDate || (!barangay && location !== 'Others')) {
       alert('All fields are required.');
       return;
     }
@@ -243,7 +243,7 @@ const Medical = () => {
                 </select>
                 <input
                   type="text"
-                  placeholder="House Address"
+                  placeholder="Please Specify Exact Location"
                   value={houseAddress}
                   onChange={(e) => setHouseAddress(e.target.value.replace(/[<>]/g, ''))}
                 />
