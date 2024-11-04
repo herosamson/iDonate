@@ -6,7 +6,7 @@ import pic2 from './pic15.jpg';
 import pic3 from './pic16.jpg';
 import logolatest from './imagenew.png';
 import './homepage.css'; 
-import { FaYoutube, FaFacebookF, FaInstagram, FaTiktok, FaBars  } from 'react-icons/fa';
+import { FaYoutube, FaFacebookF, FaInstagram, FaTiktok } from 'react-icons/fa';
 import Button from '@mui/material/Button';
 
 function Homepage() {
@@ -26,24 +26,19 @@ function Homepage() {
 
     return () => clearInterval(interval); // Clean up the interval on component unmount
   }, [images.length]);
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // State to toggle menu
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
   return (
     <div className="homepage">
       <header className="header">
-        <div className="logo-container">
+        <div className="logo">
           <img className="logo" src={logolatest} alt="Logo" />
-          <FaBars className="menu-icon" onClick={toggleMenu} />
         </div>
-        <nav className={`navigation ${isMenuOpen ? "open" : ""}`}>
+        <nav className="navigation">
           <ul>
             <li><Link to="/">Home</Link></li>
             <li><Link to="/events">Events</Link></li>
             <li><Link to="/about">About Us</Link></li>
-            <li><Link to="/components/login">Login</Link></li>
+            <li><Link to="/components/login">Login</Link></li> 
           </ul>
         </nav>
       </header>
