@@ -34,14 +34,12 @@ function Homepage() {
   return (
     <div className="homepage">
       <header className="header">
-        <div className="logo">
+        <div className="logo-container">
           <img className="logo" src={logolatest} alt="Logo" />
-        </div>
-        <nav className="navigation">
-          {/* Hamburger icon for mobile */}
           <FaBars className="menu-icon" onClick={toggleMenu} />
-          {/* Menu items */}
-          <ul className={isMenuOpen ? "menu active" : "menu"}>
+        </div>
+        <nav className={`navigation ${isMenuOpen ? "open" : ""}`}>
+          <ul>
             <li><Link to="/">Home</Link></li>
             <li><Link to="/events">Events</Link></li>
             <li><Link to="/about">About Us</Link></li>
