@@ -21,17 +21,18 @@ const Others = () => {
   const categoryItems = {
     Food: [
       'Canned Goods',
-      'Noodles',
+      'Instant Noodles',
       'Cup Noodles',
-      'Rice (25 kg)',
-      'Water Bottles',
+      'Rice',
+      'Water',
       'Other',
     ],
     Clothes: [
       'T-Shirt',
       'Socks',
       'Blanket',
-      'Stuffed Toy',
+      'Sando',
+      'Shorts',
       'Other',
     ],
     Hygiene: [
@@ -46,8 +47,8 @@ const Others = () => {
     DisasterRelief: [
       'Canned Goods',
       'Instant Noodles',
-      'Water Bottles',
-      'Instant Coffee',
+      'Water',
+      'Coffee',
       'Biscuits',
       'Other',
     ],

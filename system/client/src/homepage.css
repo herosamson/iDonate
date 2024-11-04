@@ -418,3 +418,61 @@ body, html {
     color: rgb(31, 31, 31);
     font-size: 15px;
   }
+/* Default styling for navigation */
+.navigation ul {
+  list-style: none;
+  display: flex;
+  margin-left: auto;
+  color: white;
+}
+
+.navigation li {
+  margin-right: 2rem;
+}
+
+.menu-icon {
+  display: none;
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+}
+
+/* Hide menu by default on mobile screens */
+.menu {
+  display: flex;
+}
+
+.menu.active {
+  display: block;
+}
+
+@media (max-width: 768px) {
+/* Display hamburger icon on mobile */
+.menu-icon {
+    display: block;
+    margin-left: auto;
+}
+
+/* Hide the menu on mobile by default */
+.menu {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #740000;
+    padding: 10px 0;
+}
+
+/* Show menu when active */
+.menu.active {
+    display: flex;
+}
+
+/* Style for individual menu items */
+.menu li {
+    text-align: center;
+    margin: 10px 0;
+}
+}

@@ -26,7 +26,11 @@ function Homepage() {
 
     return () => clearInterval(interval); // Clean up the interval on component unmount
   }, [images.length]);
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // State to toggle menu
 
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
   return (
     <div className="homepage">
       <header className="header">
@@ -34,11 +38,14 @@ function Homepage() {
           <img className="logo" src={logolatest} alt="Logo" />
         </div>
         <nav className="navigation">
-          <ul>
+          {/* Hamburger icon for mobile */}
+          <FaBars className="menu-icon" onClick={toggleMenu} />
+          {/* Menu items */}
+          <ul className={isMenuOpen ? "menu active" : "menu"}>
             <li><Link to="/">Home</Link></li>
             <li><Link to="/events">Events</Link></li>
             <li><Link to="/about">About Us</Link></li>
-            <li><Link to="/components/login">Login</Link></li> 
+            <li><Link to="/components/login">Login</Link></li>
           </ul>
         </nav>
       </header>
