@@ -168,7 +168,7 @@ const Food = () => {
               onChange={(e) => setName(e.target.value.replace(/[<>]/g, ''))}
             />
            <select value={typesOfFood} onChange={handleFoodTypeChange}>
-    <option value="">Select Type(s) of Food</option>
+    <option value="">Select Type of Food</option>
     {foodTypes.map((food) => (
       <option key={food} value={food}>{food}</option>
     ))}
@@ -243,7 +243,7 @@ const Food = () => {
               <thead>
                 <tr>
                   <th>Name</th>
-                  <th>Type(s) of Food</th>
+                  <th>Type of Food</th>
                   <th>Target Date</th>
                   <th>Contact Number</th>
                   <th>Location</th>

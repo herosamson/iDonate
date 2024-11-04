@@ -415,7 +415,7 @@ function Inventory() {
           {isDropdownOpenA && (
             <ul className="dropdown-menuU">
           <li><Link to="/admin">Donors </Link></li>
-          <li><Link to="/adminSA">Administrator </Link></li>
+          <li><Link to="/adminSA">Administrators </Link></li>
           <li><Link to="/staffSA">Staff </Link></li>
             </ul>
           )}
@@ -437,16 +437,7 @@ function Inventory() {
               <option value="Unconsumed">Unconsumed</option>
             </select>
           </div>
-          <div className="fil">
-            <label>Category:</label>
-            <select value={filterCategory} onChange={handleFilterCategoryChange}>
-              <option value="All">All</option>
-              <option value="Food">Food</option>
-              <option value="Hygiene">Hygiene</option>
-              <option value="Clothes">Clothes</option>
-              <option value="Others">Others</option>
-            </select>
-          </div>
+
           <div className="fil">
             <label>Expiration Date (Before):</label>
             <input

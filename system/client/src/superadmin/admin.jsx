@@ -404,7 +404,7 @@ function Administrator() {
           {isDropdownOpenA && (
             <ul className="dropdown-menuU">
           <li><Link to="/admin">Donors </Link></li>
-          <li><Link to="/adminSA">Administrator </Link></li>
+          <li><Link to="/adminSA">Administrators </Link></li>
           <li><Link to="/staffSA">Staff </Link></li>
             </ul>
           )}
@@ -463,7 +463,7 @@ function Administrator() {
             )}
           </tbody>
         </table>
-        <button className="tn" onClick={() => setShowAdminModal(true)}>Add Admin</button>
+        <button className="tn" onClick={() => setShowAdminModal(true)}>Add Administrator</button>
         {/* Admin Modal */}
         {showAdminModal && (
           <div className="modal-overlayAccounts">

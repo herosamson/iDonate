@@ -581,28 +581,7 @@ fetchTotalItemDonations();
                 <span className="close-button" onClick={closeDonorsModal}>&times;</span>
               </div>
               <div className="donors-details">
-                <h3>Top Donor</h3>
-                <table>
-                  <thead>
-                    <tr>
-                      <th>First Name</th>
-                      <th>Last Name</th>
-                      <th>Contact</th>
-                      <th>Number of Donations</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {donorsDetails.length > 0 && (
-                      <tr>
-                        <td>{donorsDetails[0].firstname}</td>
-                        <td>{donorsDetails[0].lastname}</td>
-                        <td>{donorsDetails[0].contact}</td>
-                        <td>{donorsDetails[0].donationsCount}</td>
-                      </tr>
-                    )}
-                  </tbody>
-                </table>
-                {/* Most Donated Item Table */}
+              
                 <h3>Most Donated Item</h3>
                 {mostDonatedItem.name !== '' ? (
                   <table>
