@@ -252,7 +252,7 @@ const Profile = ({ username }) => {
   </div>
         <div className='Rcontainer'>
           <div id="Received-Table">
-            <h3>Pending Items</h3> 
+            <h3>Recievable Item Donations</h3> 
             <table>
               <thead>
                 <tr>
