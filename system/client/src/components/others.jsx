@@ -58,8 +58,8 @@ const Others = () => {
     default: ["Piece(s)", "Pack(s)", "Box(es)", "Sack(s)", "Bottle(s)", "Can(s)", "Other"],
     DisasterRelief: ["Piece(s)", "Pack(s)", "Box(es)", "Bottle(s)", "Can(s)", "Other"],
     Food: ["Piece(s)", "Pack(s)", "Box(es)", "Sack(s)", "Bottle(s)", "Can(s)", "Other"],
-    Clothes: ["Piece(s)", "Pack(s)", "Box(es)", "Other"],
-    Hygiene: ["Piece(s)", "Pack(s)", "Box(es)", "Other"],
+    Clothes: ["Piece(s)", "Other"],
+    Hygiene: ["Piece(s)", "Other"],
     Others: ["Piece(s)", "Pack(s)", "Box(es)", "Other"],
   };
 
@@ -274,15 +274,22 @@ const Others = () => {
   };
   
   const today = new Date().toISOString().split('T')[0];
+  const [isOpen, setIsOpen] = useState(false);
 
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
   return (
     <div className="Options">
-      <header className="header">
+     <header className="header">
         <div className="logo">
           <img className="logo" src={logo} alt="Logo" />
         </div>
         <nav className="navigation">
-          <ul>
+          <div className="menu-icon" onClick={toggleMenu}>
+            &#9776;
+          </div>
+          <ul className={isOpen ? "nav-links open" : "nav-links"}>
             <li><Link to="/homepageuser">Home</Link></li>
             <li><Link to="/options">Donate</Link></li>
             <li><Link to="/profile">Profile</Link></li>
@@ -337,6 +344,7 @@ const Others = () => {
                   name="item"
                   required
                 >
+                    <option value="">Select Item</option>
                   {category && (categoryItems[category] || []).map((itm, idx) => (
                     itm !== 'Other' ? <option key={idx} value={itm}>{itm}</option> : <option key={idx} value="Other">Other</option>
                   ))}

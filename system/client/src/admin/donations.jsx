@@ -589,6 +589,7 @@ const Donations = () => {
                     value={newDonation.name}
                     onChange={(e) => setNewDonation({ ...newDonation, name: e.target.value })}
                     required
+                     maxLength='50'
                   />
                 </div>
                 <div className="form-group">
@@ -608,6 +609,7 @@ const Donations = () => {
                     value={newDonation.item}
                     onChange={(e) => setNewDonation({ ...newDonation, item: e.target.value })}
                     required
+                     maxLength='20'
                   />
                 </div>
                 <div className="form-group">

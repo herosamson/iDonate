@@ -53,10 +53,11 @@
   border-radius: 5px;
 }
 .input-container select {
-  width: 270px;
+  width: 250px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  margin-left: 5px;
 }
 .containerothers1 label {
   display: flex;
@@ -74,11 +75,7 @@
   width: 350px;
 }
 
-.back-button {
-  margin-right: 1400px;
-  position: absolute;
-  top: 130px;
-}
+
 .table-containerDo{
   position: absolute;
   top: 150px;

@@ -9,14 +9,15 @@ const Financial = () => {
   const [amount, setAmount] = useState('');
   const [contactNumber, setContactNumber] = useState('');
   const [reason, setReason] = useState('');
-  const [customReason, setCustomReason] = useState(''); // State for custom reason
+  const [customReason, setCustomReason] = useState('');
   const [targetDate, setTargetDate] = useState('');
   const [financialAssistance, setFinancialAssistance] = useState([]);
   const [error, setError] = useState('');
+  const [hasRequestToday, setHasRequestToday] = useState(false);
 
-  const username = localStorage.getItem('username'); // Get the username from local storage
+  const username = localStorage.getItem('username');
+  const today = new Date().toISOString().split('T')[0];
 
-  // List of reasons for financial assistance
   const reasonOptions = [
     "Educational Support", 
     "Food Assistance", 
@@ -26,58 +27,83 @@ const Financial = () => {
     "Others"
   ];
 
-  // Fetch financial requests for the logged-in user
+  useEffect(() => {
+    const storedDate = localStorage.getItem('financialRequestDate');
+    
+    // Check if there's a stored request date and if it matches today
+    if (storedDate === today) {
+      setHasRequestToday(true);
+    } else {
+      setHasRequestToday(false);
+    }
+    
+    fetchFinancialAssistance();
+  }, []);
+
   const fetchFinancialAssistance = async () => {
     try {
       const response = await axios.get(`/routes/accounts/financial-assistance`, {
         headers: { username }
       });
       setFinancialAssistance(response.data);
+      
+      // Check if a request has already been made today
+      const requestToday = response.data.some(request =>
+        new Date(request.submissionDate).toISOString().split('T')[0] === today
+      );
+
+      if (requestToday) {
+        setHasRequestToday(true);
+        localStorage.setItem('financialRequestDate', today); // Store today's date in localStorage
+      }
     } catch (error) {
       console.error('Failed to fetch financial requests:', error);
-      alert('Failed to fetch financial requests. Please try again later.');
     }
   };
 
-  // Add financial request
   const addFinancialAssistance = async () => {
+    if (hasRequestToday) {
+      alert('You have already submitted a request today. Please try again tomorrow.');
+      return;
+    }
+
     const lettersOnlyRegex = /^[A-Za-z\s]+$/;
-    
-    // Validate all fields are filled
+
     if (!name || !amount || !contactNumber || !reason || !targetDate || (reason === 'Others' && !customReason)) {
       alert('All fields are required.');
       return;
     }
 
-    // Validate inputs: Name must contain only letters and spaces, and no < or >
     if (name.includes('<') || name.includes('>') || !lettersOnlyRegex.test(name)) {
       alert('Invalid characters in Name field. Please enter letters only.');
       return;
     }
-    
-    // Validate Reason field if custom reason is selected
+
     if (reason === 'Others' && (customReason.includes('<') || customReason.includes('>') || !lettersOnlyRegex.test(customReason))) {
       alert('Invalid characters in Reason field. Please enter letters only.');
       return;
     }
 
-    // Validate Amount: Must be a number and not exceed 10,000
     if (!/^\d+$/.test(amount) || parseInt(amount, 10) > 10000) {
       alert('Please enter a valid number for Amount not exceeding 10,000.');
       return;
     }
 
-    // Validate Contact Number: Must start with 09 and be exactly 11 digits
     if (!/^09\d{9}$/.test(contactNumber)) {
-      alert('Please enter a valid Contact Number that starts with 09 and has exactly 11 digits.');
+      alert('Please enter a valid Contact Number.');
       return;
     }
 
-    // Use custom reason if "Others" is selected, else use the selected reason
     const finalReason = reason === 'Others' ? customReason : reason;
-
-    // Create a new financial assistance request
-    const newRequest = { name, amount, contactNumber, reason: finalReason, targetDate, username };
+    const newRequest = { 
+      name, 
+      amount, 
+      contactNumber, 
+      reason: finalReason, 
+      targetDate, 
+      username,
+      submissionDate: today // Record today's date as submissionDate
+    };
 
     try {
       const response = await axios.post(`/routes/accounts/financial-assistance/add`, newRequest, {
@@ -85,13 +111,14 @@ const Financial = () => {
       });
 
       setFinancialAssistance([...financialAssistance, response.data]);
-      
-      // Clear the form fields
+      setHasRequestToday(true);
+      localStorage.setItem('financialRequestDate', today); // Store today's date in localStorage
+
       setName('');
       setAmount('');
       setContactNumber('');
       setReason('');
-      setCustomReason(''); // Clear custom reason field
+      setCustomReason('');
       setTargetDate('');
       setError('');
 
@@ -103,14 +130,8 @@ const Financial = () => {
     }
   };
 
-  useEffect(() => {
-    fetchFinancialAssistance(); // Fetch the financial requests when the component mounts
-  }, []);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
-
-    // Exclude < and > symbols
     if (value.includes('<') || value.includes('>')) return;
 
     switch (name) {
@@ -134,7 +155,7 @@ const Financial = () => {
   const handleReasonChange = (e) => {
     const selectedReason = e.target.value;
     setReason(selectedReason);
-    if (selectedReason !== "Others") setCustomReason(''); // Clear custom reason if another option is selected
+    if (selectedReason !== "Others") setCustomReason('');
   };
 
   const handleLogout = async () => {
@@ -166,22 +187,26 @@ const Financial = () => {
       console.error('Error logging out:', error);
     }
   };
+  const [isOpen, setIsOpen] = useState(false);
 
-  // Get the current date in YYYY-MM-DD format
-  const today = new Date().toISOString().split('T')[0];
-  
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
   return (
     <div className="Options">
-      <header className="header">
+          <header className="header">
         <div className="logo">
           <img className="logo" src={logo} alt="Logo" />
         </div>
         <nav className="navigation">
-          <ul>
+          <div className="menu-icon" onClick={toggleMenu}>
+            &#9776;
+          </div>
+          <ul className={isOpen ? "nav-links open" : "nav-links"}>
             <li><Link to="/homepageuser">Home</Link></li>
             <li><Link to="/options">Donate</Link></li>
             <li><Link to="/profile">Profile</Link></li>
-            <li><Link to="/" onClick={handleLogout}>Logout</Link></li> 
+            <li><Link to="/" onClick={handleLogout}>Logout</Link></li>
           </ul>
         </nav>
       </header>
@@ -241,7 +266,9 @@ const Financial = () => {
               onChange={handleChange}
               min={today}
             />
-            <button className="dB" onClick={addFinancialAssistance}>Add Financial Request</button>
+            <button className="dB" onClick={addFinancialAssistance} disabled={hasRequestToday}>
+              {hasRequestToday ? "Request Already Submitted" : "Add Financial Request"}
+            </button>
           </div>
         </div>
         <div className="table-wrapperfinance">

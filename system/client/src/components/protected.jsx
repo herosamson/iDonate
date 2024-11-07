@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate, useLocation, Outlet } from 'react-router-dom';
 
 const ProtectedRoute = ({ userRole, allowedRoles, children }) => {
   const location = useLocation();

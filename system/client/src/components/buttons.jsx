@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './buttons.css';
 import { Link } from 'react-router-dom'; 
 import logo from './imagenew.png';
@@ -38,19 +38,26 @@ const Buttons = () => {
       console.error('Error logging out:', error);
     }
   };
+  const [isOpen, setIsOpen] = useState(false);
 
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
   return (
     <div className="Options">
-      <header className="header">
+  <header className="header">
         <div className="logo">
           <img className="logo" src={logo} alt="Logo" />
         </div>
         <nav className="navigation">
-          <ul>
+          <div className="menu-icon" onClick={toggleMenu}>
+            &#9776;
+          </div>
+          <ul className={isOpen ? "nav-links open" : "nav-links"}>
             <li><Link to="/homepageuser">Home</Link></li>
             <li><Link to="/options">Donate</Link></li>
             <li><Link to="/profile">Profile</Link></li>
-            <li><Link to="/" onClick={handleLogout}>Logout</Link></li> 
+            <li><Link to="/" onClick={handleLogout}>Logout</Link></li>
           </ul>
         </nav>
       </header>
@@ -63,7 +70,7 @@ const Buttons = () => {
         <div className="containerButton-wrapper">
           <Link to="/food" className="containerButton">
             <img src={foodImage} alt="Food Subsidy" />
-            <h2>Food Subsidy</h2>
+            <h2>Food Assistance</h2>
           </Link>
           <Link to="/finance" className="containerButton">
             <img src={financialImage} alt="Financial Assistance" />

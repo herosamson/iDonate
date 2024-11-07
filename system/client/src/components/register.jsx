@@ -136,6 +136,7 @@ function Register({ onLogin }) {
               value={formData.firstname}
               onChange={handleChange}
               placeholder="First Name: Juan"
+              maxLength='30'
               required
             />
             <input
@@ -144,6 +145,7 @@ function Register({ onLogin }) {
               value={formData.lastname}
               onChange={handleChange}
               placeholder="Last Name: Dela Cruz"
+               maxLength='30'
               required
             />
             <input
@@ -176,6 +178,7 @@ function Register({ onLogin }) {
               value={formData.username}
               onChange={handleChange}
               placeholder="Username"
+               maxLength='50'
               required
             />
             

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './options.css';
 import { Link, useNavigate } from 'react-router-dom';
 import logo from './imagenew.png';
@@ -38,6 +38,12 @@ const Options = () => {
     }
   };
 
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <div className="Options">
       <header className="header">
@@ -45,7 +51,10 @@ const Options = () => {
           <img className="logo" src={logo} alt="Logo" />
         </div>
         <nav className="navigation">
-          <ul>
+          <div className="menu-icon" onClick={toggleMenu}>
+            &#9776;
+          </div>
+          <ul className={isOpen ? "nav-links open" : "nav-links"}>
             <li><Link to="/homepageuser">Home</Link></li>
             <li><Link to="/options">Donate</Link></li>
             <li><Link to="/profile">Profile</Link></li>
@@ -54,27 +63,34 @@ const Options = () => {
         </nav>
       </header>
 
-        <div className="container1-wrapper">
-      <div className="containerOptions">
-      <img src={pic1} alt="Donate" className="image1" />
-        <h2>Donate</h2>
-        <p>
-        Donating to a community affected by disasters means providing essential support to 
-        people impacted by calamities such as floods, earthquakes, or typhoons.
-        </p>
-        <button className="dB" onClick={() => navigate('/cashOthers')}>Donate Now</button>
+
+      <div className="back-button">
+        <Link to="/options">
+            <div class="circle1">&#8592;</div>
+        </Link>
       </div>
-      <div className="containerOptions">
-      <img src={pic2} alt="Request Donation" className="image2" />
-        <h2>Request Assistance</h2>
-        <p>   
-        Requesting donations means seeking help during challenging times. If you are in a community
-        affected by disasters like floods, earthquakes,
-        or typhoons, receiving donations can provide you with essential support.
-        </p>
-        <button className="dB" onClick={() => navigate('/buttons')}>Request Assistance</button>
+      <div className="container1-wrapper">
+        <div className="containerOptions">
+          <img src={pic1} alt="Donate" className="image1" />
+          <h2>Donate</h2>
+          <p>
+          Donating to a community affected by disasters means providing essential support to 
+          people impacted by calamities such as floods, earthquakes, or typhoons.
+          </p>
+          <button className="dB" onClick={() => navigate('/cashOthers')}>Donate Now</button>
+        </div>
+
+        <div className="containerOptions">
+          <img src={pic2} alt="Request Donation" className="image2" />
+          <h2>Request Assistance</h2>
+          <p>   
+          Requesting donations means seeking help during challenging times. If you are in a community
+          affected by disasters like floods, earthquakes,
+          or typhoons, receiving donations can provide you with essential support.
+          </p>
+          <button className="dB" onClick={() => navigate('/buttons')}>Request Assistance</button>
+        </div>
       </div>
-    </div>
     </div>
     
   );

@@ -17,6 +17,7 @@ const Medical = () => {
   const [reason, setReason] = useState('');
   const [targetDate, setTargetDate] = useState('');
   const [medicalAssistance, setMedicalAssistance] = useState([]);
+  const [hasRequestToday, setHasRequestToday] = useState(false);
 
   const username = localStorage.getItem('username');
 
@@ -43,22 +44,34 @@ const Medical = () => {
     "Malate": Array.from({ length: 57 }, (_, i) => `Barangay ${688 + i}`),
     "Others": []
   };
-
-  // Fetch medical assistance data
+  
   const fetchMedicalAssistance = async () => {
     try {
-      const response = await axios.get(`/routes/accounts/medical-assistance`, {
+      const response = await axios.get('/routes/accounts/medical-assistance', {
         headers: { username }
       });
       setMedicalAssistance(response.data);
+      
+      const requestToday = response.data.some(request =>
+        new Date(request.submissionDate).toISOString().split('T')[0] === today
+      );
+  
+      if (requestToday) {
+        setHasRequestToday(true);
+        localStorage.setItem('medicalRequestDate', today);
+      }
     } catch (error) {
       console.error('Failed to fetch medical requests:', error);
-      alert('Failed to fetch medical requests. Please try again later.');
     }
   };
+  
 
   // Add medical assistance request
   const addMedicalAssistance = async () => {
+    if (hasRequestToday) {
+      alert('You have already submitted a request today. Please try again tomorrow.');
+      return;
+    }
     const lettersOnlyRegex = /^[A-Za-z\s]+$/;
     if (!name || !typeOfMedicine || !quantity || !contactNumber || !location || !reason || !targetDate || (!barangay && location !== 'Others')) {
       alert('All fields are required.');
@@ -79,6 +92,7 @@ const Medical = () => {
       alert('Please enter a valid Contact Number.');
       return;
     }
+    
 
     const fullLocation = location === "Others" ? customLocation : `${location} - ${barangay}, ${houseAddress}`;
     const newRequest = { name, typeOfMedicine: typeOfMedicine === "Others" ? customTypeOfMedicine : typeOfMedicine, quantity, contactNumber, location: fullLocation, reason, targetDate, username };
@@ -87,6 +101,8 @@ const Medical = () => {
       const response = await axios.post(`/routes/accounts/medical-assistance/add`, newRequest, {
         headers: { username }
       });
+      setHasRequestToday(true);
+      localStorage.setItem('medicalRequestDate', today);
       setMedicalAssistance([...medicalAssistance, response.data.request]);
       // Clear form
       setName('');
@@ -108,8 +124,17 @@ const Medical = () => {
   };
 
   useEffect(() => {
+    const storedDate = localStorage.getItem('medicalRequestDate');
+    
+    if (storedDate === today) {
+      setHasRequestToday(true);
+    } else {
+      setHasRequestToday(false);
+    }
+  
     fetchMedicalAssistance();
   }, []);
+  
 
   const handleTypeOfMedicineChange = (e) => {
     const selectedMedicine = e.target.value;
@@ -160,15 +185,22 @@ const Medical = () => {
       console.error('Error logging out:', error);
     }
   };
+  const [isOpen, setIsOpen] = useState(false);
 
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
   return (
     <div className="Options">
-      <header className="header">
+     <header className="header">
         <div className="logo">
           <img className="logo" src={logo} alt="Logo" />
         </div>
         <nav className="navigation">
-          <ul>
+          <div className="menu-icon" onClick={toggleMenu}>
+            &#9776;
+          </div>
+          <ul className={isOpen ? "nav-links open" : "nav-links"}>
             <li><Link to="/homepageuser">Home</Link></li>
             <li><Link to="/options">Donate</Link></li>
             <li><Link to="/profile">Profile</Link></li>
@@ -262,7 +294,10 @@ const Medical = () => {
               onChange={(e) => setTargetDate(e.target.value)}
               min={today}
             />
-            <button className="dB" onClick={addMedicalAssistance}>Add Medical Request</button>
+           <button className="dB" onClick={addMedicalAssistance} disabled={hasRequestToday}>
+  {hasRequestToday ? "Request Already Submitted" : "Add Medical Request"}
+</button>
+
           </div>
         </div>
         <div className="table-wrappermedical">

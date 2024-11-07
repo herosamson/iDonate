@@ -374,6 +374,7 @@ function EventsA() {
               value={newEvent.eventName}
               onChange={handleChange}
               placeholder="Event Name"
+               maxLength='50'
               required
             />
             <input
@@ -391,6 +392,7 @@ function EventsA() {
               value={newEvent.volunteers}
               onChange={handleChange}
               placeholder="Volunteers"
+               maxLength='50'
               required
             />
             <input
@@ -399,7 +401,7 @@ function EventsA() {
               value={newEvent.numberOfPax}
               onChange={handleChange}
               placeholder="Number of Pax"
-          
+           maxLength='4'
             />
           </div>
           <div className="materials-list">

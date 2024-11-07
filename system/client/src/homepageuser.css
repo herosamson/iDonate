@@ -11,32 +11,78 @@ body, html {
   width: 100%;
   overflow-x: hidden;
 }
-/* Header responsive adjustments */
-@media (max-width: 768px) {
-  .header {
-    flex-direction: column;
-    padding: 10px;
-  }
 
-  .logo img {
-    width: 200px;
-  }
+.homepage {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow-y: auto;
+  width: 100%;
+}
 
-  .navigation ul {
-    flex-direction: column;
-    align-items: center;
-    padding: 0;
-    margin: 0;
-  }
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #740000;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 10px 20px;
+}
 
-  .navigation li {
-    margin-right: 0;
-    margin-bottom: 10px;
-  }
+.logo {
+  align-items: center;
+  margin-left: 20px;
+}
 
-  .navigation a {
-    font-size: 1.2rem;
-  }
+.logo img {
+  width: 200px;
+  height: auto;
+}
+
+.navigation {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  color: white;
+}
+
+.menu-icon {
+  display: none;
+  font-size: 30px;
+  cursor: pointer;
+  color: white;
+}
+
+.navigation ul {
+  list-style: none;
+  display: flex;
+  margin-left: auto;
+}
+
+.navigation li {
+  margin-right: 1rem;
+}
+
+.navigation a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.login-btn {
+  background-color: #d18686;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 /* Header section adjustments */
@@ -47,183 +93,17 @@ body, html {
   height: auto;
 }
 
-/* Responsive font and padding scaling */
-.header-content h2 {
+.header-content h2, .header-content p {
   font-size: 2rem;
-}
-
-.header-content p {
-  font-size: 2rem;
-}
-
-/* Layout for main and additional content on smaller screens */
-@media (max-width: 768px) {
-  .main1,
-  .main2 {
-    flex-direction: column;
-    padding: 10px;
-    width: 100%;
-  }
-
-  .additional-content,
-  .additional-content2 {
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    padding: 0;
-  }
-
-  .left-content1,
-  .right-content {
-    width: 100%;
-    margin: 0;
-  }
-
-  .right-content h2 {
-    font-size: 1.5rem;
-    text-align: center;
-  }
-
-  .right-content p {
-    font-size: 1rem;
-    text-align: center;
-  }
-}
-
-/* Donation cards layout for smaller screens */
-@media (max-width: 768px) {
-  .cardhome {
-    width: 90%;
-    margin: 20px 0;
-  }
-
-  .card-title {
-    font-size: 1.3rem;
-  }
-
-  .card-body {
-    font-size: 1rem;
-  }
-}
-
-/* Footer responsive adjustments */
-@media (max-width: 768px) {
-  .footer {
-    padding: 15px;
-    font-size: 0.9rem;
-  }
-
-  .social-icons a {
-    font-size: 20px;
-  }
-}
-
-/* Additional media queries for extra-small screens */
-@media (max-width: 480px) {
-  .logo img {
-    width: 150px;
-  }
-
-  .navigation a {
-    font-size: 1rem;
-  }
-
-  .header-content h2 {
-    font-size: 1.2rem;
-  }
-
-  .header-content p,
-  .right-content p {
-    font-size: 0.9rem;
-  }
-
-  .cardhome {
-    width: 100%;
-    font-size: 0.9rem;
-  }
-}
-
-/* responsive */
-.homepage {
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
-    display: flex;
-    flex-direction: column;
-    height: 100vh; /* Adjust height as needed */
-    overflow-y: auto; /* Make homepage scrollable */
-    width: 100%;
-}
-
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #740000;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    
-}
-
-.logo {
-    align-items: center;
-    margin-left: 40px; /* Adjust margin as needed */
-    margin-top: 10px; /* Move down the logo */
-}
-
-.logo img {
-    width: 300px; /* Adjust width as needed */
-    height: fit-content;
-    margin-bottom: 10px;
-}
-
-.navigation {
-    display: flex;
-    align-items: center;
-    margin-right: 40px; /* Adjust margin as needed */
-    color: white;
-}
-
-.navigation ul {
-    list-style: none;
-    display: flex;
-    margin-left: auto; /* Push navigation to the right */
-    margin-bottom: 1%; /* Move down the logo */
-    color: white;
-}
-
-.navigation li {
-    margin-right: 2rem;
-    color: white;
-}
-
-.navigation a {
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
-    font-size: 140%;
-}
-
-.login-btn {
-    background-color: #d18686;
-    color: #fff;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
 }
 
 .header-section1 {
-  background-size: cover;
-  background-position: center;
   display: flex;
   justify-content: left;
   align-items: center;
-  padding: 70px; /* Add padding to center content */
+  padding: 70px;
   height: 610px;
-  transition: background-image 0.7s ease-in-out; /* Smooth transition */
+  transition: background-image 0.7s ease-in-out;
 }
 
 .header-content {
@@ -234,22 +114,22 @@ body, html {
   flex: 1;
   display: flex;
   flex-direction: column;
-
 }
 
 .additional-content {
   display: flex;
-  padding: 20px; /* Adjust padding */
-  margin: 0; /* Remove margins */
-  gap: 50px; 
+  padding: 20px;
+  margin: 0;
+  gap: 50px;
 }
-.right-content h4{
+
+.right-content h4 {
   text-align: left;
   background-color: rgb(243, 243, 243);
-  color:#000;
-  justify-content: left;
+  color: #000;
 }
-.right-content h2{
+
+.right-content h2 {
   text-align: center;
   color: #740000;
 }
@@ -257,38 +137,35 @@ body, html {
 .left-content1 {
   background-image: url('./pic10.jpg');
   background-size: cover;
-  background-position:center;
-  flex: 1;
-  height: 400px;  /* Change fixed height to auto */
-  object-fit: cover; /* Ensure the image covers the entire space */
+  background-position: center;
+  width: 50%;
+  height: 400px;
+  object-fit: cover;
   margin-top: 50px;
   padding: 10px;
 }
 
 .right-content {
   flex: 1;
-  margin-left: 10px; /* Reduce margin */
+  margin-left: 10px;
   margin-top: 30px;
 }
 
 .right-content h3 {
-  font-size: 1.5rem; /* Adjust font size */
+  font-size: 1.5rem;
   margin-bottom: 10px;
   text-align: center;
   color: #740000;
 }
 
-
 .right-content p {
-  font-size: 1rem; /* Adjust font size */
+  font-size: 1rem;
   margin: 0 0 10px 0;
 }
 
 .header-section, .main, .main2 {
-  height: auto; /* Adjust height as needed */
+  height: auto;
 }
-
-
 
 .main2 {
   flex: 1;
@@ -307,17 +184,16 @@ body, html {
 }
 
 .container {
-  width: calc(33.33% - 10px); /* Adjust width of each container */
-  height: 320px; /* Adjust height as needed */
-  box-sizing: border-box; /* Include border in width calculation */
-  background-color: white; /* White background */
+  width: calc(33.33% - 10px);
+  height: 320px;
+  background-color: white;
   padding: 10px;
-  border: 10px solid #740000 ; /* Change border color to black */
+  border: 10px solid #740000;
 }
 
 .footer {
   text-align: center;
-  padding: 10px; /* Adjust padding */
+  padding: 10px;
   background-color: #c6c6c6;
   color: #333;
   border-top: 1px solid #e7e7e7;
@@ -347,6 +223,168 @@ body, html {
 .icon {
   font-size: 24px;
 }
+
 .cardhome:hover {
   background-color: rgb(201, 201, 201);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .logo img {
+    width: 150px;
+  }
+  
+  .navigation a {
+    font-size: 1rem;
+  }
+
+  .header-content h2, .header-content p {
+    font-size: 1.5rem;
+  }
+
+  .container {
+    width: calc(50% - 10px);
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navigation ul {
+    flex-direction: column;
+    align-items: center;
+    display: none; /* Hide menu items by default */
+    background-color: #740000;
+    position: absolute;
+    top: 50px;
+    right: 0;
+    width: 100%;
+    padding-top: 10px;
+  }
+
+  .navigation ul.open {
+    display: flex;
+  }
+
+  .menu-icon {
+    display: block; /* Show hamburger icon on small screens */
+  }
+
+  .navigation li {
+    margin: 10px 0;
+    font-size: 1.2rem;
+  }
+
+  .navigation a {
+    font-size: 1.2rem; /* Larger font for better readability */
+  }
+
+  .logo img {
+    width: 120px;
+  }
+
+  .header-content h2, .header-content p {
+    font-size: 1.3rem;
+  }
+
+
+  .additional-content, .additional-content2 {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .container {
+    width: 100%;
+  }
+
+  .footer p {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Header adjustments */
+  .header {
+    
+    padding: 5px 10px;
+  }
+
+  .logo img {
+    width: 200px; /* Reduce logo size further */
+    margin: 0;
+  }
+
+  .navigation ul {
+    flex-direction: column;
+    gap: 10px; /* Add some space between menu items */
+  }
+
+  .navigation ul.open {
+    display: flex;
+  }
+
+  .menu-icon {
+    font-size: 35px; /* Make the menu icon larger */
+  }
+
+  .navigation li {
+    margin-right: 0;
+    text-align: center; /* Center align navigation items */
+  }
+
+  .navigation a {
+    font-size: 1rem;
+  }
+
+  .menu-icon {
+    font-size: 30px; /* Make the menu icon larger for easier tapping */
+  }
+
+  /* Header content font size adjustments */
+  .header-content h2, .header-content p {
+    font-size: 1.1rem;
+    text-align: center;
+  }
+
+  /* Left and Right content adjustments */
+  .left-content1, .right-content {
+    padding: 5px;
+    margin-top: 20px;
+  }
+
+  .left-content1 {
+    width: 100%;
+    margin: 0;
+    height: 300px; /* Reduce height for small screens */
+  }
+
+  .right-content h3 {
+    font-size: 1.2rem;
+  }
+
+  .right-content p {
+    font-size: 0.9rem;
+  }
+
+  /* Adjust additional content section layout */
+  .additional-content, .additional-content2 {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  /* Container adjustments */
+  .container {
+    width: 100%; /* Take full width for small screens */
+    height: auto; /* Let height adjust based on content */
+    margin-bottom: 15px; /* Add space between containers */
+  }
+
+  /* Footer adjustments */
+  .footer p {
+    font-size: 12px;
+  }
+
+  .social-icons a {
+    font-size: 18px; /* Smaller icons */
+  }
 }

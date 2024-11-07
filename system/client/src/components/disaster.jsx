@@ -17,6 +17,7 @@ const Disaster = () => {
   const [targetDate, setTargetDate] = useState('');
   const [disasterRequests, setDisasterRequests] = useState([]);
   const [error, setError] = useState('');
+  const [hasRequestToday, setHasRequestToday] = useState(false);
 
   const username = localStorage.getItem('username');
 
@@ -44,14 +45,24 @@ const Disaster = () => {
         headers: { username }
       });
       setDisasterRequests(response.data);
+      const requestToday = response.data.some(request =>
+        new Date(request.submissionDate).toISOString().split('T')[0] === today
+      );
+      if (requestToday) {
+        setHasRequestToday(true);
+        localStorage.setItem('disasterRequestDate', today);
+      }
     } catch (error) {
       console.error('Failed to fetch disaster requests:', error);
-      alert('Failed to fetch disaster requests. Please try again later.');
     }
   };
 
   const addDisasterRequest = async () => {
-    const lettersOnlyRegex = /^[A-Za-z\s]+$/;
+    if (hasRequestToday) {
+      alert('You have already submitted a request today. Please try again tomorrow.');
+      return;
+    }
+
     const selectedDisasterType = disasterType === "Others" ? disasterTypeOther : disasterType;
     const selectedLocation = location === "Others" ? locationOther : location;
 
@@ -60,46 +71,24 @@ const Disaster = () => {
       return;
     }
 
-    const containsInvalidSymbols = (input) => /[<>]/.test(input);
-    if (containsInvalidSymbols(name) || containsInvalidSymbols(selectedDisasterType) || containsInvalidSymbols(selectedLocation)) {
-      alert('Symbols < and > are not allowed.');
-      return;
-    }
-
-    if (!lettersOnlyRegex.test(name)) {
-      alert('Please enter a valid Name.');
-      return;
-    }
-
-    if (!/^\d+$/.test(numberOfPax) || numberOfPax > 500) {
-      alert('Please enter a valid number for the Estimated Number of Pax (max 500).');
-      return;
-    }
-
-    if (!/^09\d{9}$/.test(contactNumber)) {
-      alert('Please enter a valid Contact Number that starts with 09 and has exactly 11 digits.');
-      return;
-    }
-
-    const fullLocation = selectedLocation === "Others" ? selectedLocation : `${selectedLocation} - ${barangay}, ${houseAddress}`;
-    const newRequest = { name, disasterType: selectedDisasterType, numberOfPax, contactNumber, location: fullLocation, targetDate, username };
+    const newRequest = {
+      name,
+      disasterType: selectedDisasterType,
+      numberOfPax,
+      contactNumber,
+      location: `${selectedLocation} - ${barangay}, ${houseAddress}`,
+      targetDate,
+      username,
+      submissionDate: today
+    };
 
     try {
       const response = await axios.post(`/routes/accounts/disaster-relief/add`, newRequest, {
         headers: { username },
       });
       setDisasterRequests([...disasterRequests, response.data]);
-      setName('');
-      setDisasterType('');
-      setDisasterTypeOther('');
-      setNumberOfPax('');
-      setContactNumber('');
-      setLocation('');
-      setLocationOther('');
-      setBarangay('');
-      setHouseAddress('');
-      setTargetDate('');
-      setError('');
+      setHasRequestToday(true);
+      localStorage.setItem('disasterRequestDate', today);
       alert('Disaster relief request added successfully.');
     } catch (error) {
       console.error('Failed to add disaster relief request:', error.response ? error.response.data : error.message);
@@ -136,21 +125,33 @@ const Disaster = () => {
       console.error('Error logging out:', error);
     }
   };
-
   useEffect(() => {
+    const storedDate = localStorage.getItem('disasterRequestDate');
+    if (storedDate === today) {
+      setHasRequestToday(true);
+    } else {
+      setHasRequestToday(false);
+    }
     fetchDisasterRequests();
   }, []);
 
   const today = new Date().toISOString().split('T')[0];
+  const [isOpen, setIsOpen] = useState(false);
 
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
   return (
     <div className="Options">
-      <header className="header">
+         <header className="header">
         <div className="logo">
           <img className="logo" src={logo} alt="Logo" />
         </div>
         <nav className="navigation">
-          <ul>
+          <div className="menu-icon" onClick={toggleMenu}>
+            &#9776;
+          </div>
+          <ul className={isOpen ? "nav-links open" : "nav-links"}>
             <li><Link to="/homepageuser">Home</Link></li>
             <li><Link to="/options">Donate</Link></li>
             <li><Link to="/profile">Profile</Link></li>
@@ -245,7 +246,9 @@ const Disaster = () => {
               onChange={(e) => setTargetDate(e.target.value)}
               min={today}
             />
-            <button className="dB" onClick={addDisasterRequest}>Add Disaster Relief Request</button>
+           <button className="dB" onClick={addDisasterRequest} disabled={hasRequestToday}>
+        {hasRequestToday ? "Request Already Submitted" : "Add Disaster Relief Request"}
+      </button>
           </div>
         </div>
         <div className="table-wrapperdisaster">

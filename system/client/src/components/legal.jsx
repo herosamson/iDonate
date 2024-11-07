@@ -7,15 +7,16 @@ import { Link } from 'react-router-dom';
 const Legal = () => {
   const [name, setName] = useState('');
   const [legalType, setLegalType] = useState('');
-  const [customLegalType, setCustomLegalType] = useState(''); // New state for custom legal type
+  const [customLegalType, setCustomLegalType] = useState('');
   const [contactNumber, setContactNumber] = useState('');
   const [targetDate, setTargetDate] = useState('');
   const [legalRequests, setLegalRequests] = useState([]);
   const [error, setError] = useState('');
+  const [hasRequestToday, setHasRequestToday] = useState(false);
 
-  const username = localStorage.getItem('username'); // Get the username from local storage
+  const username = localStorage.getItem('username');
+  const today = new Date().toISOString().split('T')[0];
 
-  // List of legal assistance types
   const legalAssistanceTypes = [
     "Intellectual Property Law", "Family Law", "Corporate Law", "Criminal Law", "Tax Law",
     "Environmental Law", "Labour Law", "Constitutional Law", "Construction Law", "Contract",
@@ -23,52 +24,82 @@ const Legal = () => {
     "Legal Advice", "Corporate Lawyer", "Employment Lawyer", "Others"
   ];
 
-  // Fetch legal requests for the logged-in user
+  useEffect(() => {
+    const storedDate = localStorage.getItem('legalRequestDate');
+    if (storedDate === today) {
+      setHasRequestToday(true);
+    } else {
+      setHasRequestToday(false);
+    }
+    fetchLegalRequests();
+  }, []);
+
   const fetchLegalRequests = async () => {
     try {
       const response = await axios.get(`/routes/accounts/legal-assistance`, {
         headers: { username }
       });
       setLegalRequests(response.data);
+
+      const requestToday = response.data.some(request =>
+        new Date(request.submissionDate).toISOString().split('T')[0] === today
+      );
+
+      if (requestToday) {
+        setHasRequestToday(true);
+        localStorage.setItem('legalRequestDate', today);
+      }
     } catch (error) {
       console.error('Failed to fetch legal requests:', error);
-      alert('Failed to fetch legal requests. Please try again later.');
     }
   };
 
-  // Add legal request
   const addLegalRequest = async () => {
-    const lettersOnlyRegex = /^[A-Za-z\s]+$/;
-    if (!name || !legalType || !contactNumber || !targetDate) {
+    if (hasRequestToday) {
+      alert('You have already submitted a request today. Please try again tomorrow.');
+      return;
+    }
+
+    if (!name || !legalType || !contactNumber || !targetDate || (legalType === 'Others' && !customLegalType)) {
       alert('All fields are required.');
       return;
     }
 
-    if (name.includes('<') || name.includes('>') || !lettersOnlyRegex.test(name)) {
+    if (!/^[A-Za-z\s]+$/.test(name)) {
       alert('Invalid characters in Name field.');
       return;
     }
 
-    if (!/^\d{11}$/.test(contactNumber) || !/^09\d{9}$/.test(contactNumber)) {
+    if (!/^09\d{9}$/.test(contactNumber)) {
       alert('Please enter a valid Contact Number.');
       return;
     }
 
-    const finalLegalType = legalType === "Others" ? customLegalType : legalType; // Use custom legal type if "Others" is selected
-    const newRequest = { name, legalType: finalLegalType, contactNumber, targetDate, username };
+    const finalLegalType = legalType === "Others" ? customLegalType : legalType;
+    const newRequest = { 
+      name, 
+      legalType: finalLegalType, 
+      contactNumber, 
+      targetDate, 
+      username, 
+      submissionDate: today 
+    };
 
     try {
       const response = await axios.post(`/routes/accounts/legal-assistance/add`, newRequest, {
         headers: { username }
       });
       setLegalRequests([...legalRequests, response.data]);
-      // Clear form fields
+      setHasRequestToday(true);
+      localStorage.setItem('legalRequestDate', today);
+
       setName('');
       setLegalType('');
-      setCustomLegalType(''); // Clear custom input
+      setCustomLegalType('');
       setContactNumber('');
       setTargetDate('');
       setError('');
+
       alert('Legal request added successfully.');
     } catch (error) {
       console.error('Failed to add legal request:', error.response ? error.response.data : error.message);
@@ -77,23 +108,13 @@ const Legal = () => {
     }
   };
 
-  useEffect(() => {
-    fetchLegalRequests(); // Fetch the legal requests when the component mounts
-  }, []);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
-
-    if (value.includes('<') || value.includes('>')) {
-      return;
-    }
+    if (value.includes('<') || value.includes('>')) return;
 
     switch (name) {
       case 'name':
         setName(value);
-        break;
-      case 'legalType':
-        setLegalType(value);
         break;
       case 'contactNumber':
         setContactNumber(value);
@@ -109,9 +130,7 @@ const Legal = () => {
   const handleLegalTypeChange = (e) => {
     const selectedType = e.target.value;
     setLegalType(selectedType);
-    if (selectedType === "Others") {
-      setCustomLegalType(''); // Clear the custom input
-    }
+    if (selectedType !== "Others") setCustomLegalType('');
   };
 
   const handleLogout = async () => {
@@ -129,12 +148,7 @@ const Legal = () => {
   
       if (response.ok) {
         alert("You have successfully logged out!");
-        localStorage.removeItem('userId');
-        localStorage.removeItem('username');
-        localStorage.removeItem('userRole');
-        localStorage.removeItem('firstname');
-        localStorage.removeItem('lastname');
-        localStorage.removeItem('contact');
+        localStorage.clear();
         window.location.href = '/'; 
       } else {
         alert("Logout failed");
@@ -143,10 +157,11 @@ const Legal = () => {
       console.error('Error logging out:', error);
     }
   };
+  const [isOpen, setIsOpen] = useState(false);
 
-  // Get the current date in YYYY-MM-DD format
-  const today = new Date().toISOString().split('T')[0];
-
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
   return (
     <div className="Options">
       <header className="header">
@@ -154,7 +169,10 @@ const Legal = () => {
           <img className="logo" src={logo} alt="Logo" />
         </div>
         <nav className="navigation">
-          <ul>
+          <div className="menu-icon" onClick={toggleMenu}>
+            &#9776;
+          </div>
+          <ul className={isOpen ? "nav-links open" : "nav-links"}>
             <li><Link to="/homepageuser">Home</Link></li>
             <li><Link to="/options">Donate</Link></li>
             <li><Link to="/profile">Profile</Link></li>
@@ -182,9 +200,8 @@ const Legal = () => {
             {legalType === "Others" ? (
               <input
                 type="text"
-                name="legalType"
                 placeholder="Specify Type of Legal Assistance"
-                value={customLegalType} // Use customLegalType state
+                value={customLegalType}
                 onChange={(e) => setCustomLegalType(e.target.value)}
               />
             ) : (
@@ -210,7 +227,9 @@ const Legal = () => {
               onChange={handleChange}
               min={today}
             />
-            <button className="dB" onClick={addLegalRequest}>Add Legal Request</button>
+            <button className="dB" onClick={addLegalRequest} disabled={hasRequestToday}>
+              {hasRequestToday ? "Request Already Submitted" : "Add Legal Request"}
+            </button>
           </div>
         </div>
         <div className="table-wrapperlegal">

@@ -7,11 +7,24 @@ import { Link } from 'react-router-dom';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable'; 
 
-const Receipt = () => {
+const Receipt = () => {4
+  const dateNow = new Date()
+  const tobeSubmitted = dateNow.toLocaleDateString('en-PH', {
+    year: 'numeric',
+    month: '2-digit', 
+    day: '2-digit', 
+  });
+
+  const formattedDate = dateNow.toLocaleDateString('en-PH', {
+    year: 'numeric',
+    month: 'long', 
+    day: '2-digit',
+  }); 
+
   const [donorDetails, setDonorDetails] = useState({
     name: '',
     amount: '',
-    date: '',
+    date: tobeSubmitted,
     image: null
   });
   const [proofsOfPayment, setProofsOfPayment] = useState([]);
@@ -95,10 +108,22 @@ const handleChange = (e) => {
   }
 
   if (name === 'image') {
-    setDonorDetails({
-      ...donorDetails,
-      [name]: files[0]
-    });
+    const file = files[0];
+
+    // Check if the file is a .jpg or .png
+    if (file && !['image/jpeg', 'image/png'].includes(file.type)) {
+      alert('Proof of payment must be in .jpg or .png format only.');
+      return;
+    }
+
+    // Display confirmation alert before setting the image
+    const isConfirmed = window.confirm('Are you sure that this is the proof of payment?');
+    if (isConfirmed) {
+      setDonorDetails({
+        ...donorDetails,
+        [name]: file
+      });
+    }
   } else {
     setDonorDetails({
       ...donorDetails,
@@ -106,6 +131,7 @@ const handleChange = (e) => {
     });
   }
 };
+
 
 
   useEffect(() => {
@@ -227,15 +253,22 @@ const handleChange = (e) => {
       console.error('Error logging out:', error);
     }
   };
+  const [isOpen, setIsOpen] = useState(false);
 
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
   return (
     <div className="Options">
-      <header className="header">
+     <header className="header">
         <div className="logo">
           <img className="logo" src={logoss} alt="Logo" />
         </div>
         <nav className="navigation">
-          <ul>
+          <div className="menu-icon" onClick={toggleMenu}>
+            &#9776;
+          </div>
+          <ul className={isOpen ? "nav-links open" : "nav-links"}>
             <li><Link to="/homepageuser">Home</Link></li>
             <li><Link to="/options">Donate</Link></li>
             <li><Link to="/profile">Profile</Link></li>
@@ -265,6 +298,7 @@ const handleChange = (e) => {
               <input
                 type="text"
                 name="amount"
+                maxLength='7'
                 value={donorDetails.amount}
                 onChange={handleChange}
                 required
@@ -282,15 +316,7 @@ const handleChange = (e) => {
               />
             </div>
             <div className="form-group">
-              <label>Date of Donation<span style={{color: 'red'}}> *</span>:</label>
-              <input
-                type="date"
-                name="date"
-                value={donorDetails.date}
-                onChange={handleChange}
-                required
-                max={getTodayDate()} // Disable future dates
-              />
+              <label>Date of Donation<span style={{color: 'red'}}> *</span>: {formattedDate}</label>
             </div>
             <button type="button" className="dB" onClick={addProofOfPayment}>
               Submit

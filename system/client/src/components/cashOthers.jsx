@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './cashOthers.css';
 import { Link, useNavigate } from 'react-router-dom'; 
 import logo from './imagenew.png';
@@ -38,7 +38,11 @@ const CashOthers = () => {
       console.error('Error logging out:', error);
     }
   };
+  const [isOpen, setIsOpen] = useState(false);
 
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
   return (
     <div className="Options">
       <header className="header">
@@ -46,14 +50,18 @@ const CashOthers = () => {
           <img className="logo" src={logo} alt="Logo" />
         </div>
         <nav className="navigation">
-          <ul>
+          <div className="menu-icon" onClick={toggleMenu}>
+            &#9776;
+          </div>
+          <ul className={isOpen ? "nav-links open" : "nav-links"}>
             <li><Link to="/homepageuser">Home</Link></li>
             <li><Link to="/options">Donate</Link></li>
             <li><Link to="/profile">Profile</Link></li>
-            <li><Link to="/" onClick={handleLogout}>Logout</Link></li> 
+            <li><Link to="/" onClick={handleLogout}>Logout</Link></li>
           </ul>
         </nav>
       </header>
+      <div className="tae">
       <div class="back-button">
           <Link to="/options">
           <div class="circle1">&#8592;</div>
@@ -73,6 +81,7 @@ const CashOthers = () => {
           <button className="dB" onClick={() => navigate('/others')}>Donate</button> 
         </div>
         
+      </div>
       </div>
     </div>
   );

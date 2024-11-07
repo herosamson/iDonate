@@ -78,6 +78,7 @@ function Login({ onLogin }) {
     onChange={handleChange} 
     placeholder="Username" 
     required 
+     maxLength='50'
   />
   
   {/* Container for password field and eye icon */}

@@ -33,7 +33,7 @@ function ReceiptS() {
       const todayStart = new Date(now.setHours(0, 0, 0, 0));
       const weekStart = new Date(now.setDate(now.getDate() - now.getDay()));
       const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
-
+  
       let filtered;
       if (filter === 'Today') {
         filtered = proofs.filter(proof => new Date(proof.date) >= todayStart);
@@ -44,11 +44,15 @@ function ReceiptS() {
       } else {
         filtered = proofs;
       }
+  
+      // Sort filtered proofs by date in descending order
+      filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
       setFilteredProofs(filtered);
     };
-
+  
     filterProofs();
   }, [filter, proofs]);
+  
 
   const handleLogout = async () => {
     const username = localStorage.getItem('username'); 
@@ -195,7 +199,7 @@ function ReceiptS() {
                     <span className="verified-status">Verified</span>
                   ) : (
                     <button className="enable-button"  onClick={() => approvePayment(proof._id)}>
-                      Good
+                      Verify
                     </button>
                   )}
                 </td>

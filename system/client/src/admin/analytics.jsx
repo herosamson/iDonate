@@ -577,9 +577,8 @@ fetchTotalItemDonations();
           <div className="modal-overlay">
             <div className="modal">
               <div className="modal-header">
-                <h2>Top Contributors</h2>
-                <span className="close-button" onClick={closeDonorsModal}>&times;</span>
               </div>
+              <span className="close-button" onClick={closeDonorsModal}>&times;</span>
               <div className="donors-details">
               
                 <h3>Most Donated Item</h3>
